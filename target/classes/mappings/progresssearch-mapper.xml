@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.ProgressSearchMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+		id,contractNumber,mapNumber,deliveryTime
+	</sql>
+	<sql id="whereSelect">
+		<if test="origin != null and origin != ''">
+			<if test="origin == '检索'">
+				and ly_progress_search.waitDistributionAmount is not null
+			</if>
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and contractNumber LIKE '%${contractNumber}%'
+		</if>
+		<if test="contractNumberInsert != null and contractNumberInsert != ''">
+			and contractNumber = '${contractNumberInsert}'
+		</if>
+		<if test="deliveryTime != null and deliveryTime != ''">
+			and deliveryTime = '${deliveryTime}'
+		</if>
+		<if test="mapNumber != null and mapNumber != ''">
+			and mapNumber = '${mapNumber}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != '' and clientId != '不限'">
+			and (select clientId from ly_order where ly_order.contractNumber=ly_progress_search.contractNumber)='${clientId}'
+		</if>
+		<if test="content != null and content != ''">
+			and (
+			(select ly_materialqualitytype.name from ly_materialqualitytype,ly_good where ly_good.materialQuality=ly_materialqualitytype.id and ly_good.mapNumber=ly_progress_search.mapNumber) like '%${content}%' OR
+			mapNumber LIKE '%${content}%' or
+			ly_progress_search.contractNumber LIKE '%${content}%' or
+			(select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) LIKE '%${content}%'
+			)
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and (select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				(select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) LIKE '%垫%'
+				OR
+				(select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				(select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) not LIKE '%垫%'
+				and
+				(select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) not LIKE '%片%'
+				and
+				(select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) not LIKE '%轴%'
+				and
+				(select name from ly_good where ly_good.mapNumber=ly_progress_search.mapNumber) not LIKE '%套%'
+				)
+			</if>
+		</if>
+	</sql>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.ProgressSearchFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_progress_search
+		where 1=1
+		<include refid="whereSelect" />
+		ORDER BY id DESC
+	</select>
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_progress_search
+		where 1=1
+		<include refid="whereSelect" />
+	</select>
+	<delete id="deleteByIds" parameterType="String">
+		delete from
+		ly_progress_search
+		where FIND_IN_SET(id,(#{ids}))
+	</delete>
+	<update id="updateNowDistributionAmountById" parameterType="String">
+		UPDATE ly_progress_search
+		set nowDistributionAmount=#{nowDistributionAmount},waitDistributionAmount=#{waitDistributionAmount}
+		where ly_progress_search.id=#{id}
+	</update>
+</mapper>

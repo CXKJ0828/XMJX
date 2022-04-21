@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialbuyorderdetailsBlankMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		DISTINCT ly_blank.id,
+		ly_blank.isFinish,
+		(
+select state
+from ly_blank_process
+where blankId=ly_blank.id
+and
+(select name from ly_process where ly_process.id=(SELECT processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId))='下料'
+
+) as blankprocessState,
+	ly_blank.blankSize,
+	(select ly_materialqualitytype.name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+	(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_blank.goodId) as stockAmount,
+(select fullName from ly_order,ly_order_details,ly_client where ly_client.id=ly_order.clientId and  ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as clientFullName,
+(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as contractNumber,
+(select makeTime from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as makeTime,
+(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+ly_blank.materialQuality,
+(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+(select goodSize from ly_good where ly_good.id=ly_blank.goodId) as goodSize,
+(select amount from ly_order_details where ly_order_details.id=orderdetailsId) as orderAmount,
+(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) as deliveryTime,
+(select ly_blank_size.blankWeight from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as blankWeight,
+(select remarks1 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks1,
+(select remarks2 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks2,
+(select remarks3 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks3,
+(select isCheck from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as isCheck,
+ly_blank.goodId,
+ly_blank.amount,
+ly_blank.orderdetailsId,
+ly_blank.length,
+ly_blank.weight,
+ly_blank.printTime,
+ly_blank.isFinish,
+ly_blank.code,
+ly_blank.state,
+ly_blank.modifytime,
+ly_blank.userId,
+ly_blank.origin
+	</sql>
+	<delete id="deleteByOrderId" parameterType="String">
+		delete from ly_materialbuyorderdetails_blank where ly_materialbuyorderdetails_blank.blankId in (select id from ly_blank where ly_blank.orderdetailsId in (select id from ly_order_details where ly_order_details.orderId=#{orderId}))
+	</delete>
+	<select id="findBankByMaterialBuyOrderDetailsId" resultType="com.zhjh.entity.MaterialbuyorderdetailsBlankFormMap">
+		SELECT
+		<include refid="selectId" />
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId='${materialBuyOrderDetailsId}'
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and (select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) in (${clientId})
+		</if>
+	</select>
+
+	<select id="findBankLengthAndWeightByMaterialBuyOrderDetailsId" resultType="com.zhjh.entity.MaterialbuyorderdetailsBlankFormMap">
+		SELECT
+		sum(ly_blank.length) as length,
+		sum(ly_blank.weight) as weight
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId='${materialBuyOrderDetailsId}'
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and (select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)='${clientId}'
+		</if>
+	</select>
+
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_material
+		where id=#{id}
+	</delete>
+</mapper>

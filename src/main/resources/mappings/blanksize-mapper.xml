@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.BlankSizeMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+	ly_blank_size.id,
+(select fullName from ly_client where ly_client.id=ly_blank_size.clientId) as clientFullName,
+ly_blank_size.goodId,
+(select mapNumber from ly_good where ly_good.id=ly_blank_size.goodId) as goodMapNumber,
+(select name from ly_good where ly_good.id=ly_blank_size.goodId) as goodName,
+(select goodSize from ly_good where ly_good.id=ly_blank_size.goodId) as goodSize,
+(select clientId from ly_good where ly_good.id=ly_blank_size.goodId) as clientId,
+(select ly_materialqualitytype.name from ly_good,ly_materialqualitytype where ly_good.materialQuality=ly_materialqualitytype.id and ly_good.id=ly_blank_size.goodId) as materialQuality,
+ly_blank_size.blankSize,
+ly_blank_size.blankWeight,
+ly_blank_size.modifytime,
+ly_blank_size.remarks1,
+ly_blank_size.remarks2,
+ly_blank_size.remarks3,
+ly_blank_size.isCheck,
+ly_blank_size.userId
+	</sql>
+	<sql id="whereAllLike">
+		<if test="content != null and content != ''">
+			and
+			(  ly_blank_size.id like '%${content}%' or
+			ly_blank_size.clientId like '%${content}%' or
+			ly_blank_size.goodId like '%${content}%' or
+			ly_blank_size.blankSize like '%${content}%' or
+			ly_blank_size.blankWeight like '%${content}%' or
+			ly_blank_size.modifytime like '%${content}%' or
+			ly_blank_size.userId like '%${content}%' or
+			(select mapNumber from ly_good where ly_good.id=ly_blank_size.goodId) like '%${content}%'
+			)
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_blank_size.clientId='${clientId}'
+		</if>
+	</sql>
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_blank_size
+		where
+		1=1
+		<include refid="whereAllLike" />
+	</select>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.BlankSizeFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank_size
+		where
+		1=1
+		<include refid="whereAllLike" />
+		<if test="sort != null and state != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+
+	<select id="findByGoodId" resultType="com.zhjh.entity.BlankSizeFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank_size
+		where
+		ly_blank_size.goodId=#{goodId} LIMIT 0,1
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_blank_size
+		where id=#{id}
+	</delete>
+</mapper>

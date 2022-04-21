@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialweightMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		ly_materialweight.id,
+		ly_materialweight.weight,
+ly_materialweight.money,
+		ly_materialweight.length,
+ly_materialweight.materialId,
+(select ly_material.materialQuality from ly_material where ly_material.id=ly_materialweight.materialId) as materialQuality,
+(select ly_material.outerCircle from ly_material where ly_material.id=ly_materialweight.materialId) as outerCircle,
+(select ly_material.taxPrice from ly_material where ly_material.id=ly_materialweight.materialId) as taxPrice,
+(select ly_material.remarks from ly_material where ly_material.id=ly_materialweight.materialId) as remarks
+	</sql>
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_materialweight
+		where
+		ly_materialweight.id  like '%${content}%' or
+		(select ly_material.materialQuality from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+(select ly_material.outerCircle from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+(select ly_material.taxPrice from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+(select ly_material.remarks from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+		ly_materialweight.weight  like '%${content}%'
+
+	</select>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.MaterialweightFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_materialweight
+		where
+		(
+		ly_materialweight.id  like '%${content}%' or
+		(select ly_material.materialQuality from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+		(select ly_material.outerCircle from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+		(select ly_material.taxPrice from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+		(select ly_material.remarks from ly_material where ly_material.id=ly_materialweight.materialId) like '%${content}%' or
+		ly_materialweight.weight  like '%${content}%'
+		)
+			order by (select ly_material.materialQuality from ly_material where ly_material.id=ly_materialweight.materialId),(select ly_material.outerCircle from ly_material where ly_material.id=ly_materialweight.materialId)
+	</select>
+
+	<select id="findByMaterialQualityAndOuterCircle" resultType="com.zhjh.entity.MaterialweightFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_materialweight
+		where (select ly_material.materialQuality from ly_material where ly_material.id=ly_materialweight.materialId)='${materialQuality}'
+		and (select ly_material.outerCircle from ly_material where ly_material.id=ly_materialweight.materialId)='${outerCircle}'
+		LIMIT 0,1
+	</select>
+
+	<select id="findByMaterialId" resultType="com.zhjh.entity.MaterialweightFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_materialweight
+		where ly_materialweight.materialId=#{materialId}
+		LIMIT 0,1
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_materialweight
+		where id=#{id}
+	</delete>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.HeattreatcheckMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+	ly_heattreat_check.id,
+		ly_heattreat.contractNumber,
+		ly_good.mapNumber,
+		ly_good.`name`,
+(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) as materialQualityName,
+ly_heattreat.deliveryTime,
+(SELECT name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+ly_heattreat_check.checkTime,
+(select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as checkedUserShow,
+ly_heattreat.goodSize,
+(select ly_good.goodSize from ly_good where ly_good.id=ly_heattreat.goodId) as goodSizeGoodTable,
+ly_heattreat_check.amount,
+ly_heattreat_check.badAmount,
+ly_heattreat_check.badReason,
+(select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_heattreat_check.checkUserId) as checkUserShow,
+ly_workersubmit_hearttreat.startTime
+	</sql>
+	<sql id="whereAllLike">
+		<if test="checkUser != null and checkUser != ''">
+			AND (select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_heattreat_check.checkUserId) like '%${checkUser}%'
+		</if>
+		<if test="user != null and user != ''">
+			AND (
+			(select accountName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%' or
+			(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%'
+			)
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and ly_good.`name` LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				ly_good.`name` LIKE '%垫%'
+				OR
+				ly_good.`name` LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				ly_good.`name` not LIKE '%垫%'
+				and
+				ly_good.`name` not LIKE '%片%'
+				and
+				ly_good.`name` not LIKE '%轴%'
+				and
+				ly_good.`name` not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="content != null and content != ''">
+			and
+			(  ly_heattreat.contractNumber like   '%${content}%' or
+			ly_good.mapNumber like   '%${content}%' or
+			ly_good.`name` like   '%${content}%' or
+			(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) like   '%${content}%' or
+			(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) like   '%${content}%' or
+			ly_heattreat.goodSize like  '%${content}%'
+			)
+		</if>
+		<if test="isCheck != null and isCheck != '' and isCheck != '不限'">
+			<if test='isCheck == "否"'>
+				and (ly_heattreat_check.checkTime='' or ly_heattreat_check.checkTime is NULL)
+			</if>
+			<if test='isCheck == "是"'>
+				and (ly_heattreat_check.checkTime != '' and ly_heattreat_check.checkTime is not NULL)
+			</if>
+		</if>
+		<if test="startCheckTime != null and startCheckTime != ''">
+			and ly_heattreat_check.checkTime &gt; '${startCheckTime}'
+		</if>
+		<if test="endCheckTime != null and endCheckTime != ''">
+			and ly_heattreat_check.checkTime &lt; '${endCheckTime}'
+		</if>
+		<if test="startTimeGET != null and startTimeGET != ''">
+			and ly_workersubmit_hearttreat.startTime &gt; '${startTimeGET}'
+		</if>
+		<if test="endTimeGET != null and endTimeGET != ''">
+			and ly_workersubmit_hearttreat.startTime &lt; '${endTimeGET}'
+		</if>
+	</sql>
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_heattreat_check,ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where ly_workersubmit_hearttreat.id=ly_heattreat_check.workersubmithearttreatrId
+		and ly_heattreat.id=ly_workersubmit_hearttreat.hearttreatId
+		and ly_good.id=ly_heattreat.goodId
+		<include refid="whereAllLike" />
+	</select>
+
+	<select id="findByWorkersubmithearttreatrId" resultType="com.zhjh.entity.HeattreatcheckFormMap">
+		SELECT
+		*
+		from ly_heattreat_check
+		where ly_heattreat_check.workersubmithearttreatrId=#{workersubmithearttreatrId} LIMIT 0,1
+	</select>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.HeattreatcheckFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_heattreat_check,ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where ly_workersubmit_hearttreat.id=ly_heattreat_check.workersubmithearttreatrId
+		and ly_heattreat.id=ly_workersubmit_hearttreat.hearttreatId
+		and ly_good.id=ly_heattreat.goodId
+		<include refid="whereAllLike" />
+		<if test="sort != null and state != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+
+	<delete id="deleteByIds" parameterType="String">
+		delete from
+		ly_heattreat_check
+		where FIND_IN_SET(id,(#{ids}))
+	</delete>
+</mapper>

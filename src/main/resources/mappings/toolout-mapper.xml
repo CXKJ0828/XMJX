@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.ToolOutMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		id,toolId,userId,time,amount,remarks,
+		(select price from ly_tool where ly_tool.id=ly_toolout.toolId)*amount as money,
+(select name from ly_tool where ly_tool.id=ly_toolout.toolId) as toolName,
+(select ly_tooltype.name from ly_tool,ly_tooltype where ly_tool.toolTypeId=ly_tooltype.id and ly_tool.id=ly_toolout.toolId) as toolTypeName,
+(select CONCAT_WS('-',ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_toolout.userId) as userShow
+	</sql>
+	<sql id="selectWhere">
+		(
+		(select name from ly_tool where ly_tool.id=ly_toolout.toolId) like CONCAT('%',#{content},'%')
+		OR
+		ly_toolout.remarks like CONCAT('%',#{content},'%')
+		)
+		<if test="toolTypeId != null and toolTypeId != ''">
+			and (select toolTypeId from ly_tool where ly_tool.id=ly_toolout.toolId)=${toolTypeId}
+		</if>
+		<if test="userId != null and userId != ''">
+			and ly_toolout.userId=${userId}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_toolout.time &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_toolout.time &lt;= '${endTime}'
+		</if>
+	</sql>
+	<select id="findCountByAllLike"  resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_toolout
+		where
+		<include refid="selectWhere" />
+	</select>
+
+	<select id="findAmoutnSumByAllLike"  resultType="java.lang.Integer">
+		SELECT
+		IFNULL(sum(amount),0)
+		from ly_toolout
+		where
+		<include refid="selectWhere" />
+	</select>
+	<select id="findAmoutAndMoneySumByAllLike"  resultType="com.zhjh.entity.ToolOutFormMap">
+		SELECT
+		IFNULL(sum(amount),0) as amount,
+		IFNULL(sum(amount*(select price from ly_tool where ly_tool.id=ly_toolout.toolId)),0) as money
+		from ly_toolout
+		where
+		<include refid="selectWhere" />
+	</select>
+
+	<select id="findByAllLike"  resultType="com.zhjh.entity.ToolOutFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_toolout
+		where
+		<include refid="selectWhere" />
+		ORDER BY time DESC
+	</select>
+
+	<select id="findByUserId"  resultType="com.zhjh.entity.ToolOutFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_toolout
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_toolout.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_toolout.time &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_toolout.time &lt;= '${endTime}'
+		</if>
+		and
+		(
+		(select name from ly_tool where ly_tool.id=ly_toolout.toolId) like '%${content}%'
+		OR
+		(select ly_tooltype.name from ly_tool,ly_tooltype where ly_tool.toolTypeId=ly_tooltype.id and
+		ly_tool.id=ly_toolout.toolId) like '%${content}%'
+		)
+		ORDER BY time DESC
+	</select>
+
+	<select id="findSumAmountByUserId"  resultType="java.lang.Integer">
+		SELECT
+		IFNULL(sum(amount),0)
+		from ly_toolout
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_toolout.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_toolout.time &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_toolout.time &lt;= '${endTime}'
+		</if>
+		and
+		(
+		(select name from ly_tool where ly_tool.id=ly_toolout.toolId) like '%${content}%'
+		OR
+		(select ly_tooltype.name from ly_tool,ly_tooltype where ly_tool.toolTypeId=ly_tooltype.id and
+		ly_tool.id=ly_toolout.toolId) like '%${content}%'
+		)
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_toolout
+		where id=#{id}
+	</delete>
+	<delete id="deleteByIds" parameterType="String">
+		delete from
+		ly_toolout
+		where FIND_IN_SET(id,(#{ids}))
+	</delete>
+</mapper>

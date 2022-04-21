@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.GoodMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+ly_good.id,
+	ly_good.mapNumber,
+	ly_good.mapNumber as oldMapNumber,
+ly_good.name,
+ly_good.roughcastSize,
+(select blankSize from ly_blank_size where ly_blank_size.goodId=ly_good.id limit 0,1) as blankSize,
+(select name from ly_materialqualitytype where id=ly_good.materialQuality) as materialQualityName,
+ly_good.materialQuality,
+ly_good.goodSize,
+ly_good.roughcastWeight,
+ly_good.goodWeight,
+ly_good.taxPrice,
+ly_good.nottaxPrice,
+ly_good.materialCode,
+ly_good.remarks,
+ly_good.img,
+ly_good.clientId,
+(select fullName from ly_client where ly_client.id=clientId) as clientFullName,
+(select taxRate from ly_client where ly_client.id=clientId) as taxRate,
+ly_good.modifytime,
+ly_good.userId,
+(select userName from ly_user where ly_user.id=ly_good.userId) as userName
+	</sql>
+
+	<sql id="selectIdLimitClientId">
+		ly_good.id,
+		ly_good.mapNumber,
+		ly_good.mapNumber as oldMapNumber,
+		ly_good.name,
+		ly_good.roughcastSize,
+		(select blankSize from ly_blank_size where ly_blank_size.goodId=ly_good.id and ly_good.clientId=${clientId} limit 0,1 ) as blankSize,
+		(select name from ly_materialqualitytype where id=ly_good.materialQuality) as materialQualityName,
+		ly_good.materialQuality,
+		ly_good.goodSize,
+		ly_good.roughcastWeight,
+		ly_good.goodWeight,
+		ly_good.taxPrice,
+		ly_good.nottaxPrice,
+		ly_good.materialCode,
+		ly_good.remarks,
+		ly_good.img,
+		ly_good.clientId,
+		(select fullName from ly_client where ly_client.id=clientId) as clientFullName,
+		(select taxRate from ly_client where ly_client.id=clientId) as taxRate,
+		ly_good.modifytime,
+		ly_good.userId,
+		(select userName from ly_user where ly_user.id=ly_good.userId) as userName
+	</sql>
+
+	<sql id="whereAllLike">
+		<if test="content != null and content != ''">
+			and
+			(  mapNumber  like '%${content}%' or
+			name  like '%${content}%' or
+			roughcastSize  like '%${content}%' or
+			(select name from ly_materialqualitytype where id=ly_good.materialQuality)  like '%${content}%' or
+			goodSize  like '%${content}%' or
+			roughcastWeight  like '%${content}%' or
+			goodWeight  like '%${content}%' or
+			taxPrice  like '%${content}%' or
+			nottaxPrice  like '%${content}%' or
+			materialCode  like '%${content}%' or
+			remarks  like '%${content}%' or
+			modifytime  like '%${content}%' or
+			(select userName from ly_user where ly_user.id=userId) like '%${content}%'
+			)
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_good.clientId='${clientId}'
+		</if>
+	</sql>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good
+		where ly_good.mapNumber is not null
+		<include refid="whereAllLike" />
+		ORDER BY mapNumber
+	</select>
+	<select id="findByNameLike" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good
+		where
+		name  like '%${name}%'
+		or mapNumber like '%${name}%'
+		ORDER BY mapNumber
+	</select>
+	<select id="findTaxPriceById" resultType="java.lang.String">
+		SELECT
+		ly_good.taxPrice
+		from ly_good
+		where
+		id=#{id}
+	</select>
+	<select id="findGoodWeightById" resultType="java.lang.String">
+		SELECT
+		ly_good.goodWeight
+		from ly_good
+		where
+		id=#{id}
+	</select>
+	<select id="findGoodSizeById" resultType="java.lang.String">
+		SELECT
+		ly_good.goodSize
+		from ly_good
+		where
+		id=#{id}
+	</select>
+
+	<select id="findDistinctMaterialCodeLike" resultType="com.zhjh.entity.GoodFormMap">
+		select
+		DISTINCT materialCode
+		from ly_good
+		where (materialCode!='' and materialCode is not null)
+		<if test="content != null and content != ''">
+			and materialCode like '%${content}%'
+		</if>
+	</select>
+	<select id="findDistinctMaterialCodeCountLike" resultType="java.lang.Integer">
+		select count(DISTINCT materialCode)
+		from ly_good
+		where (materialCode!='' and materialCode is not null)
+		<if test="content != null and content != ''">
+			and materialCode like '%${content}%'
+		</if>
+	</select>
+
+	<select id="findCountByNameLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_good
+		where
+		name  like '%${name}%'
+		or mapNumber like '%${name}%'
+	</select>
+
+	<select id="findByMapNumberAndClientIdLike" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		<include refid="selectIdLimitClientId" />
+		from ly_good
+		where
+		mapNumber  like '%${mapNumber}%'
+		and clientId='${clientId}'
+		ORDER BY mapNumber
+	</select>
+
+	<select id="findByClientId" parameterType="String" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good
+		where
+		clientId=#{clientId}
+	</select>
+
+	<select id="findByMapNumberLike" parameterType="String" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good
+		where
+		ly_good.mapNumber like CONCAT('%',#{mapNumber},'%')
+		ORDER BY mapNumber
+	</select>
+
+	<select id="findCountByMapNumberLike" parameterType="String" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_good
+		where
+		ly_good.mapNumber like CONCAT('%',#{mapNumber},'%')
+	</select>
+
+	<select id="findFirstByMapNumber" parameterType="String" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good
+		where
+		ly_good.mapNumber=#{mapNumber}
+	</select>
+
+
+
+	<select id="findCountByMapNumberAndClientIdLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_good
+		where mapNumber  like '%${mapNumber}%'
+		and clientId='${clientId}'
+	</select>
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_good
+		where ly_good.mapNumber is not null
+		<include refid="whereAllLike" />
+	</select>
+
+	<select id="findByMapNumber" parameterType="String" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good
+		where
+		ly_good.mapNumber=#{mapNumber}
+	</select>
+
+	<select id="findByOrderDetailsId" parameterType="String" resultType="com.zhjh.entity.GoodFormMap">
+		SELECT
+		ly_good.id,
+ly_order_details.state,
+	ly_good.mapNumber,
+	ly_good.img,
+ly_good.name,
+ly_good.roughcastSize,
+ly_good.blankSize,
+ly_good.materialQuality,
+(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_good.materialQuality) as materialQualityName,
+ly_good.goodSize,
+ly_good.roughcastWeight,
+ly_good.goodWeight,
+ly_good.taxPrice,
+ly_good.nottaxPrice,
+ly_good.materialCode,
+ly_good.remarks,
+ly_good.clientId,
+(select fullName from ly_client where ly_client.id=clientId) as clientFullName,
+ly_good.modifytime,
+ly_good.userId,
+(select userName from ly_user where ly_user.id=ly_good.userId) as userName,
+(select count(*) from ly_good_process where ly_good.id=ly_good_process.goodId) as processCount
+		from ly_good,ly_order_details
+		where ly_good.id=ly_order_details.goodId
+		and ly_order_details.id=#{orderdetailsId}
+		ORDER BY mapNumber
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_good
+		where id=#{id}
+	</delete>
+</mapper>

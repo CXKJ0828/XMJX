@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialBackOrderDetailsMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<select id="selectMaterialQualityBymaterialBackOrderId" parameterType="String" resultType="com.zhjh.entity.MaterialBackOrderDetailsFormMap">
+		SELECT
+		ly_materialbackorder_details.id,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		ly_materialbackorder_details.arrivalTime,
+		ly_materialbackorder_details.length,
+		ly_materialbackorder_details.amount,
+		ly_materialbackorder_details.weight,
+		ly_materialbackorder_details.lackAmount,
+		ly_materialbackorder_details.taxPrice,
+		ly_materialbackorder_details.taxMoney,
+		ly_materialbackorder_details.materialBackOrderId,
+		ly_materialbackorder_details.materialBuyOrderDetailsId
+		from ly_materialbackorder_details,ly_materialbuyorder_details
+		where
+		ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		and ly_materialbackorder_details.materialBackOrderId=#{materialBackOrderId}
+		GROUP BY ly_materialbuyorder_details.materialQuality
+	</select>
+	<select id="selectReduceLengthMessageByMaterialBackOrderId" resultType="com.zhjh.entity.MaterialBackOrderDetailsFormMap">
+		select ly_materialbuyorder_details.length,
+ly_materialbuyorder_details.materialQuality,
+ly_materialbuyorder_details.outerCircle,
+(select taxPrice from ly_material where ly_material.outerCircle=ly_materialbuyorder_details.outerCircle and ly_material.materialQuality=ly_materialbuyorder_details.materialQuality) as taxPrice,
+(select id from ly_material where ly_material.outerCircle=ly_materialbuyorder_details.outerCircle and ly_material.materialQuality=ly_materialbuyorder_details.materialQuality) as materialId
+ from ly_materialbuyorder_details,ly_materialbackorder_details
+ where ly_materialbuyorder_details.id=ly_materialbackorder_details.materialBuyOrderDetailsId
+and ly_materialbackorder_details.materialBackOrderId=#{materialBackOrderId}
+	</select>
+
+	<select id="selectByMaterialBuyOrderIdAndMaterialBackOrderId" resultType="com.zhjh.entity.MaterialBackOrderDetailsFormMap">
+		SELECT
+		ly_materialbackorder_details.id,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		ly_materialbackorder_details.arrivalTime,
+		ly_materialbackorder_details.length,
+		ly_materialbackorder_details.amount,
+		ly_materialbackorder_details.weight,
+		ly_materialbackorder_details.lackAmount,
+		ly_materialbackorder_details.taxPrice,
+		ly_materialbackorder_details.taxMoney,
+		ly_materialbackorder_details.materialBackOrderId,
+		ly_materialbackorder_details.materialBuyOrderDetailsId
+		from ly_materialbackorder_details,ly_materialbuyorder_details
+		where
+		ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		and ly_materialbackorder_details.materialBackOrderId='${materialBackOrderId}'
+		and
+		ly_materialbackorder_details.materialBuyOrderDetailsId='${materialBuyOrderDetailsId}'
+	</select>
+
+	<select id="selectByMaterialQualityAndAndouterCircleMaterialBuyOrderIdAndMaterialBackOrderId" resultType="com.zhjh.entity.MaterialBackOrderDetailsFormMap">
+		SELECT
+		ly_materialbackorder_details.id,
+replace((select ly_materialbuyorder_details.state from ly_materialbuyorder_details where ly_materialbuyorder_details.id=ly_materialbackorder_details.materialBuyOrderDetailsId),'已订料:','') as alBuyLength,
+		replace((select ly_materialbuyorder_details.state from ly_materialbuyorder_details where ly_materialbuyorder_details.id=ly_materialbackorder_details.materialBuyOrderDetailsId),'已订料:','') as buyLength,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		ly_materialbackorder_details.length,
+		ly_materialbackorder_details.amount,
+		ly_materialbackorder_details.weight,
+		ly_materialbackorder_details.lackAmount,
+		ly_materialbackorder_details.materialBackOrderId,
+		ly_materialbackorder_details.materialBuyOrderDetailsId
+		from ly_materialbackorder_details,ly_materialbuyorder_details
+		where
+		ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		and ly_materialbackorder_details.materialBackOrderId='${materialBackOrderId}'
+		and
+		ly_materialbackorder_details.materialBuyOrderDetailsId='${materialBuyOrderDetailsId}'
+		and
+		ly_materialbuyorder_details.materialQuality='${materialQuality}'
+		and
+		ly_materialbuyorder_details.outerCircle='${outerCircle}'
+	</select>
+
+	<select id="selectByMaterialbackorderId" resultType="com.zhjh.entity.MaterialBackOrderDetailsFormMap">
+		SELECT
+		ly_materialbackorder_details.id,
+	(select ly_materialbuyorder_details.materialQuality from ly_materialbuyorder_details where ly_materialbuyorder_details.id=ly_materialbackorder_details.materialBuyOrderDetailsId) as materialQuality,
+(select ly_materialbuyorder_details.outerCircle from ly_materialbuyorder_details where ly_materialbuyorder_details.id=ly_materialbackorder_details.materialBuyOrderDetailsId) as outerCircle,
+replace((select ly_materialbuyorder_details.state from ly_materialbuyorder_details where ly_materialbuyorder_details.id=ly_materialbackorder_details.materialBuyOrderDetailsId),'已订料:','') as buyLength,
+		ly_materialbackorder_details.length,
+		ly_materialbackorder_details.amount,
+		ly_materialbackorder_details.weight,
+		ly_materialbackorder_details.lackAmount,
+		ly_materialbackorder_details.materialBackOrderId,
+		ly_materialbackorder_details.materialBuyOrderDetailsId
+		from ly_materialbackorder_details
+		where
+		ly_materialbackorder_details.materialBackOrderId=#{materialBackOrderId}
+		ORDER BY materialQuality,outerCircle
+	</select>
+
+
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.MaterialBackOrderDetailsFormMap">
+		SELECT
+		*
+		from ly_materialbackorder_details
+		where ly_materialbackorder_details.id=#{id}
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_materialbackorder_details
+		where id=#{id}
+	</delete>
+	<update id="updateLackAmountById">
+		update ly_materialbackorder_details
+set lackAmount=ROUND(ly_materialbackorder_details.length
+		-replace((select ly_materialbuyorder_details.state from ly_materialbuyorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id),'已订料:',''),4) where ly_materialbackorder_details.id=#{id}
+	</update>
+</mapper>

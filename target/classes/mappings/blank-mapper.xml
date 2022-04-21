@@ -1,0 +1,1450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.BlankMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		ly_blank.id,
+		ly_blank.isConditioning,
+		ly_blank.isNormalizing,
+		(
+		SELECT startQRCode
+		from ly_blank_process,ly_good_process
+		where ly_blank.id=ly_blank_process.blankId
+		and ly_blank_process.goodprocessId=ly_good_process.id
+		and (select name from ly_process where ly_process.id=ly_good_process.processId)='下料'
+		) as startQRCode,
+		(
+		select state
+		from ly_blank_process
+		where blankId=ly_blank.id
+		and
+		(select name from ly_process where ly_process.id=(SELECT processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId))='下料'
+
+		) as blankprocessState,
+		ly_blank.blankSize,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_blank.goodId) as stockAmount,
+		(select fullName from ly_client where ly_client.id=(select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)) as clientFullName,
+		(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as contractNumber,
+		(select makeTime from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as makeTime,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		ly_blank.materialQuality,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select goodSize from ly_good where ly_good.id=ly_blank.goodId) as goodSize,
+		(select amount from ly_order_details where ly_order_details.id=orderdetailsId) as orderAmount,
+		(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) as deliveryTime,
+		(select ly_blank_size.blankWeight from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as blankWeight,
+		(select remarks1 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks1,
+		(select remarks2 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks2,
+		(select remarks3 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks3,
+		(select isCheck from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as isCheck,
+		ly_blank.goodId,
+		ly_blank.amount,
+		ly_blank.orderdetailsId,
+		ly_blank.length,
+		ly_blank.weight,
+		ly_blank.printTime,
+		ly_blank.isFinish,
+		ly_blank.code,
+		ly_blank.state,
+		ly_blank.modifytime,
+		ly_blank.userId,
+		ly_blank.origin
+	</sql>
+	<sql id="selectMain">
+		ly_blank.id,
+		ly_blank.isConditioning,
+		ly_blank.isNormalizing,
+	(
+		select count(ly_good_process.id)
+		from ly_good_process
+		where ly_good.id=ly_good_process.goodId
+		) as count,
+		(
+		select state
+		from ly_blank_process,ly_good_process
+		where blankId=ly_blank.id
+		and ly_blank_process.goodprocessId=ly_good_process.id
+		and ly_good_process.processId='46605'
+		limit 0,1
+		) as blankprocessState,
+		ly_blank.blankSize,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_blank.goodId) as stockAmount,
+		(select fullName from ly_client where ly_client.id=(select clientId from ly_order where ly_order.id=ly_order_details.orderId)) as clientFullName,
+		(select contractNumber from ly_order where ly_order.id=ly_order_details.orderId) as contractNumber,
+		(select makeTime from ly_order where ly_order.id=ly_order_details.orderId ) as makeTime,
+		ly_good.name as goodName,
+		ly_blank.materialQuality,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		ly_good.mapNumber as mapNumber,
+ly_good.img,
+ly_good.goodSize,
+		(select amount from ly_order_details where ly_order_details.id=orderdetailsId) as orderAmount,
+		(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) as deliveryTime,
+		(select ly_blank_size.blankWeight from ly_blank_size where ly_good.id=ly_blank_size.goodId LIMIT 0,1) as blankWeight,
+		(select remarks1 from ly_blank_size where ly_good.id=ly_blank_size.goodId LIMIT 0,1) as remarks1,
+		(select remarks2 from ly_blank_size where ly_good.id=ly_blank_size.goodId LIMIT 0,1) as remarks2,
+		(select remarks3 from ly_blank_size where ly_good.id=ly_blank_size.goodId LIMIT 0,1) as remarks3,
+		(select isCheck from ly_blank_size where ly_good.id=ly_blank_size.goodId LIMIT 0,1) as isCheck,
+		ly_blank.goodId,
+		ly_blank.amount,
+		ly_blank.orderdetailsId,
+		ly_blank.length,
+		ly_blank.weight,
+		ly_blank.printTime,
+		ly_blank.isFinish,
+		ly_blank.code,
+		ly_blank.state,
+		ly_blank.modifytime,
+		ly_blank.userId,
+		ly_blank.origin
+	</sql>
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		<include refid="blankSearchMain" />
+	</select>
+
+	<select id="findBigShowCountByContent" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and blankId=ly_blank.id
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id='${orderId}'
+		</if>
+		<include refid="whereBigShow" />
+	</select>
+
+	<select id="findIdByOrderDetailsId" resultType="java.lang.String">
+		select * from ly_blank where orderdetailsId=#{orderdetailsId} and origin!='补料' LIMIT 0,1
+	</select>
+	<select id="findMainGoodAndOrderByIds" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		ly_blank.id,
+		ly_good.mapNumber,
+		ly_good.`name`,
+			CONCAT_WS("",
+(select content from ly_system_config where ly_system_config.name='imgURL')
+,ly_good.img) as img,
+(select contractNumber from ly_order where ly_order.id=ly_order_details.orderId) as contractNumber,
+ly_order_details.deliveryTime
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and FIND_IN_SET(ly_blank.id,(#{ids}))
+	</select>
+
+	<select id="findMainGoodAndOrderNoImgByIds" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		ly_blank.id,
+		ly_blank.goodId,
+		ly_good.mapNumber,
+		ly_good.`name`,
+		(select contractNumber from ly_order where ly_order.id=ly_order_details.orderId) as contractNumber,
+		ly_order_details.deliveryTime
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and FIND_IN_SET(ly_blank.id,(#{ids}))
+	</select>
+	<select id="" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank
+		where
+		1=1
+		<if test="goodId != null and goodId != ''">
+			and ly_blank.goodId='${goodId}'
+		</if>
+		<if test="orderId != null and orderId != ''">
+			and (select ly_order.id from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)='${orderId}'
+		</if>
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		<if test="state != null and state != ''">
+			<if test="state == '未订料'">
+				and (ly_blank.state='' or ly_blank.state is NULL)
+			</if>
+			<if test="state != '未订料'">
+				and ly_blank.state='已订料'
+			</if>
+		</if>
+		<if test="clientId != '不限'">
+			and
+			(select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)='${clientId}'
+		</if>
+		<if test="deliveryTime != '不限'">
+			and
+			(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) like '${deliveryTime}%'
+		</if>
+		<if test="makeTime != '不限'">
+			and
+			(select makeTime from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)  like '${makeTime}%'
+		</if>
+		<if test="blankSize != '不限'">
+			and
+			ly_blank.blankSize  like  '${blankSize}%'
+		</if>
+		<if test="goodName != '不限'">
+			and
+			(select name from ly_good where ly_good.id=ly_blank.goodId)  like  '%${goodName}%'
+		</if>
+		<if test="goodSize != '不限'">
+			and
+			(select goodSize from ly_good where ly_good.id=ly_blank.goodId)  like  '${goodSize}%'
+		</if>
+		<if test="printTime != '不限'">
+			<if test="printTime == '未打印'">
+				and (printTime='' or printTime is NULL)
+			</if>
+			<if test="printTime != '未打印'">
+				and printTime='${printTime}'
+			</if>
+		</if>
+		<if test="materialQuality != '不限'">
+			<if test="materialQuality != null and materialQuality != ''">
+				and (select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality)  like  '%${materialQuality}%'
+			</if>
+		</if>
+		and (
+
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+		OR
+		(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) like '%${content}%'
+		OR
+		(select name from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+		)
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+
+	<sql id="blankSearch">
+		1=1
+		<if test="orderId != null and orderId != ''">
+			and (select ly_order.id from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)='${orderId}'
+		</if>
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		<if test="code != null and code != ''">
+			and ly_blank.code in (${code})
+		</if>
+		<if test="clientId != null and clientId != '' and clientId != '不限'">
+			and (select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)='${clientId}'
+		</if>
+		<if test="state != null and state != '' and state != '不限'">
+			<if test="state == '未订料'">
+				and (ly_blank.state='' or ly_blank.state is NULL)
+			</if>
+			<if test="state != '未订料'">
+				and ly_blank.state='已订料'
+			</if>
+		</if>
+		<if test="deliveryTimestart != null and deliveryTimestart != '' and deliveryTimestart != '不限'">
+			and
+			(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) &gt;= '${deliveryTimestart}'
+		</if>
+		<if test="deliveryTimeend != null and deliveryTimeend != '' and deliveryTimeend != '不限'">
+			and
+			(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) &lt;= '${deliveryTimeend}'
+		</if>
+		<if test="makeTimestart != null and makeTimestart != '' and makeTimestart != '不限'">
+			and
+			(select makeTime from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)  &gt;= '${makeTimestart}'
+		</if>
+		<if test="makeTimeend != null and makeTimeend != '' and makeTimeend != '不限'">
+			and
+			(select makeTime from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)  &lt;= '${makeTimeend}'
+		</if>
+		<if test="blankSize != null and blankSize != '' and blankSize != '不限'">
+			and
+			ly_blank.blankSize  like  '${blankSize}%'
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and (select name from ly_good where ly_good.id=ly_blank.goodId) LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				(select name from ly_good where ly_good.id=ly_blank.goodId) LIKE '%垫%'
+				OR
+				(select name from ly_good where ly_good.id=ly_blank.goodId) LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%垫%'
+				and
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%片%'
+				and
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%轴%'
+				and
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="goodSize != null and goodSize != '' and goodSize != '不限'">
+			and
+			(select goodSize from ly_good where ly_good.id=ly_blank.goodId)  like  '${goodSize}%'
+		</if>
+		<if test="printTime != null and printTime != '' and printTime != '不限'">
+			<if test="printTime == '未打印'">
+				and (printTime='' or printTime is NULL)
+			</if>
+			<if test="printTime != '未打印'">
+				and printTime='${printTime}'
+			</if>
+		</if>
+		<if test="materialQuality != '不限'">
+			<if test="materialQuality != null and materialQuality != ''">
+				and (select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality)  like  '%${materialQuality}%'
+			</if>
+		</if>
+		<if test="content != null and content != ''">
+			and (
+
+			(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+			OR
+			(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) like '%${content}%'
+			OR
+			(select name from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+			OR
+			ly_blank.isFinish like '%${content}%'
+			)
+		</if>
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</sql>
+
+	<sql id="blankSearchMain">
+		<if test="orderId != null and orderId != ''">
+			and ly_order_details.orderId='${orderId}'
+		</if>
+		<if test="orderdetailsId != null and orderdetailsId != ''">
+			and ly_order_details.id='${orderdetailsId}'
+		</if>
+		<if test="origin != null and origin != ''">
+			and ly_blank.origin='${origin}'
+		</if>
+		<if test="code != null and code != ''">
+			and ly_blank.code in (${code})
+		</if>
+		<if test="clientId != null and clientId != '' and clientId != '不限'">
+			and (select clientId from ly_order where ly_order.id=ly_order_details.orderId) in (${clientId})
+		</if>
+		<if test="state != null and state != '' and state != '不限'">
+			<if test="state == '未订料'">
+				and (ly_blank.state='' or ly_blank.state is NULL)
+			</if>
+			<if test="state != '未订料'">
+				and ly_blank.state='已订料'
+			</if>
+		</if>
+		<if test="isFinish != null and isFinish != '' and isFinish != '不限'">
+			<if test='isFinish == "为空"'>
+				and (ly_blank.isFinish='' or ly_blank.isFinish is NULL)
+			</if>
+			<if test='isFinish != "为空"'>
+				and ly_blank.isFinish='${isFinish}'
+			</if>
+
+		</if>
+		<if test="deliveryTimestart != null and deliveryTimestart != '' and deliveryTimestart != '不限'">
+			and
+			ly_order_details.deliveryTime &gt;= '${deliveryTimestart}'
+		</if>
+		<if test="deliveryTimeend != null and deliveryTimeend != '' and deliveryTimeend != '不限'">
+			and
+			ly_order_details.deliveryTime &lt;= '${deliveryTimeend}'
+		</if>
+		<if test="makeTimestart != null and makeTimestart != '' and makeTimestart != '不限'">
+			and
+			(select makeTime from ly_order where ly_order.id=ly_order_details.orderId)  &gt;= '${makeTimestart}'
+		</if>
+		<if test="makeTimeend != null and makeTimeend != '' and makeTimeend != '不限'">
+			and
+			(select makeTime from ly_order where ly_order.id=ly_order_details.orderId)  &lt;= '${makeTimeend}'
+		</if>
+		<if test="blankSize != null and blankSize != '' and blankSize != '不限'">
+			and
+			ly_blank.blankSize  like  '${blankSize}%'
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and ly_good.name LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				 ly_good.name LIKE '%垫%'
+				OR
+				ly_good.name LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				ly_good.name not LIKE '%垫%'
+				and
+				ly_good.name not LIKE '%片%'
+				and
+				ly_good.name not LIKE '%轴%'
+				and
+				ly_good.name not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="goodSize != null and goodSize != '' and goodSize != '不限'">
+			and
+			ly_good.goodSize like  '${goodSize}%'
+		</if>
+		<if test="printTime != null and printTime != '' and printTime != '不限'">
+			<if test="printTime == '未打印'">
+				and (printTime='' or printTime is NULL)
+			</if>
+			<if test="printTime != '未打印'">
+				and printTime='${printTime}'
+			</if>
+		</if>
+		<if test="materialQuality != '不限'">
+			<if test="materialQuality != null and materialQuality != ''">
+				and ly_blank.materialQuality='${materialQuality}'
+			</if>
+		</if>
+		<if test="content != null and content != ''">
+			and (
+
+			ly_good.mapNumber like '%${content}%'
+			OR
+			(select contractNumber from ly_order where ly_order.id=ly_order_details.orderId ) like '%${content}%'
+			OR
+			ly_good.name like '%${content}%'
+			OR
+			ly_blank.isFinish like '%${content}%'
+			)
+		</if>
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</sql>
+
+	<select id="findClientByAllLike" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		DISTINCT CONCAT_WS("",(select clientId from ly_order where ly_order.id=ly_order_details.orderId),'客户') as id,
+		(select fullName from ly_client where ly_client.id=(select clientId from ly_order where ly_order.id=ly_order_details.orderId)) as text,
+		'closed' as state
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		<include refid="blankSearchMain" />
+	</select>
+	<select id="findOrderByAllLike" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		DISTINCT (select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as contractNumber,
+		(select ly_order.id from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as orderId
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		<include refid="blankSearchMain" />
+	</select>
+	<select id="findOrderDetailsByAllLike" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		DISTINCT (select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		ly_blank.orderdetailsId,
+		ly_blank.goodId
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		<include refid="blankSearchMain" />
+	</select>
+	<select id="findSumByAllLike" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		SUM(ly_order_details.amount) as allOrderAmount,
+		SUM(ly_blank.amount) as allAmount,
+		sum(if(ly_blank.state='已订料',ly_blank.amount,0)) as allBuyAmount,
+		(SUM(ly_blank.amount)-sum(if(ly_blank.state='已订料',ly_blank.amount,0))) as allUnBuyAmount
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		<include refid="blankSearchMain" />
+	</select>
+
+	<select id="findByIds" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank
+		where
+		FIND_IN_SET(ly_blank.id,(#{ids}) )
+	</select>
+	<select id="findHeatTreatByIds" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		ly_blank.id,
+		ly_workersubmit.id as workersubmitId,
+		(select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as clientId,
+		(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as contractNumber,
+		ly_blank.materialQuality,
+		(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) as deliveryTime,
+		ly_blank.goodId,
+		ly_workersubmit.completeAmount as amount,
+ly_blank.blankSize
+		from ly_blank,ly_workersubmit,ly_blank_process
+  where
+ly_blank_process.id=ly_workersubmit.blankprocessId
+and ly_blank_process.blankId=ly_blank.id
+and		FIND_IN_SET(ly_workersubmit.id,(#{ids}) )
+	</select>
+
+	<select id="findHeatTreatByWorkersubmitId" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		ly_blank.id,
+		ly_workersubmit.id as workersubmitId,
+		(select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as clientId,
+		(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as contractNumber,
+		(select materialQuality from ly_good where ly_good.id=ly_blank.goodId) as materialQuality,
+		(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) as deliveryTime,
+		ly_blank.goodId,
+		ly_workersubmit.completeAmount as amount,
+		ly_blank.blankSize
+		from ly_blank,ly_workersubmit,ly_blank_process
+		where
+		ly_blank_process.id=ly_workersubmit.blankprocessId
+		and ly_blank_process.blankId=ly_blank.id
+		and ly_workersubmit.id=#{id}
+	</select>
+
+	<select id="findHeatTreatByProgressSearchId" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		ly_blank.id,
+		(select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as clientId,
+		(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as contractNumber,
+		ly_blank.materialQuality,
+		(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) as deliveryTime,
+		ly_blank.goodId,
+		ly_progress_search.waitDistributionAmount as amount,
+ly_blank.blankSize
+		from ly_blank,ly_progress_search
+  where
+(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)=ly_progress_search.contractNumber
+and
+(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId)=ly_progress_search.deliveryTime
+AND
+(select ly_good.mapNumber from ly_good where ly_good.id=ly_blank.goodId)=ly_progress_search.mapNumber
+AND
+ly_progress_search.id=#{id}
+LIMIT 0,1
+	</select>
+
+	<select id="findAllCountAndCompleteCountByOrderdetailsId" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		count(*) as allCount,
+		(select count(*) from ly_blank where orderdetailsId=#{orderdetailsId} and state='已完成生产') as completeCount
+		from ly_blank WHERE orderdetailsId=#{orderdetailsId}
+
+
+	</select>
+
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank
+		where
+		ly_blank.id=#{id}
+	</select>
+	<select id="findFeedBatchNumberByOrderdetailsId" parameterType="String" resultType="java.lang.String">
+		select count(*)+1 as batchNumber from ly_blank where orderdetailsId=#{orderdetailsId} and origin='补料'
+	</select>
+
+	<select id="findByOriginAndOrderdetailsId"  resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank
+		where
+		ly_blank.orderdetailsId='${orderdetailsId}'
+
+		and origin='${origin}'
+	</select>
+
+	<select id="findXialiaoStartCodeByBlankId"  resultType="com.zhjh.entity.BlankFormMap">
+		SELECT startQRCode,ly_blank.amount
+		from ly_blank,ly_blank_process,ly_good_process
+		where  ly_blank.id=#{blankId}
+		and ly_blank.id=ly_blank_process.blankId
+		and ly_blank_process.goodprocessId=ly_good_process.id
+		and (select name from ly_process where ly_process.id=ly_good_process.processId)='下料'
+	</select>
+	<select id="findXialiaoEndCodeByBlankId"  resultType="com.zhjh.entity.BlankFormMap">
+		SELECT endQRCode,ly_workersubmit.id as workersubmitId,ly_blank_process.id as blankprocessId
+		from ly_blank,ly_blank_process,ly_good_process,ly_workersubmit
+		where  ly_blank.id=#{blankId}
+		and ly_workersubmit.blankprocessId=ly_blank_process.id
+		and ly_blank.id=ly_blank_process.blankId
+		and ly_blank_process.goodprocessId=ly_good_process.id
+		and (select name from ly_process where ly_process.id=ly_good_process.processId)='下料'
+	</select>
+	<select id="findXialiaoCodeByBlankId"  resultType="com.zhjh.entity.BlankFormMap">
+		SELECT startQRCode,endQRCode,ly_blank.amount,ly_blank_process.id as blankprocessId
+		from ly_blank,ly_blank_process,ly_good_process
+		where  ly_blank.id=#{blankId}
+		and ly_blank.id=ly_blank_process.blankId
+		and ly_blank_process.goodprocessId=ly_good_process.id
+		and (select name from ly_process where ly_process.id=ly_good_process.processId)='下料'
+	</select>
+
+	<select id="findRetiaozhiCodeByBlankId"  resultType="com.zhjh.entity.BlankFormMap">
+		SELECT startQRCode,endQRCode,ly_blank.amount,ly_blank_process.id as blankprocessId
+		from ly_blank,ly_blank_process,ly_good_process
+		where  ly_blank.id=#{blankId}
+		and ly_blank.id=ly_blank_process.blankId
+		and ly_blank_process.goodprocessId=ly_good_process.id
+		and (select name from ly_process where ly_process.id=ly_good_process.processId)='热调质'
+	</select>
+
+	<select id="findRezhenghuoCodeByBlankId"  resultType="com.zhjh.entity.BlankFormMap">
+		SELECT startQRCode,endQRCode,ly_blank.amount,ly_blank_process.id as blankprocessId
+		from ly_blank,ly_blank_process,ly_good_process
+		where  ly_blank.id=#{blankId}
+		and ly_blank.id=ly_blank_process.blankId
+		and ly_blank_process.goodprocessId=ly_good_process.id
+		and (select name from ly_process where ly_process.id=ly_good_process.processId)='热正火'
+	</select>
+	<select id="findByByOrderdetailsId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		(select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) as deliveryTime,
+		ly_blank.batchNumber,
+		ly_blank_process.id,
+		ly_blank.goodId,
+		ly_blank_process.state,
+		ly_blank_process.unreceiveAmount,
+		ly_blank_process.planneedDay,
+		(select sum(ly_workersubmit.completeAmount) from ly_workersubmit where ly_workersubmit.blankprocessId=ly_blank_process.id and ly_workersubmit.completeTime!='' and ly_workersubmit.completeTime!='') as completeAmount,
+		ly_blank_process.badAmount,
+		ly_blank_process.amount,
+		ly_blank_process.remarks,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		ly_blank.materialQuality,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		(select weight from ly_blank where ly_blank.id=ly_blank_process.blankId) as weight,
+		(select number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+		(select artificial from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as artificial,
+		(select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as processId,
+		(select name from ly_process where ly_process.id in (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as processName,
+		(select content from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as content,
+		ly_blank_process.blankId,
+		ly_blank_process.goodprocessId,
+		ly_blank_process.startQRCode,
+		ly_blank_process.endQRCode
+		from ly_blank_process,ly_blank
+		where
+		ly_blank.id=ly_blank_process.blankId
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		and blankId=ly_blank.id
+		and ly_blank.orderdetailsId=${orderdetailsId}
+		order by ly_blank.batchNumber,CAST(number AS SIGNED)
+	</select>
+
+	<select id="findByOrderdetailsIdAndOrigin" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		*
+		from ly_blank
+		where
+		ly_blank.orderdetailsId=${orderdetailsId}
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+	</select>
+	<select id="findAmountBigShowByContent" resultType="java.lang.String">
+		select
+		sum(ly_blank_process.amount) as amount
+
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and blankId=ly_blank.id
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id='${orderId}'
+		</if>
+		<include refid="whereBigShow" />
+	</select>
+	<select id="findBigShowByContent" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		ly_blank.id as blankId,
+		ly_blank.code,
+		ly_blank.goodId,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_blank.goodId) as goodSize,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		ly_blank.blankSize,
+		(select ly_good.materialCode from ly_good where ly_good.id=ly_blank.goodId) as materialCode,
+		ly_blank_process.id,
+		(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) as clientFullName,
+		ly_order.contractNumber,
+		ly_blank_process.state,
+		ly_blank_process.planneedDay,
+		(select sum(ly_workersubmit.completeAmount) from ly_workersubmit where ly_workersubmit.blankprocessId=ly_blank_process.id and ly_workersubmit.completeTime!='' and ly_workersubmit.completeTime!='') as completeAmount,
+		ly_blank_process.badAmount,
+		ly_blank_process.amount,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		(select number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+		ly_order_details.deliveryTime,
+		(select name from ly_process where ly_process.id in (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as processName
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and blankId=ly_blank.id
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id='${orderId}'
+		</if>
+		<include refid="whereBigShow" />
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+	<select id="findSmallShowByContent" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		ly_blank.id as blankId,
+		ly_blank.goodId,
+		(select ly_good.img from ly_good where ly_good.id=ly_blank.goodId) as img,
+		ly_blank.materialQuality,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_blank.goodId) as goodSize,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		ly_blank.blankSize,
+		(select ly_good.materialCode from ly_good where ly_good.id=ly_blank.goodId) as materialCode,
+		ly_blank_process.id,
+		(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) as clientFullName,
+		ly_order.contractNumber,
+		ly_blank_process.amount,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		ly_order_details.deliveryTime
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and blankId=ly_blank.id
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id='${orderId}'
+		</if>
+		<include refid="whereBigShow" />
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+	<select id="findSmallShowByContent2" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		ly_blank.id as blankId,
+		ly_blank.goodId,
+		ly_blank.materialQuality,
+		(select ly_good.img from ly_good where ly_good.id=ly_blank.goodId) as img,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_blank.goodId) as goodSize,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		ly_blank_process.id,
+		(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) as clientFullName,
+		ly_order.contractNumber,
+		ly_blank_process.amount,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		ly_order_details.deliveryTime
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and blankId=ly_blank.id
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id='${orderId}'
+		</if>
+		<include refid="whereBigShow" />
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+	<sql id="whereBigShow">
+		<if test="contractNumber != null and contractNumber != ''">
+			and ly_order.contractNumber like '%${contractNumber}%'
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and (select name from ly_good where ly_good.id=ly_blank.goodId) LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				(select name from ly_good where ly_good.id=ly_blank.goodId) LIKE '%垫%'
+				OR
+				(select name from ly_good where ly_good.id=ly_blank.goodId) LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%垫%'
+				and
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%片%'
+				and
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%轴%'
+				and
+				(select name from ly_good where ly_good.id=ly_blank.goodId) not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="materialCode != null and materialCode != '' and materialCode != '不限'">
+			and
+			(select materialCode from ly_good where ly_good.id=ly_blank.goodId)  like  '%${materialCode}%'
+		</if>
+		<if test="state != null and state != '' and state != '不限'">
+			and ly_blank_process.state='${state}'
+		</if>
+		<if test="code != null and code != '' and code != '不限'">
+			and ly_blank.code='${code}'
+		</if>
+		<if test="processId != null and processId != '' and processId != '不限'">
+			and  ly_good_process.processId='${processId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="mapNumber != null and mapNumber != '' and mapNumber != '不限'">
+			and (select mapNumber from ly_good where ly_good.id=ly_blank.goodId) like '%${mapNumber}%'
+		</if>
+		<if test="blankSize != null and blankSize != '' and blankSize != '不限'">
+			and ly_blank.blankSize like '%${blankSize}%'
+		</if>
+		<if test="goodSize != null and goodSize != '' and goodSize != '不限'">
+			and (select ly_good.goodSize from ly_good where ly_good.id=ly_blank.goodId) like '%${goodSize}%'
+		</if>
+		<if test="materialQuality != null and materialQuality != '' and materialQuality != '不限'">
+			and (select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) like '%${materialQuality}%'
+		</if>
+	</sql>
+	<select id="findBigShowClientByContent" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		DISTINCT CONCAT_WS("",ly_order.clientId,'客户') as id,
+		(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) as text,
+		'closed' as state
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and blankId=ly_blank.id
+		<include refid="whereBigShow" />
+	</select>
+	<select id="findBigShowOrderByContent" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		DISTINCT ly_order.id,ly_order.contractNumber
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and blankId=ly_blank.id
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<include refid="whereBigShow" />
+	</select>
+	<select id="findBigShowOrderDetailsByContent" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		(select DISTINCT ly_good.id from ly_good where ly_good.id=ly_blank.goodId) as goodId,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		ly_order_details.id as orderdetailsId
+		from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and blankId=ly_blank.id
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id='${orderId}'
+		</if>
+		<include refid="whereBigShow" />
+	</select>
+
+	<select id="findPhoneShowByOrderdetailsId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		ly_blank_process.state,
+		(select sum(ly_workersubmit.completeAmount) from ly_workersubmit where ly_workersubmit.blankprocessId=ly_blank_process.id and ly_workersubmit.completeTime!='' and ly_workersubmit.completeTime!='') as completeAmount,
+		(select number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+		(select name from ly_process where ly_process.id in (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as processName
+		from ly_blank_process,ly_blank
+		where
+		ly_blank.id=ly_blank_process.blankId
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		and blankId=ly_blank.id
+		and ly_blank.orderdetailsId=${orderdetailsId}
+	</select>
+
+	<select id="findProgressByBlankId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+ly_good_process.number,
+ly_blank_process.planneedDay,
+ly_good_process.processId,
+ly_blank_process.id as blankprocessId,
+(select name from ly_process where ly_process.id=ly_good_process.processId) as processName
+		from ly_blank_process,ly_good_process
+		where ly_blank_process.blankId=#{blankId}
+and ly_blank_process.goodprocessId=ly_good_process.id
+order by CAST(number AS SIGNED)
+	</select>
+
+
+	<select id="findProgressByBlankProcessId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		COALESCE(SUM(if(ly_workersubmit.completeTime='',ly_workersubmit.amount,0)),0) as amountSum,
+COALESCE(SUM(if(ly_workersubmit.completeTime!='',ly_workersubmit.completeAmount,0)),0) as completeAmountSum
+		from ly_workersubmit
+where
+ly_workersubmit.blankprocessId=#{blankprocessId}
+
+	</select>
+	<select id="findProgressAndUserByBlankProcessId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName,
+	if(ly_workersubmit.completeTime='',
+
+CONCAT_WS('已接收',left(ly_workersubmit.startTime,10),ly_workersubmit.amount)
+
+,0) as getMessage,
+	if(ly_workersubmit.completeTime!='',
+CONCAT_WS('已完成',left(ly_workersubmit.completeTime,10),ly_workersubmit.completeAmount)
+,0) as completeMessage
+		from ly_workersubmit
+		where
+		ly_workersubmit.blankprocessId=#{blankprocessId}
+
+	</select>
+
+	<select id="findUserNameByBlankProcessId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName
+		from ly_workersubmit
+		where
+		ly_workersubmit.blankprocessId=#{blankprocessId}
+
+	</select>
+
+	<select id="findCountByBlankProcessId" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_workersubmit
+		where
+		ly_workersubmit.blankprocessId=#{blankprocessId}
+	</select>
+	<select id="findSumPlanneedDayByOrderDetailsId" resultType="String">
+		select
+		sum(ly_blank_process.planneedDay) as planneedDay
+		from ly_blank_process,ly_blank
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and blankId=ly_blank.id
+		and ly_blank.orderdetailsId=#{orderdetailsId}
+	</select>
+
+	<select id="findTechnologyByClientOrderGoodProcessState" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		ly_blank.blankSize,
+		ly_blank.code,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		ly_order.contractNumber,
+		ly_order_details.deliveryTime,
+		(select fullName from ly_client where id=ly_order.clientId) as fullName,
+		ly_blank_process.id,
+		ly_blank_process.nowreceiveAmount,
+		ly_blank_process.state,
+		ly_blank_process.unreceiveAmount,
+		ly_blank_process.completeAmount,
+		ly_blank_process.badAmount,
+		ly_blank_process.amount,
+		ly_blank_process.goodprocessId,
+		(select id from ly_good where ly_good.id=ly_blank.goodId) as goodId,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+		(select name from ly_process where ly_process.id in (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as processName,
+		(select content from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as content,
+		(select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as processId,
+		ly_blank_process.blankId,
+		ly_blank_process.startQRCode,
+		ly_blank_process.endQRCode
+		from ly_blank_process,ly_blank,ly_order,ly_order_details
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_order_details.id=ly_blank.orderdetailsId
+		and blankId=ly_blank.id
+		<if test="blankSize != null and blankSize != ''">
+			and ly_blank.blankSize like  '${blankSize}%'
+		</if>
+		<if test="code != null and code != ''">
+			and ly_blank.code='${code}'
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			and (select name from ly_good where ly_good.id=ly_blank.goodId) like '%${goodName}%'
+		</if>
+		<if test="materialQuality != '不限'">
+			<if test="materialQuality != null and materialQuality != ''">
+				and (select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality)  like  '%${materialQuality}%'
+			</if>
+		</if>
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		<if test="state != null and state != ''">
+			<if test="state == '未完成'">
+				and ly_blank_process.unreceiveAmount&gt;0
+			</if>
+			<if test="state == '已接收未完成'">
+				and ly_blank_process.state='已接收未完成'
+			</if>
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and ly_order.contractNumber like '%${contractNumber}%'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="mapNumber != null and mapNumber != ''">
+			and (select mapNumber from ly_good where ly_good.id=ly_blank.goodId) like '%${mapNumber}%'
+		</if>
+		<if test="processId != null and processId != ''">
+			and (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) like '%${processId}%'
+		</if>
+	</select>
+	<select id="findCountTechnologyByClientOrderGoodProcessState" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_blank_process,ly_blank,ly_order,ly_order_details
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+		and ly_order_details.id=ly_blank.orderdetailsId
+		and blankId=ly_blank.id
+		<if test="blankSize != null and blankSize != ''">
+			and ly_blank.blankSize like  '${blankSize}%'
+		</if>
+		<if test="code != null and code != ''">
+			and ly_blank.code='${code}'
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			and (select name from ly_good where ly_good.id=ly_blank.goodId) like '%${goodName}%'
+		</if>
+		<if test="materialQuality != '不限'">
+			<if test="materialQuality != null and materialQuality != ''">
+				and (select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality)  like  '%${materialQuality}%'
+			</if>
+		</if>
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		and blankId=ly_blank.id
+		<if test="state != null and state != ''">
+			<if test="state == '未完成'">
+				and ly_blank_process.unreceiveAmount&gt;0
+			</if>
+			<if test="state == '已接收未完成'">
+				and ly_blank_process.state='已接收未完成'
+			</if>
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and ly_order.contractNumber like '%${contractNumber}%'
+		</if>
+		<if test="mapNumber != null and mapNumber != ''">
+			and (select mapNumber from ly_good where ly_good.id=ly_blank.goodId) like '%${mapNumber}%'
+		</if>
+		<if test="processId != null and processId != ''">
+			and (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) like '%${processId}%'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+	</select>
+
+	<select id="findByByOrderId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		ly_blank_process.id,
+		ly_blank.goodId,
+		ly_blank_process.state,
+		ly_blank_process.unreceiveAmount,
+		ly_blank_process.planneedDay,
+		ly_blank_process.completeAmount,
+		ly_blank_process.badAmount,
+		ly_blank_process.amount,
+		ly_blank_process.remarks,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		ly_blank.materialQuality,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		(select weight from ly_blank where ly_blank.id=ly_blank_process.blankId) as weight,
+		(select number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+		(select artificial from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as artificial,
+		(select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as processId,
+		(select name from ly_process where ly_process.id in (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as processName,
+		(select content from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as content,
+		ly_blank_process.blankId,
+		ly_blank_process.goodprocessId,
+		ly_blank_process.startQRCode,
+		ly_blank_process.endQRCode
+		from ly_blank_process,ly_blank
+		where
+		ly_blank.id=ly_blank_process.blankId
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		and blankId=ly_blank.id
+		and ly_blank.orderdetailsId in (select id from ly_order_details where ly_order_details.orderId='${orderId}')
+		order by CAST(number AS SIGNED)
+	</select>
+
+	<select id="findBadMessageGroupByOrderDetailsId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		blankprocessId as id,
+		ly_order_details.deliveryTime,
+		blankprocessId,
+		ly_blank_process.completeAmount,
+		submiterId,
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName,
+		(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) as accountName,
+		ly_blank.orderdetailsId,
+		ly_blank.goodId,
+		ly_workersubmit.badAmount,
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId)) as contractNumber,
+		ly_blank.materialQuality,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		ly_blank_process.state,
+		ly_workersubmit.completeTime,
+		ly_workersubmit.id as workdersubmitId,
+		(select name from ly_process where ly_process.id=ly_good_process.processId) as processName,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		ly_blank_process.remarks,
+		goodprocessId
+		from ly_workersubmit,ly_blank_process,ly_good_process,ly_blank,ly_order_details
+		where ly_workersubmit.badAmount>0
+		and
+		(
+		ly_workersubmit.completeTime is not null
+		and ly_workersubmit.completeTime!=''
+		)
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and ly_workersubmit.blankprocessId=ly_blank_process.id
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and ly_blank_process.blankId=ly_blank.id
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="state != null and state != ''">
+			<if test="state == '已补料'">
+				and ly_blank_process.state='废品已补料'
+			</if>
+			<if test="state == '未补料'">
+				and ly_blank_process.state!='废品已补料'
+			</if>
+		</if>
+
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		<if test="userId != null and userId != ''">
+			and ly_workersubmit.submiterId='${userId}'
+		</if>
+		and (
+
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId)) like '%${content}%'
+		OR
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+		OR
+		(select name from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+		OR
+		(select name from ly_process where ly_process.id=ly_good_process.processId) like '%${content}%'
+		OR
+		ly_blank_process.remarks like '%${content}%'
+		OR
+		ly_workersubmit.completeTime like '%${content}%'
+		)
+		order by ly_workersubmit.completeTime desc
+	</select>
+	<select id="findByAllLike" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		<include refid="selectMain" />
+		from ly_blank,ly_good,ly_order_details
+		where ly_good.id=ly_blank.goodId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		<include refid="blankSearchMain" />
+	</select>
+
+	<select id="findExportByAllLike" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		ly_blank.blankSize,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_blank.goodId) as stockAmount,
+		(select fullName from ly_client where ly_client.id=(select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)) as clientFullName,
+		(select contractNumber from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as contractNumber,
+		(select makeTime from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId) as makeTime,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select goodSize from ly_good where ly_good.id=ly_blank.goodId) as goodSize,
+		(select amount from ly_order_details where ly_order_details.id=orderdetailsId) as orderAmount,
+		(select deliveryTime from ly_order_details where ly_order_details.id=orderdetailsId) as deliveryTime,
+		(select ly_blank_size.blankWeight from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as blankWeight,
+		(select remarks1 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks1,
+		(select remarks2 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks2,
+		(select remarks3 from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as remarks3,
+		(select isCheck from ly_blank_size,ly_good where ly_good.id=ly_blank_size.goodId and ly_good.id=ly_blank.goodId LIMIT 0,1) as isCheck,
+
+		ly_blank.amount,
+
+		ly_blank.length,
+		ly_blank.weight,
+		ly_blank.printTime,
+		ly_blank.isFinish,
+		ly_blank.code,
+		ly_blank.state
+		from ly_blank
+		where
+		<include refid="blankSearch" />
+	</select>
+
+	<select id="findBadMessageGroupCountByOrderDetailsId" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_workersubmit,ly_blank_process,ly_good_process,ly_blank,ly_order_details
+		where ly_workersubmit.badAmount>0
+		and
+		(
+		ly_workersubmit.completeTime is not null
+		and ly_workersubmit.completeTime!=''
+		)
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and ly_workersubmit.blankprocessId=ly_blank_process.id
+		and ly_good_process.id=ly_blank_process.goodprocessId
+		and ly_blank_process.blankId=ly_blank.id
+		<if test="state != null and state != ''">
+			<if test="state == '已补料'">
+				and ly_blank_process.state='废品已补料'
+			</if>
+			<if test="state == '未补料'">
+				and ly_blank_process.state!='废品已补料'
+			</if>
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		<if test="userId != null and userId != ''">
+			and ly_workersubmit.submiterId='${userId}'
+		</if>
+		and (
+
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId)) like '%${content}%'
+		OR
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+		OR
+		(select name from ly_good where ly_good.id=ly_blank.goodId) like '%${content}%'
+		OR
+		(select name from ly_process where ly_process.id=ly_good_process.processId) like '%${content}%'
+		OR
+		ly_blank_process.remarks like '%${content}%'
+		OR
+		ly_workersubmit.completeTime like '%${content}%'
+		)
+	</select>
+
+
+	<select id="findMaterialQualityFromBlank" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		ly_blank.materialQuality as materialQualityId,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQuality
+		from ly_blank,ly_good
+		where ly_blank.goodId=ly_good.id
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		GROUP BY materialQuality
+	</select>
+
+	<select id="findIsFinishFromBlank" resultType="com.zhjh.entity.BlankFormMap">
+		select
+	if(isFinish ='','为空',isFinish )  as isFinish
+from ly_blank
+GROUP BY isFinish
+	</select>
+
+	<select id="findCodeFromBlank" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		 DISTINCT code from ly_blank
+		where code is not null and code!=''
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		GROUP BY code
+	</select>
+
+	<select id="findCodeFromBlankLike" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		DISTINCT code
+		from ly_blank
+		where code is not null and code!=''
+		<if test="content != null and content != ''">
+			and code  like '%${content}%'
+		</if>
+		GROUP BY code
+	</select>
+	<select id="findByProgressSearchId" resultType="com.zhjh.entity.BlankFormMap">
+		select
+		ly_order_details.id,
+		ly_progress_search.id as progressSearchId,
+		ly_progress_search.waitDistributionAmount,
+		ly_progress_search.nowDistributionAmount,
+		ly_order_details.goodId,
+		(select fullName from ly_client where ly_client.id=ly_order.clientId) as clientName,
+		ly_order.contractNumber,
+		ly_progress_search.mapNumber,
+		(select name from ly_good where ly_progress_search.mapNumber=ly_good.mapNumber) as goodName,
+		(select goodSize from ly_good where ly_order_details.goodId=ly_good.id) as goodSize,
+		(select blankSize from ly_blank where ly_blank.goodId=ly_order_details.goodId  and ly_order_details.id=ly_blank.orderdetailsId) as blankSize,
+		(select ly_materialqualitytype.`name` from ly_good,ly_materialqualitytype where ly_good.materialQuality=ly_materialqualitytype.id and ly_good.mapNumber=ly_progress_search.mapNumber) as materialQuality,
+		ly_order_details.deliveryTime,
+		(select id from ly_blank where ly_blank.orderdetailsId=ly_order_details.id) as blankId
+		from ly_order,ly_order_details,ly_progress_search
+		where
+		ly_order.id=ly_order_details.orderId
+		and ly_progress_search.contractNumber=ly_order.contractNumber
+		and ly_progress_search.mapNumber=(select mapNumber from ly_good where ly_order_details.goodId=ly_good.id)
+		and ly_progress_search.deliveryTime=ly_order_details.deliveryTime
+		and ly_progress_search.id=#{id}
+		LIMIT 0,1
+	</select>
+	<select id="findAmountByContractNumberAndMapNumberAndDeliveryTime" resultType="java.lang.String">
+		select
+		ly_order_details.amount
+		from ly_order,ly_order_details
+		where
+		ly_order.id=ly_order_details.orderId
+		and
+		ly_order.contractNumber  like CONCAT('%',#{contractNumber},'%')
+		and ly_order_details.deliveryTime like CONCAT('%',#{deliveryTime},'%')
+		and (select mapNumber from ly_good where ly_order_details.goodId=ly_good.id) like CONCAT('%',#{mapNumber},'%')
+		LIMIT 0,1
+	</select>
+	<select id="findAmountByContractNumberAndMapNumber" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.amount,ly_order_details.deliveryTime
+		from ly_order,ly_order_details
+		where
+		ly_order.id=ly_order_details.orderId
+		and
+		ly_order.contractNumber  like CONCAT('%',#{contractNumber},'%')
+		and (select mapNumber from ly_good where ly_order_details.goodId=ly_good.id) like CONCAT('%',#{mapNumber},'%')
+	</select>
+	<select id="findCodeCountFromBlankLike" resultType="java.lang.Integer">
+		SELECT
+		count(DISTINCT code)
+		from ly_blank
+		where code is not null and code!=''
+		<if test="content != null and content != ''">
+			and code  like '%${content}%'
+		</if>
+
+	</select>
+
+	<select id="findPrintTimeFromBlank" resultType="com.zhjh.entity.BlankFormMap">
+		SELECT
+		printTime
+		from ly_blank
+		where 1=1
+		<if test="origin != null and origin != ''">
+			and origin='${origin}'
+		</if>
+		GROUP BY printTime
+	</select>
+	<update id="updateBlankStateByIdAndOrigin">
+		update ly_blank set state='已完成生产' where ly_blank.orderdetailsId='${orderdetailsId}' and ly_blank.origin='${origin}'
+	</update>
+	<update id="updateBlankCodeByIdsAndCode">
+		update ly_blank set code='${code}' where ly_blank.id in (${ids})
+	</update>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_blank
+		where id=#{id}
+	</delete>
+	<delete id="deleteByOrderId" parameterType="String">
+		delete from ly_blank where ly_blank.orderdetailsId in (select id from ly_order_details where ly_order_details.orderId=#{orderId})
+	</delete>
+
+	<delete id="deleteByOrderDetailsId" parameterType="String">
+		delete from ly_blank where ly_blank.orderdetailsId=#{orderdetailsId}
+	</delete>
+
+</mapper>

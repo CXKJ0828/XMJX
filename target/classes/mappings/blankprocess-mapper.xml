@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.BlankProcessMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+	ly_blank_process.id,
+	(select ly_materialqualitytype.name from ly_blank,ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality and ly_blank.id=ly_blank_process.blankId) as materialQuality,
+	(select name from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) as processName,
+  ly_blank_process.blankId,
+  ly_blank_process.amount,
+  ly_blank_process.unreceiveAmount,
+  ly_blank_process.planneedDay,
+  (select goodId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as goodId,
+(select taxPrice from ly_good where ly_good.id=(select goodId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as taxPrice,
+  ly_blank_process.goodprocessId,
+  ly_blank_process.endQRCode,
+  ly_blank_process.startQRCode,
+  ly_blank_process.completeAmount,
+  ly_blank_process.badAmount,
+    ly_blank_process.remarks,
+  ly_blank_process.state,
+	(select artificial from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as artificial
+	</sql>
+	<delete id="deleteByOrderId" parameterType="String">
+delete from ly_blank_process
+ where ly_blank_process.blankId in (select id from ly_blank where ly_blank.orderdetailsId  in (select id from ly_order_details where ly_order_details.orderId=#{orderId}))
+	</delete>
+	<select id="findByStartQRCode" parameterType="String" resultType="com.zhjh.entity.BlankProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank_process
+		where
+		ly_blank_process.startQRCode=#{code}
+	</select>
+	<select id="findCountByBlankprocessId"  resultType="java.lang.Integer">
+		select count(*) as count
+from ly_blank_process
+where ly_blank_process.goodprocessId='${goodprocessId}'
+and ly_blank_process.blankId='${blankId}'
+	</select>
+	<select id="findMaxProcessByOrderDetailsId" parameterType="String" resultType="com.zhjh.entity.BlankProcessFormMap">
+		select  ly_good_process.number,ly_blank_process.state,ly_process.name,ly_blank.id as blankId,
+		(select max(CAST(ly_good_process.number AS SIGNED)) from ly_good_process,ly_blank_process where ly_good_process.id=ly_blank_process.goodprocessId and ly_blank_process.blankId=ly_blank.id) as maxNumber
+from ly_blank,ly_blank_process,ly_good_process,ly_order_details,ly_process
+ where
+ly_blank.id=ly_blank_process.blankId
+and
+ly_good_process.processId=ly_process.id
+AND
+ly_order_details.id=#{orderdetailsId}
+AND
+ly_blank.orderdetailsId=ly_order_details.id
+and
+ly_good_process.id=ly_blank_process.goodprocessId
+
+and
+(ly_blank_process.state='已接收未完成'
+or ly_blank_process.state='已完成')
+ORDER BY CAST(ly_good_process.number AS SIGNED) DESC
+LIMIT 1
+	</select>
+
+	<select id="findSumPlanneedDayByBlankIdAndNumber" resultType="String">
+		select sum(ly_blank_process.planneedDay) as planneedDay from ly_blank_process,ly_good_process
+ where blankId='${blankId}'
+and
+ly_blank_process.goodprocessId=ly_good_process.id
+and CAST(ly_good_process.number AS SIGNED) &gt;= '${number}'
+	</select>
+
+	<select id="findProcessNameByBlankIdAndNumber" resultType="String">
+		select ly_process.name
+from ly_blank_process,ly_good_process,ly_process
+where blankId='${blankId}'
+and ly_good_process.processId=ly_process.id
+and
+ly_blank_process.goodprocessId=ly_good_process.id
+and number='${number}'
+LIMIT 0,1
+	</select>
+	<select id="findDistributionPrintByIds" resultType="com.zhjh.entity.BlankProcessFormMap">
+		select
+ly_blank_process.id,
+ly_workersubmit.id as workersubmitId,
+ly_blank_process.goodprocessId,
+		ly_blank.code,
+ly_blank_process.endQRCode,
+		ly_order_details.deliveryTime,
+		(select fullName from ly_client where id=ly_order.clientId) as fullName,
+		ly_order.contractNumber,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		(select number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+		(select name from ly_process where ly_process.id in (select processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as processName,
+		ly_blank_process.nowreceiveAmount
+		from ly_blank_process,ly_blank,ly_order,ly_order_details,ly_workersubmit
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_order.id=ly_order_details.orderId
+and ly_workersubmit.blankprocessId=ly_blank_process.id
+		and ly_order_details.id=ly_blank.orderdetailsId
+		and blankId=ly_blank.id
+		and ly_blank_process.id in (${ids})
+	</select>
+
+	<select id="findByEndQRCode" parameterType="String" resultType="com.zhjh.entity.BlankProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank_process
+		where
+		ly_blank_process.endQRCode=#{code}
+	</select>
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.BlankProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank_process
+		where
+		ly_blank_process.id=#{id}
+	</select>
+	<select id="findByBlankId" parameterType="String" resultType="com.zhjh.entity.BlankProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_blank_process
+		where
+		ly_blank_process.blankId=#{blankId}
+	</select>
+	<select id="findIdByBlankIdAndGoodProcessId" parameterType="String" resultType="java.lang.String">
+		SELECT
+		ly_blank_process.id
+		from ly_blank_process
+		where
+		ly_blank_process.blankId=#{blankId}
+		and ly_blank_process.goodprocessId=#{goodprocessId}
+	</select>
+
+	<select id="findByBlankIdAndNumber" resultType="com.zhjh.entity.BlankProcessFormMap">
+		select
+		(select number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+ ly_blank_process.id,
+  ly_blank_process.blankId,
+  ly_blank_process.planneedDay,
+  ly_blank_process.goodprocessId,
+  ly_blank_process.endQRCode,
+  ly_blank_process.startQRCode,
+  ly_blank_process.completeAmount,
+  ly_blank_process.badAmount,
+  ly_blank_process.state,
+  ly_blank_process.remarks,
+  ly_blank_process.amount,
+  ly_blank_process.unreceiveAmount,
+  ly_blank_process.completeTime
+		from ly_blank_process,ly_blank
+		where
+		ly_blank.id=ly_blank_process.blankId
+		and ly_blank.id='${blankId}'
+		and (select CAST(number AS SIGNED) from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)&gt;'${number}'
+	</select>
+	<select id="findBadAmountAndProcessByBlankProcessId" parameterType="String" resultType="com.zhjh.entity.BlankProcessFormMap">
+	select ly_workersubmit.submiterId,
+	(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName,
+ly_blank_process.badAmount,
+ly_blank_process.remarks,
+ly_blank_process.goodprocessId,
+(select name from ly_process where ly_process.id=(select ly_good_process.processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)) as processName
+ from ly_workersubmit,ly_blank_process where ly_workersubmit.blankprocessId=ly_blank_process.id and ly_blank_process.id=#{blankprocessId}
+	</select>
+</mapper>

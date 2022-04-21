@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.ToolStockMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		ly_toolstock.id,name,unitId,toolTypeId,amount,remarks,ly_tool.id as toolId,
+		(select name from ly_unit where ly_unit.id=ly_tool.unitId) as unitName,
+		(select name from ly_tooltype where ly_tooltype.id=ly_tool.toolTypeId) as typeName
+	</sql>
+	<sql id="selectWhere">
+		ly_tool.id=ly_toolstock.toolId
+		and
+		(
+		name like CONCAT('%',#{content},'%')
+		OR
+		ly_toolstock.remarks like CONCAT('%',#{content},'%')
+		OR
+		ly_toolstock.amount like CONCAT('%',#{content},'%')
+		OR
+		(select name from ly_unit where ly_unit.id=ly_tool.unitId) like CONCAT('%',#{content},'%')
+		)
+		<if test="toolTypeId != null and toolTypeId != ''">
+			and ly_tool.toolTypeId=${toolTypeId}
+		</if>
+
+	</sql>
+
+	<select id="reduceAmountByToolId" >
+		update ly_toolstock set amount=amount-#{amount} where toolId=#{toolId}
+	</select>
+	<select id="addAmountByToolId" >
+		update ly_toolstock set amount=amount+#{amount} where toolId=#{toolId}
+	</select>
+	<select id="findCountByAllLike"  resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_tool,ly_toolstock
+		where
+		<include refid="selectWhere" />
+	</select>
+	<select id="findSumAmountByAllLike"  resultType="java.lang.Integer">
+		SELECT
+		sum(ly_toolstock.amount)
+		from ly_tool,ly_toolstock
+		where
+		<include refid="selectWhere" />
+	</select>
+
+	<select id="findByAllLike"  resultType="com.zhjh.entity.ToolStockFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_tool,ly_toolstock
+		where
+		<include refid="selectWhere" />
+		ORDER BY toolTypeId,name
+	</select>
+	<select id="findByToolId"  resultType="com.zhjh.entity.ToolStockFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_tool,ly_toolstock
+		where
+		ly_tool.id=ly_toolstock.toolId
+		and
+		ly_toolstock.toolId=#{toolId}
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_toolstock
+		where id=#{id}
+	</delete>
+</mapper>

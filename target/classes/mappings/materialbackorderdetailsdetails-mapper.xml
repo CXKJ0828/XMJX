@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialBackOrderDetailsDetailsMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<select id="selectByMaterialbackorderdetailsId" resultType="com.zhjh.entity.MaterialBackOrderDetailsDetailsFormMap">
+		SELECT
+		ly_materialbackorder_details_details.id,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		ly_materialbackorder_details_details.arrivalTime,
+		ly_materialbackorder_details_details.length,
+		ly_materialbackorder_details_details.amount,
+		ly_materialbackorder_details_details.weight,
+		ly_materialbackorder_details_details.lackAmount,
+		ly_materialbackorder_details_details.taxPrice,
+		ly_materialbackorder_details_details.taxMoney,
+		ly_materialbackorder_details_details.materialBackOrderDetailsId
+		from ly_materialbackorder_details_details,ly_materialbackorder_details,ly_materialbuyorder_details
+		where
+		ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+and ly_materialbackorder_details_details.materialBackOrderDetailsId=ly_materialbackorder_details.id
+and
+		ly_materialbackorder_details_details.materialBackOrderDetailsId=#{materialBackOrderDetailsId}
+	</select>
+
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_materialbackorder_details_details
+		where id=#{id}
+	</delete>
+</mapper>

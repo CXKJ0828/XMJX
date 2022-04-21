@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.WorkersubmitMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+		ly_workersubmit.id,
+		ly_workersubmit.planneedDay,
+		(select ly_good_process.processId from ly_blank_process,ly_good_process WHERE ly_good_process.id=ly_blank_process.goodprocessId  and ly_blank_process.id=ly_workersubmit.blankprocessId) as processId,
+		(select ly_process.`name` from ly_blank_process,ly_process,ly_good_process WHERE ly_good_process.id=ly_blank_process.goodprocessId and ly_process.id=ly_good_process.processId and ly_blank_process.id=ly_workersubmit.blankprocessId) as processName,
+		(select ly_materialqualitytype.`name` from ly_blank_process,ly_good,ly_materialqualitytype,ly_good_process WHERE ly_materialqualitytype.id=ly_good.materialQuality and ly_good_process.id=ly_blank_process.goodprocessId and ly_good.id=ly_good_process.goodId and ly_blank_process.id=ly_workersubmit.blankprocessId) as materialquality,
+		(select ly_blank_process.startQRCode from ly_blank_process WHERE ly_blank_process.id=ly_workersubmit.blankprocessId) as startQRCode,
+		(select ly_blank_process.endQRCode from ly_blank_process WHERE ly_blank_process.id=ly_workersubmit.blankprocessId) as endQRCode,
+		ly_workersubmit.startTime,
+		deductWages,
+		trueWages,
+		wages,
+		blankprocessId,
+		remarks,
+		ly_workersubmit.submiterId,
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName,
+		ly_workersubmit.completeAmount,
+		ly_workersubmit.badAmount,
+		ly_workersubmit.deductRate,
+		ly_workersubmit.completeTime,
+		ly_workersubmit.amount
+	</sql>
+
+	<select id="findByBlankprocessId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_workersubmit
+		where
+		ly_workersubmit.blankprocessId=#{blankprocessId}
+	</select>
+
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.WorkersubmitFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_workersubmit
+		where
+		ly_workersubmit.id=#{id}
+	</select>
+
+	<select id="findProductAmountByClinetAndProcessIdsAndDeliveryTime" parameterType="String" resultType="java.lang.String">
+		select
+		CONCAT_WS('-',
+		(select COALESCE(sum(ly_blank_process.amount),0)
+from ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process
+where ly_blank_process.blankId=ly_blank.id
+and ly_good_process.id=ly_blank_process.goodprocessId
+and ly_blank.orderdetailsId=ly_order_details.id
+and ly_order.id=ly_order_details.orderId
+and ly_order_details.deliveryTime like '${deliveryTime}%'
+and ly_order.clientId=${clientId}
+and FIND_IN_SET(ly_good_process.processId,('${processIdS}')) ),
+		COALESCE(sum(if(ly_workersubmit.completeTime='',ly_workersubmit.amount,0)),0),
+	COALESCE(sum(ly_workersubmit.completeAmount),0)
+		) as showAmount
+from ly_workersubmit,ly_blank_process,ly_blank,ly_order_details,ly_order,ly_good_process,ly_process
+where ly_workersubmit.blankprocessId=ly_blank_process.id
+and ly_blank_process.blankId=ly_blank.id
+and ly_order_details.id=ly_blank.orderdetailsId
+and ly_order.id=ly_order_details.orderId
+and ly_blank_process.goodprocessId=ly_good_process.id
+and ly_process.id=ly_good_process.processId
+and FIND_IN_SET(ly_good_process.processId,('${processIdS}'))
+and ly_order_details.deliveryTime like '${deliveryTime}%'
+and ly_order.clientId=${clientId}
+	</select>
+
+	<select id="findCountByBlankprocessId" parameterType="String" resultType="java.lang.Integer">
+		select count(*) as count from ly_workersubmit where blankprocessId=#{blankprocessId}
+	</select>
+
+	<select id="findByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select ly_workersubmit.id,
+		(select content from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as content,
+		ly_blank_process.state,
+		ly_workersubmit.startTime,
+		ly_workersubmit.completeTime,
+		ly_workersubmit.wages,
+		ly_workersubmit.trueWages,
+		ly_workersubmit.deductWages,
+		ly_workersubmit.blankprocessId,
+		ly_workersubmit.submiterId,
+		ly_workersubmit.amount,
+		ly_workersubmit.completeAmount,
+		ly_workersubmit.badAmount,
+		ly_workersubmit.deductRate,
+		ly_workersubmit.remarks,
+		ly_blank_process.goodprocessId,
+		(select name from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) as goodName,
+		(select img from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) as img,
+		(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) as mapNumber,
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) as processName,
+		(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId) as orderId,
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) as contractNumber,
+		(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) as accountName,
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName
+		from ly_workersubmit,ly_blank_process
+		where ly_workersubmit.blankprocessId=ly_blank_process.id
+		and ly_workersubmit.submiterId=#{submiterId}
+		and (select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId) is not null
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				and (ly_workersubmit.completeTime is not null
+				and ly_workersubmit.completeTime!='')
+				<if test="startTime != null and startTime != ''">
+					and ly_workersubmit.completeTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_workersubmit.completeTime &lt; '${endTime}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				and ly_blank_process.state='${state}'
+				<if test="state == '已接收未完成'">
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		and
+		(
+		(select name from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) like   '%${content}%' or
+		(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${content}%' or
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${content}%' or
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) like  '%${content}%'
+		)
+	</select>
+
+
+	<select id="findPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select ly_workersubmit.id,
+		(select content from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as content,
+		ly_blank_process.state,
+		ly_workersubmit.startTime,
+		ly_workersubmit.completeTime,
+		ly_workersubmit.wages,
+		ly_workersubmit.trueWages,
+		ly_workersubmit.deductWages,
+		ly_workersubmit.blankprocessId,
+		ly_workersubmit.submiterId,
+		ly_workersubmit.amount,
+		ly_workersubmit.completeAmount,
+		ly_workersubmit.badAmount,
+		ly_workersubmit.deductRate,
+		ly_workersubmit.remarks,
+		ly_blank_process.goodprocessId,
+		(SELECT name from ly_good,ly_blank where ly_good.id=ly_blank.goodId and ly_blank.id=ly_blank_process.blankId) as goodName,
+		(SELECT mapNumber from ly_good,ly_blank where ly_good.id=ly_blank.goodId and ly_blank.id=ly_blank_process.blankId) as mapNumber,
+		(select img  from ly_good,ly_blank where ly_good.id=ly_blank.goodId and ly_blank.id=ly_blank_process.blankId)  as img,
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) as processName,
+		(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId) as orderId,
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) as contractNumber,
+		(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) as accountName,
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName
+		from ly_workersubmit,ly_blank_process
+		where ly_workersubmit.blankprocessId=ly_blank_process.id
+		and ly_workersubmit.submiterId=#{submiterId}
+		and (select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId) is not null
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				and (ly_workersubmit.completeTime is not null
+				and ly_workersubmit.completeTime!='')
+				<if test="startTime != null and startTime != ''">
+					and ly_workersubmit.completeTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_workersubmit.completeTime &lt; '${endTime}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and (ly_workersubmit.completeTime is  null
+
+					or ly_workersubmit.completeTime='')
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		<if test="content != null and content != ''">
+			and
+			(
+			(select name from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+			(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+			(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) like   '%${content}%' or
+			(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${content}%' or
+			(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${content}%' or
+			(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) like  '%${content}%'
+			)
+		</if>
+
+		<if test="state == '已完成'">
+			ORDER BY ly_workersubmit.completeTime DESC
+		</if>
+		<if test="state != '已完成'">
+			ORDER BY ly_workersubmit.startTime DESC
+		</if>
+	</select>
+
+	<select id="findPhoneShowBySubmiterIds"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select
+		ly_order_details.id as orderdetailsId,
+		ly_order.contractNumber,
+		ly_order_details.deliveryTime,
+		ly_blank.amount,
+		(select name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber
+		from ly_workersubmit,ly_blank_process,ly_order_details,ly_order,ly_blank
+		where
+		ly_workersubmit.blankprocessId=ly_blank_process.id
+		and
+		ly_order.id=ly_order_details.orderId
+		and ly_blank.id=ly_blank_process.blankId
+		and ly_order_details.id=ly_blank.orderdetailsId
+		and
+		submiterId in (${submiterIds})
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		and
+		(
+		ly_order.contractNumber like '%${content}%'
+		OR
+		(select mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${content}%'
+		or
+		(select name from ly_good where ly_good.id=ly_order_details.goodId) like '%${content}%'
+		)
+		GROUP BY ly_order_details.id
+	</select>
+	<update id="updateIsHeattreatTrueById">
+		update ly_workersubmit set isHeattreat='true' where ly_workersubmit.id=#{id}
+	</update>
+	<select id="findByWorkerSubmitIdByClientAndOrderAndGoodAndProcessAndUserAndState"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select ly_workersubmit.id,
+		ly_blank_process.unreceiveAmount,
+		ly_blank_process.amount,
+		ly_blank_process.startQRCode,
+		ly_blank_process.endQRCode,
+		(select ly_client.fullName from ly_order,ly_client where ly_order.clientId=ly_client.id and ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) as clientName,
+		ly_blank_process.state,
+		(select ly_good_process.number from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as number,
+		ly_workersubmit.startTime,
+		ly_workersubmit.completeTime,
+		ly_workersubmit.blankprocessId,
+		ly_workersubmit.submiterId,
+		ly_workersubmit.amount as receiveAmount,
+		ly_workersubmit.completeAmount,
+		ly_workersubmit.badAmount,
+		ly_workersubmit.deductRate,
+		ly_blank_process.remarks,
+		ly_blank_process.goodprocessId,
+		(select ly_good_process.content from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as content,
+		(select name from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) as goodName,
+		(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) as mapNumber,
+		(select ly_good.id from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) as goodId,
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) as processName,
+		(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId) as orderId,
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) as contractNumber,
+		(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) as accountName,
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) as userName
+		from ly_workersubmit,ly_blank_process
+		where ly_workersubmit.blankprocessId=ly_blank_process.id
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				and (ly_blank_process.state='已完成'
+				or ly_blank_process.state='废品已补料')
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and ly_workersubmit.completeTime=''
+				</if>
+			</if>
+
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and
+			(select ly_order.clientId from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId))='${clientId}'
+		</if>
+		<if test="mapNumber != null and mapNumber != ''">
+			and
+			(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like  '%${mapNumber}%'
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and
+			(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) like   '%${contractNumber}%'
+		</if>
+		<if test="processId != null and processId != ''">
+			and
+			(select ly_good_process.processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)='${processId}'
+		</if>
+		<if test="userName != null and userName != ''">
+			and
+			(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) like   '%${userName}%'
+		</if>
+	</select>
+
+	<select id="findCountByWorkerSubmitIdByClientAndOrderAndGoodAndProcessAndUserAndState"  resultType="java.lang.Integer">
+		select count(*)
+		from ly_workersubmit,ly_blank_process
+		where ly_workersubmit.blankprocessId=ly_blank_process.id
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				and (ly_blank_process.state='已完成'
+				or ly_blank_process.state='废品已补料')
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and ly_workersubmit.completeTime=''
+				</if>
+			</if>
+
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and
+			(select ly_order.clientId from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId))='${clientId}'
+		</if>
+		<if test="mapNumber != null and mapNumber != ''">
+			and
+			(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like  '%${mapNumber}%'
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and
+			(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) like   '%${contractNumber}%'
+		</if>
+		<if test="processId != null and processId != ''">
+			and
+			(select ly_good_process.processId from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)='${processId}'
+		</if>
+		<if test="userName != null and userName != ''">
+			and
+			(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${userName}%'
+		</if>
+	</select>
+
+	<select id="findByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select ly_workersubmit.id,
+		(select artificial from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId)  as artificial,
+		(select blankSize from ly_blank where ly_blank.id=ly_blank_process.blankId) as blankSize,
+		(select name from ly_blank,ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality and ly_blank.id=ly_blank_process.blankId) as materialqualityName,
+		ly_workersubmit.planneedDay,
+		round(distributionWages,2) as distributionWages,
+		(select ly_client.fullName from ly_order,ly_client where ly_order.clientId=ly_client.id and ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) as clientName,
+		(select content from ly_good_process where ly_good_process.id=ly_blank_process.goodprocessId) as content,
+		ly_blank_process.state,
+		ly_workersubmit.startTime,
+		ly_workersubmit.completeTime,
+		ly_workersubmit.wages,
+		ly_workersubmit.trueWages,
+		ly_workersubmit.deductWages,
+		ly_workersubmit.blankprocessId,
+		ly_workersubmit.submiterId,
+		ly_workersubmit.amount,
+		ly_workersubmit.isHeattreat,
+		ly_workersubmit.completeAmount,
+		ly_workersubmit.badAmount,
+		ly_workersubmit.deductRate,
+		ly_blank_process.remarks,
+		ly_blank_process.goodprocessId,
+		(SELECT name from ly_good,ly_blank where ly_good.id=ly_blank.goodId and ly_blank.id=ly_blank_process.blankId) as goodName,
+		(SELECT mapNumber from ly_good,ly_blank where ly_good.id=ly_blank.goodId and ly_blank.id=ly_blank_process.blankId) as mapNumber,
+		(SELECT goodSize from ly_good,ly_blank where ly_good.id=ly_blank.goodId and ly_blank.id=ly_blank_process.blankId) as goodSize,
+		FORMAT((SELECT taxPrice from ly_good,ly_blank where ly_good.id=ly_blank.goodId and ly_blank.id=ly_blank_process.blankId),2) as taxPrice,
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) as processName,
+		(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId) as orderId,
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) as contractNumber,
+		(select CONCAT_WS("-",accountName,userName) from ly_user where ly_user.id=ly_workersubmit.submiterId) as accountShow
+		from ly_workersubmit,ly_blank_process
+		where ly_workersubmit.blankprocessId=ly_blank_process.id
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				<if test="startTime != null and startTime != ''">
+					and ly_workersubmit.completeTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_workersubmit.completeTime &lt; '${endTime}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and (ly_workersubmit.completeTime is  null
+
+					or ly_workersubmit.completeTime='')
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		and
+		(
+		(select name from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) like   '%${content}%' or
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) like  '%${content}%'
+		)
+		AND (
+		(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${user}%' or
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${user}%'
+		)
+
+
+		<if test="sort != null and sort != ''">
+			<if test="sort=='blankSize'">
+				order by ${sort} ${order}
+			</if>
+		</if>
+		<if test="sort == null or sort == ''">
+			<if test="state == '已完成'">
+				ORDER BY ly_workersubmit.completeTime DESC
+			</if>
+			<if test="state != '已完成'">
+				ORDER BY ly_workersubmit.startTime DESC
+			</if>
+		</if>
+	</select>
+
+
+	<select id="findCountByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_workersubmit,ly_blank_process
+		where ly_workersubmit.blankprocessId=ly_blank_process.id
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				<if test="startTime != null and startTime != ''">
+					and ly_workersubmit.completeTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_workersubmit.completeTime &lt; '${endTime}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and (ly_workersubmit.completeTime is  null
+
+					or ly_workersubmit.completeTime='')
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		and
+		(
+		(select name from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) like   '%${content}%' or
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) like  '%${content}%'
+		)
+		AND
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${user}%'
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_workersubmit
+		where id=#{id}
+	</delete>
+
+	<select id="findAllMoneyByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select convert(SUM(wages),decimal(10,2)) as wages,
+		convert(SUM(trueWages),decimal(10,2)) as trueWages,
+		convert(SUM(deductWages),decimal(10,2)) as deductWages,
+		SUM(ly_workersubmit.amount) as amount,
+		SUM(ly_workersubmit.completeAmount) as completeAmount,
+		SUM(ly_workersubmit.badAmount) as badAmount
+		from ly_workersubmit,ly_blank_process
+		where ly_workersubmit.blankprocessId=ly_blank_process.id
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				<if test="startTime != null and startTime != ''">
+					and ly_workersubmit.completeTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_workersubmit.completeTime &lt; '${endTime}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and (ly_workersubmit.completeTime is  null
+
+					or ly_workersubmit.completeTime='')
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		and
+		(
+		(select name from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select mapNumber from ly_good,ly_good_process where ly_good.id=ly_good_process.goodId and ly_good_process.id=ly_blank_process.goodprocessId) like   '%${content}%' or
+		(select ly_order.contractNumber from ly_order where ly_order.id=(select ly_order_details.orderId from ly_order_details,ly_blank where ly_order_details.id=ly_blank.orderdetailsId and ly_blank.id=ly_blank_process.blankId and ly_blank.id=ly_blank_process.blankId)) like   '%${content}%' or
+		(select ly_process.`name` from ly_process,ly_good_process where ly_process.id=ly_good_process.processId and ly_good_process.id=ly_blank_process.goodprocessId) like  '%${content}%'
+		)
+		AND (
+		(select accountName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${user}%' or
+		(select userName from ly_user where ly_user.id=ly_workersubmit.submiterId) like  '%${user}%'
+		)
+	</select>
+</mapper>

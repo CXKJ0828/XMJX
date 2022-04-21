@@ -1,0 +1,785 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.OrderDetailsMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<select id="getUnCompleteOrderDetailsByOrderId" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,
+		ly_order_details.goodId,
+		ly_order_details.boxId,
+		ly_order_details.sendRemarks,
+		ly_order_details.alreadysendAmount,
+		ly_order_details.sendTime,
+		ly_order_details.unsendAmount,
+		(select ly_order.makeTime from ly_order where ly_order.id=ly_order_details.orderId) as makeTime,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_order_details.goodId) as stockAmount,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+		(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select ly_good.materialQuality from ly_good where ly_good.id=ly_order_details.goodId) as materialQuality,
+		(select ly_good.roughcastSize from ly_good where ly_good.id=ly_order_details.goodId) as roughcastSize,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+		(select ly_good.taxPrice from ly_good where ly_good.id=ly_order_details.goodId) as taxPrice,
+		(select ly_good.nottaxPrice from ly_good where ly_good.id=ly_order_details.goodId) as nottaxPrice,
+		ly_order_details.money,
+		ly_order_details.ordertaxPrice,
+		ly_order_details.ordernottaxPrice,
+		ly_order_details.amount,
+		ly_order_details.remakrs,
+		ly_order_details.deliveryTime,
+		ly_order_details.modifytime,
+		ly_order_details.userId,
+		(select userName from ly_user where ly_user.id=userId) as userName,
+		ly_order_details.state,
+		ly_order_details.orderId
+		from ly_order_details
+		where ly_order_details.orderId='${orderId}'
+		and ly_order_details.state!='已完成生产'
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+		ORDER BY (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId)
+	</select>
+	<select id="getOrderDetailsByOrderId" resultType="com.zhjh.entity.OrderDetailsFormMap">
+	select
+ly_order_details.id,
+ly_order_details.goodId,
+ly_order_details.boxId,
+ly_order_details.sendRemarks,
+ly_order_details.alreadysendAmount,
+ly_order_details.sendTime,
+ly_order_details.unsendAmount,
+(select ly_order.makeTime from ly_order where ly_order.id=ly_order_details.orderId) as makeTime,
+(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_order_details.goodId) as stockAmount,
+(select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+(select ly_good.materialQuality from ly_good where ly_good.id=ly_order_details.goodId) as materialQuality,
+(select ly_good.roughcastSize from ly_good where ly_good.id=ly_order_details.goodId) as roughcastSize,
+(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+(select ly_good.taxPrice from ly_good where ly_good.id=ly_order_details.goodId) as taxPrice,
+(select ly_good.nottaxPrice from ly_good where ly_good.id=ly_order_details.goodId) as nottaxPrice,
+ly_order_details.money,
+ly_order_details.ordertaxPrice,
+ly_order_details.ordernottaxPrice,
+ly_order_details.amount,
+ly_order_details.remakrs,
+ly_order_details.deliveryTime,
+ly_order_details.modifytime,
+ly_order_details.userId,
+(select userName from ly_user where ly_user.id=userId) as userName,
+ly_order_details.state,
+ly_order_details.orderId
+from ly_order_details
+where ly_order_details.orderId='${orderId}'
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+ORDER BY (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId)
+	</select>
+	<select id="getOrderDetailsByClientId"  resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,
+		ly_order_details.boxId,
+		ly_order_details.sendRemarks,
+		ly_order.contractNumber,
+		(select fullName from ly_client where ly_client.id=ly_order.clientId) as fullName,
+		ly_order_details.goodId,
+		ly_order_details.alreadysendAmount,
+		ly_order_details.sendTime,
+		ly_order_details.unsendAmount,
+		(select ly_order.makeTime from ly_order where ly_order.id=ly_order_details.orderId) as makeTime,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_order_details.goodId) as stockAmount,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+		(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+		(select ly_good.roughcastSize from ly_good where ly_good.id=ly_order_details.goodId) as roughcastSize,
+		(select ly_good.taxPrice from ly_good where ly_good.id=ly_order_details.goodId) as taxPrice,
+		(select ly_good.nottaxPrice from ly_good where ly_good.id=ly_order_details.goodId) as nottaxPrice,
+		(select ly_good.materialCode from ly_good where ly_good.id=ly_order_details.goodId) as materialCode,
+		ly_order_details.money,
+		ly_order_details.ordertaxPrice,
+		ly_order_details.ordernottaxPrice,
+		ly_order_details.amount,
+		ly_order_details.remakrs,
+		ly_order_details.deliveryTime,
+		ly_order_details.modifytime,
+		ly_order_details.userId,
+		(select userName from ly_user where ly_user.id=ly_order_details.userId) as userName,
+		ly_order_details.state,
+		ly_order_details.orderId
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		<include refid="selectWhere" />
+	</select>
+	<select id="getSumAmountOrderDetailsByClientId"  resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		sum(amount) as sumAmount,
+		sum(alreadysendAmount) as sumAlreadysendAmount,
+		sum(unsendAmount) as sumUnsendAmount
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		<include refid="selectWhere" />
+	</select>
+	<select id="getOrderDetailsIdsByClientIdAndDeliveryTime"  resultType="java.lang.String">
+		select IFNULL(GROUP_CONCAT(DISTINCT ly_materialbuyorder_details.id),"") from ly_order_details,ly_order,ly_blank,ly_materialbuyorderdetails_blank,ly_materialbuyorder_details
+		where
+		ly_order.id=ly_order_details.orderId
+		and ly_blank.orderdetailsId=ly_order_details.id
+		and ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != '' and clientId != '不限'">
+			and ly_order.clientId  in (${clientId})
+		</if>
+	</select>
+	<select id="getOrderDetailsCountByClientId"  parameterType="String" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		<include refid="selectWhere" />
+	</select>
+	<sql id="selectWhere">
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+		and ly_order.contractNumber like '%${contractNumber}%'
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="goodName != null and goodName != ''  and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and (select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) LIKE '%垫%'
+				OR
+				(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) not LIKE '%垫%'
+				and
+				(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) not LIKE '%片%'
+				and
+				(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) not LIKE '%轴%'
+				and
+				(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) not LIKE '%套%'
+				)
+			</if>
+		</if>
+	</sql>
+	<select id="getTrackCount"  resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_order,ly_order_details,ly_good
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.goodId=ly_good.id
+		<include refid="selectTrackWhere" />
+	</select>
+	<select id="getTrackAmountSum"  resultType="java.lang.Float">
+		select
+		IFNULL(sum(ly_order_details.amount) ,0)
+		from ly_order,ly_order_details,ly_good
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.goodId=ly_good.id
+		<include refid="selectTrackWhere" />
+	</select>
+	<select id="getTrackContent"  resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id ,
+		(select ly_client.simpleName from ly_client where ly_client.id=ly_order.clientId) as clientSimpleName,
+		ly_order.contractNumber,
+		ly_good.mapNumber,
+		ly_good.`name`,
+		ly_good.goodSize,
+		(select ly_blank.blankSize from ly_blank where ly_blank.orderdetailsId=ly_order_details.id) as blankSize,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_good.materialQuality) as materialQualityName,
+		ly_order.makeTime,
+		ly_order_details.deliveryTime,
+		ly_order_details.amount,
+		(select isFinish from ly_blank where ly_blank.orderdetailsId=ly_order_details.id) as blankIsFinish,
+		(select finishTime from ly_blank where ly_blank.orderdetailsId=ly_order_details.id) as finishTime,
+		(select ly_heattreat.turnerIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) as turnerIsFinish,
+		(select date_format(ly_heattreat.turnerCompleteTime,'%Y-%m-%d %H:%i') from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) as turnerCompleteTime,
+		(select ly_heattreat.carburizationIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) as carburizationIsFinish,
+		(select ly_heattreat.feedIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) as feedIsFinish
+		from ly_order,ly_order_details,ly_good
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.goodId=ly_good.id
+		<include refid="selectTrackWhere" />
+		<if test="sort != null and sort != ''">
+			<if test="sort== 'goodSize'">
+				order by substring_index(replace(ly_good.goodSize,"Φ",""),"*",1)+0 ${order}
+			</if>
+			<if test="sort== 'blankSize'">
+				order by substring_index(replace((select ly_blank.blankSize from ly_blank where ly_blank.orderdetailsId=ly_order_details.id),"Φ",""),"*",1)+0 ${order}
+			</if>
+			<if test="sort!= 'goodSize' and sort != 'blankSize'">
+				order by ${sort} ${order}
+			</if>
+		</if>
+	</select>
+	<select id="getClientSimpleNameTrack"  resultType="com.zhjh.bean.ComboboxEntity">
+		select
+		DISTINCT ly_client.id,
+		ly_client.simpleName as text
+		from ly_order,ly_order_details,ly_good,ly_client
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.goodId=ly_good.id
+		and ly_client.id=ly_order.clientId
+		<include refid="selectTrackWhere" />
+	</select>
+	<sql id="selectTrackWhere">
+		and ly_order_details.trackIsShow!='否'
+		<if test="makeTimestart != null and makeTimestart != '' and makeTimestart != '不限'">
+			and
+			ly_order.makeTime  &gt;= '${makeTimestart}'
+		</if>
+		<if test="makeTimeend != null and makeTimeend != '' and makeTimeend != '不限'">
+			and
+			ly_order.makeTime  &lt;= '${makeTimeend}'
+		</if>
+		<if test="deliveryTimestart != null and deliveryTimestart != ''">
+			and ly_order_details.deliveryTime &gt;= '${deliveryTimestart}'
+		</if>
+		<if test="deliveryTimeend != null and deliveryTimeend != ''">
+			and ly_order_details.deliveryTime &lt; '${deliveryTimeend}'
+		</if>
+		<if test="clientId != null and clientId != '' and clientId != '不限'">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="blankIsFinish != null and blankIsFinish != '' and blankIsFinish != '不限'">
+			<if test="blankIsFinish == '未接收'">
+				and (select isFinish from ly_blank where ly_blank.orderdetailsId=ly_order_details.id) = ''
+			</if>
+			<if test="blankIsFinish != '未接收'">
+				and (select isFinish from ly_blank where ly_blank.orderdetailsId=ly_order_details.id) = '${blankIsFinish}'
+			</if>
+		</if>
+		<if test="turnerIsFinish != null and turnerIsFinish != '' and turnerIsFinish != '不限'">
+			<if test="turnerIsFinish == '未接收'">
+				and (select ly_heattreat.turnerIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) is null
+			</if>
+			<if test="turnerIsFinish != '未接收'">
+				and (select ly_heattreat.turnerIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) = '${turnerIsFinish}'
+			</if>
+		</if>
+		<if test="carburizationIsFinish != null and carburizationIsFinish != '' and carburizationIsFinish != '不限'">
+			<if test="carburizationIsFinish == '未接收'">
+				and (select ly_heattreat.carburizationIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) is null
+			</if>
+			<if test="carburizationIsFinish != '未接收'">
+				and (select ly_heattreat.carburizationIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) = '${carburizationIsFinish}'
+			</if>
+		</if>
+		<if test="feedIsFinish != null and feedIsFinish != '' and feedIsFinish != '不限'">
+			<if test="feedIsFinish == '未接收'">
+				and (select ly_heattreat.feedIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) is null
+			</if>
+			<if test="feedIsFinish != '未接收'">
+				and (select ly_heattreat.feedIsFinish from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1) = '${feedIsFinish}'
+			</if>
+		</if>
+		<if test="goodName != null and goodName != ''  and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and ly_good.name LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				ly_good.name LIKE '%垫%'
+				OR
+				ly_good.name LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				ly_good.name not LIKE '%垫%'
+				and
+				ly_good.name not LIKE '%片%'
+				and
+				ly_good.name not LIKE '%轴%'
+				and
+				ly_good.name not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="materialQuality != '不限'">
+			<if test="materialQuality != null and materialQuality != ''">
+				and ly_good.materialQuality =  '${materialQuality}'
+			</if>
+		</if>
+		<if test="isWarning == 'true'">
+			and DATEDIFF(date_format(now(),'%Y-%m-%d'),
+			(select date_format(ly_heattreat.turnerCompleteTime,'%Y-%m-%d') from ly_heattreat where ly_heattreat.deliveryTime=ly_order_details.deliveryTime and ly_heattreat.goodId=ly_order_details.goodId and ly_heattreat.contractNumber=ly_order.contractNumber LIMIT 0,1)
+			)>6
+		</if>
+		<if test="content != null and content != ''">
+			and (
+
+			ly_order.contractNumber like '%${content}%'
+			OR
+			ly_good.goodSize like '%${content}%'
+			)
+		</if>
+	</sql>
+	<update id="updateTrackIsShowByIdsAndState">
+		update ly_order_details set trackIsShow='${state}' where ly_order_details.id in (${ids})
+	</update>
+	<select id="getCountByContractNumberAndMapNumber"  parameterType="String" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId)=#{mapNumber}
+		and ly_order.contractNumber=#{contractNumber}
+	</select>
+	<select id="getGoodIdAndOrderdetailsIdByContractNumberAndMapNumber"  parameterType="String" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,ly_order_details.goodId
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId)=#{mapNumber}
+		and ly_order.contractNumber=#{contractNumber}
+	</select>
+	<select id="getAllByContractNumberAndMapNumber"  parameterType="String" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.*
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId)=#{mapNumber}
+		and ly_order.contractNumber=#{contractNumber}
+	</select>
+	<select id="findIdByContractNumberAndGoodIdAndDeliveryTime" resultType="java.lang.String">
+		select ly_order_details.id
+		from ly_order_details,ly_order
+		where ly_order_details.orderId=ly_order.id
+		and ly_order.contractNumber=#{contractNumber}
+		and ly_order_details.goodId=#{goodId}
+		and ly_order_details.deliveryTime=#{deliveryTime}
+	</select>
+	<select id="getExpectClientGoodAmountSum"  parameterType="String" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		COALESCE(sum(amount),0) as amountSum,
+		COALESCE(sum(alreadysendAmount),0) as alreadysendAmountSum
+		from ly_order,ly_order_details
+		where ly_order.id=ly_order_details.orderId
+		<include refid="whereExpectClientGood" />
+	</select>
+	<select id="getExpectClientGoodCount"  parameterType="String" resultType="java.lang.Integer">
+		select
+		count(DISTINCT clientId,goodId)
+		from ly_order,ly_order_details
+		where ly_order.id=ly_order_details.orderId
+		<include refid="whereExpectClientGood" />
+	</select>
+	<sql id="whereExpectClientGood">
+		<if test="month != null and month != ''">
+			and ly_order_details.deliveryTime like '${month}%'
+		</if>
+		<if test="mapNumber != null and mapNumber != ''">
+			and (select mapNumber from ly_good where ly_good.id=goodId)  like '%${mapNumber}%'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		<if test="goodName != null and goodName != ''  and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and (select name from ly_good where ly_good.id=goodId) LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				(select name from ly_good where ly_good.id=goodId) LIKE '%垫%'
+				OR
+				(select name from ly_good where ly_good.id=goodId) LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				(select name from ly_good where ly_good.id=goodId) not LIKE '%垫%'
+				and
+				(select name from ly_good where ly_good.id=goodId) not LIKE '%片%'
+				and
+				(select name from ly_good where ly_good.id=goodId) not LIKE '%轴%'
+				and
+				(select name from ly_good where ly_good.id=goodId) not LIKE '%套%'
+				)
+			</if>
+		</if>
+	</sql>
+
+	<select id="getExpectClientGood"  parameterType="String" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,
+		ly_order_details.goodId,
+		ly_order.clientId,
+		(select fullName from ly_client where ly_client.id=clientId) as fullName,
+		(select mapNumber from ly_good where ly_good.id=goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=goodId) as goodName,
+		(select goodSize from ly_good where ly_good.id=goodId) as goodSize,
+		CONCAT_WS('-',COALESCE(sum(ly_order_details.amount),0),COALESCE(sum(ly_order_details.alreadysendAmount),0)) as amountSum,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','01')) as amount1,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','02')) as amount2,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','03')) as amount3,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','04')) as amount4,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','05')) as amount5,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','06')) as amount6,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','07')) as amount7,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','08')) as amount8,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','09')) as amount9,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','10')) as amount10,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','11')) as amount11,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','12')) as amount12,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','13')) as amount13,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','14')) as amount14,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','15')) as amount15,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','16')) as amount16,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','17')) as amount17,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','18')) as amount18,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','19')) as amount19,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','20')) as amount20,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','21')) as amount21,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','22')) as amount22,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','23')) as amount23,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','24')) as amount24,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','25')) as amount25,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','26')) as amount26,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','27')) as amount27,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','28')) as amount28,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','29')) as amount29,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','30')) as amount30,
+		(select (CONCAT_WS('-',COALESCE(sum(orderdetails.amount),0),COALESCE(sum(orderdetails.alreadysendAmount),0))) from ly_order_details as orderdetails where orderdetails.goodId=ly_order_details.goodId and orderdetails.deliveryTime=CONCAT_WS('-','${month}','31')) as amount31
+		from ly_order,ly_order_details
+		where ly_order.id=ly_order_details.orderId
+		<include refid="whereExpectClientGood" />
+		GROUP BY clientId,goodId
+	</select>
+
+	<select id="getExpectClientGoodDetails" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		clientId,
+		ly_order_details.id,
+		ly_order.contractNumber,
+		ly_order.makeTime,
+		ly_order_details.deliveryTime,
+		(select fullName from ly_client where ly_client.id=clientId) as fullName,
+		ly_order_details.goodId,
+		(select mapNumber from ly_good where ly_good.id=goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=goodId) as goodName,
+		(select goodSize from ly_good where ly_good.id=goodId) as goodSize,
+		ly_order_details.amount,
+		ly_order_details.unsendAmount,
+		ly_order_details.alreadysendAmount
+		from ly_order,ly_order_details
+		where ly_order.id=ly_order_details.orderId
+		and clientId='${clientId}'
+		and ly_order_details.goodId='${goodId}'
+		<if test="month != null and month != ''">
+			and ly_order_details.deliveryTime like '${month}%'
+		</if>
+	</select>
+
+	<select id="findStateCountByOrderId" parameterType="String" resultType="java.lang.Integer">
+		select COUNT(DISTINCT state) as count from ly_order_details where orderId=#{orderId}
+	</select>
+
+	<select id="getUnsendOrderDetailsByClientId"   resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,
+		ly_order_details.boxId,
+		ly_order_details.sendRemarks,
+		ly_order_details.sendAmount,
+		ly_order.contractNumber,
+		(select fullName from ly_client where ly_client.id=ly_order.clientId) as fullName,
+		ly_order_details.goodId,
+		ly_order_details.alreadysendAmount,
+		ly_order_details.sendTime,
+		ly_order_details.unsendAmount,
+		(select ly_order.makeTime from ly_order where ly_order.id=ly_order_details.orderId) as makeTime,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_order_details.goodId) as stockAmount,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+		(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select ly_good.roughcastSize from ly_good where ly_good.id=ly_order_details.goodId) as roughcastSize,
+		(select ly_good.taxPrice from ly_good where ly_good.id=ly_order_details.goodId) as taxPrice,
+		(select ly_good.nottaxPrice from ly_good where ly_good.id=ly_order_details.goodId) as nottaxPrice,
+		(select ly_good.materialCode from ly_good where ly_good.id=ly_order_details.goodId) as materialCode,
+		ly_order_details.money,
+		ly_order_details.ordertaxPrice,
+		ly_order_details.ordernottaxPrice,
+		ly_order_details.amount,
+		ly_order_details.remakrs,
+		ly_order_details.deliveryTime,
+		ly_order_details.modifytime,
+		ly_order_details.userId,
+		(select userName from ly_user where ly_user.id=ly_order_details.userId) as userName,
+		ly_order_details.state,
+		ly_order_details.orderId
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.state!='已全部发货'
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+		and ly_order.contractNumber like '%${contractNumber}%'
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+	</select>
+
+	<select id="getUnproductOrderDetailsByClientId"   resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,
+		ly_order_details.boxId,
+		ly_order_details.sendRemarks,
+		ly_order_details.sendAmount,
+		ly_order.contractNumber,
+		(select fullName from ly_client where ly_client.id=ly_order.clientId) as fullName,
+		ly_order_details.goodId,
+		ly_order_details.alreadysendAmount,
+		ly_order_details.sendTime,
+		ly_order_details.unsendAmount,
+		(select ly_order.makeTime from ly_order where ly_order.id=ly_order_details.orderId) as makeTime,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_order_details.goodId) as stockAmount,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+		(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select ly_good.roughcastSize from ly_good where ly_good.id=ly_order_details.goodId) as roughcastSize,
+		(select ly_good.taxPrice from ly_good where ly_good.id=ly_order_details.goodId) as taxPrice,
+		(select ly_good.nottaxPrice from ly_good where ly_good.id=ly_order_details.goodId) as nottaxPrice,
+		(select ly_good.materialCode from ly_good where ly_good.id=ly_order_details.goodId) as materialCode,
+		ly_order_details.money,
+		ly_order_details.ordertaxPrice,
+		ly_order_details.ordernottaxPrice,
+		ly_order_details.amount,
+		ly_order_details.remakrs,
+		ly_order_details.deliveryTime,
+		ly_order_details.modifytime,
+		ly_order_details.userId,
+		(select userName from ly_user where ly_user.id=ly_order_details.userId) as userName,
+		ly_order_details.state,
+		ly_order_details.orderId
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.state!='已完成生产'
+		<if test="mapNumber != null and mapNumber != ''">
+			and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and ly_order.contractNumber like '%${contractNumber}%'
+		</if>
+
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id=${orderId}
+		</if>
+		<if test="orderdetailsId != null and orderdetailsId != ''">
+			and ly_order_details.id=${orderdetailsId}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		ORDER BY (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId)
+	</select>
+	<select id="getUnsendOrderDetailsNoSitationByClientId"   resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,
+		ly_order_details.boxId,
+		ly_order_details.sendRemarks,
+		ly_order_details.sendAmount,
+		ly_order.contractNumber,
+		(select fullName from ly_client where ly_client.id=ly_order.clientId) as fullName,
+		ly_order_details.goodId,
+		ly_order_details.alreadysendAmount,
+		ly_order_details.sendTime,
+		ly_order_details.unsendAmount,
+		(select ly_order.makeTime from ly_order where ly_order.id=ly_order_details.orderId) as makeTime,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_order_details.goodId) as stockAmount,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+		(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select ly_good.roughcastSize from ly_good where ly_good.id=ly_order_details.goodId) as roughcastSize,
+		(select ly_good.taxPrice from ly_good where ly_good.id=ly_order_details.goodId) as taxPrice,
+		(select ly_good.nottaxPrice from ly_good where ly_good.id=ly_order_details.goodId) as nottaxPrice,
+		(select ly_good.materialCode from ly_good where ly_good.id=ly_order_details.goodId) as materialCode,
+		ly_order_details.money,
+		ly_order_details.ordertaxPrice,
+		ly_order_details.ordernottaxPrice,
+		ly_order_details.amount,
+		ly_order_details.remakrs,
+		ly_order_details.deliveryTime,
+		ly_order_details.modifytime,
+		ly_order_details.userId,
+		(select userName from ly_user where ly_user.id=ly_order_details.userId) as userName,
+		ly_order_details.state,
+		ly_order_details.orderId
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.state!='已全部发货'
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+		and ly_order.contractNumber like '%${contractNumber}%'
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		and ly_order_details.isHide!='true'
+	</select>
+	<update id="updateHideByIds">
+		update ly_order_details set isHide='true'
+		where FIND_IN_SET(id,(#{ids}))
+	</update>
+
+	<select id="getCountUnproductOrderDetailsByClientId"   resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.state!='已完成生产'
+		<if test="mapNumber != null and mapNumber != ''">
+			and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and ly_order.contractNumber like '%${contractNumber}%'
+		</if>
+		<if test="orderId != null and orderId != ''">
+			and ly_order.id=${orderId}
+		</if>
+		<if test="orderdetailsId != null and orderdetailsId != ''">
+			and ly_order_details.id=${orderdetailsId}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+
+	</select>
+
+	<select id="getCountUnsendOrderDetailsByClientId"   resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_order_details,ly_order
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.state!='已全部发货'
+		and (select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${mapNumber}%'
+		and ly_order.contractNumber like '%${contractNumber}%'
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+	</select>
+
+	<select id="findById" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		ly_order_details.id,
+		ly_order_details.boxId,
+ly_order_details.sendRemarks,
+ly_order_details.sendAmount,
+ly_order_details.sendState,
+		ly_order_details.goodId,
+		ly_order_details.alreadysendAmount,
+		ly_order_details.sendTime,
+		ly_order_details.unsendAmount,
+		(select ly_order.contractNumber from ly_order where ly_order.id=ly_order_details.orderId) as contractNumber,
+		(select ly_order.makeTime from ly_order where ly_order.id=ly_order_details.orderId) as makeTime,
+		(select ly_stock.amount from ly_stock where ly_stock.goodId=ly_order_details.goodId) as stockAmount,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+		(select ly_good.materialCode from ly_good where ly_good.id=ly_order_details.goodId) as materialCode,
+		(select ly_good.materialQuality from ly_good where ly_good.id=ly_order_details.goodId) as materialQuality,
+		(select ly_good.name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+		(select ly_good.roughcastSize from ly_good where ly_good.id=ly_order_details.goodId) as roughcastSize,
+		(select ly_good.taxPrice from ly_good where ly_good.id=ly_order_details.goodId) as taxPrice,
+		(select ly_good.nottaxPrice from ly_good where ly_good.id=ly_order_details.goodId) as nottaxPrice,
+		ly_order_details.money,
+		ly_order_details.ordertaxPrice,
+		ly_order_details.ordernottaxPrice,
+		ly_order_details.amount,
+		ly_order_details.remakrs,
+		ly_order_details.deliveryTime,
+		ly_order_details.modifytime,
+		ly_order_details.userId,
+		(select userName from ly_user where ly_user.id=userId) as userName,
+		ly_order_details.state,
+		ly_order_details.orderId
+		from ly_order_details
+		where ly_order_details.id=#{id}
+		order by boxId
+	</select>
+
+	<select id="findGoodMesageById" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+		(select id from ly_good where ly_good.id=ly_blank.goodId) as id,
+		(select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) as deliveryTime,
+		ly_order_details.state,
+		(select mapNumber from ly_good where ly_good.id=ly_blank.goodId) as mapNumber,
+		(select img from ly_good where ly_good.id=ly_blank.goodId) as img,
+		(select name from ly_good where ly_good.id=ly_blank.goodId) as goodName,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_blank.materialQuality) as materialQualityName,
+		ly_good.goodWeight as weight
+		from ly_blank,ly_order_details,ly_good
+		where
+		ly_blank.orderdetailsId=ly_order_details.id
+		and ly_order_details.goodId=ly_good.id
+		and ly_blank.orderdetailsId=${id}
+		<if test="origin != null and origin != ''">
+			and ly_blank.origin='${origin}'
+		</if>
+		limit 0,1
+	</select>
+	<update id="updateStateById">
+		update ly_order_details set state='已完成生产' where ly_order_details.id=#{id}
+	</update>
+	<select id="getOrderAndGoodByOrderDetailsId" parameterType="String" resultType="com.zhjh.entity.OrderDetailsFormMap">
+		select
+orderId,
+(select name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+(select goodSize from ly_good where ly_good.id=ly_order_details.goodId) as goodSize,
+(select mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber,
+(select materialQuality from ly_good where ly_good.id=ly_order_details.goodId) as materialQuality,
+(select ly_order.contractNumber from ly_order where ly_order.id=ly_order_details.orderId) as contractNumber,
+goodId
+ from ly_order_details where ly_order_details.id=#{orderdetailsId}
+	</select>
+
+	<delete id="deleteByOrderId" parameterType="String">
+		delete from
+		ly_order_details
+		where orderId=#{orderId}
+	</delete>
+</mapper>

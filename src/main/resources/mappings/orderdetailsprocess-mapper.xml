@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.OrderDetailsProcessMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<select id="getDetailsByOrderDetailsId" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+	select ly_order_details_process.id,
+ly_order_details_process.processId,
+ly_order_details_process.unusualUserId,
+ly_order_details_process.unusualTime,
+(select userName from ly_user where ly_user.id=ly_order_details_process.unusualUserId) as unusualName,
+ly_order_details_process.time,
+ly_order_details_process.orderdetailsId,
+ly_order_details_process.state,
+ly_process.`code`,
+ly_process.`name`,
+ly_order_details_process.amount,
+ly_order_details_process.uncompleteAmount,
+ly_order_details_process.completeAmount
+ from ly_order_details_process,ly_process
+where ly_order_details_process.processId=ly_process.id
+ AND
+ ly_order_details_process.orderdetailsId='${orderdetailsId}'
+	</select>
+
+	<select id="getProcessDetailsByOrderId" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+		select ly_order.id,ly_process.name as processName,ly_order_details_process.time
+from ly_order,ly_order_details,ly_order_details_process,ly_process
+where ly_order.id=ly_order_details.orderId
+and ly_order_details.id=ly_order_details_process.orderdetailsId
+and ly_process.id=ly_order_details_process.processId
+and ly_order.id='${orderId}'
+	</select>
+
+	<select id="getSumUseTimesByOrderId" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+select
+ sum(time) as alltime,
+ly_process.name as processName,
+ly_process.id as processId,
+sum(usetime) as usetime
+from ly_order_details_process,ly_process
+where
+ ly_process.id=ly_order_details_process.processId
+and ly_order_details_process.orderdetailsId in (select id from ly_order_details where orderId='${orderId}') GROUP BY processId
+	</select>
+
+	<select id="getProcessAllTimeByOrderId" resultType="java.lang.Float">
+		select sum(ly_order_details_process.time) as allTime
+		from ly_order,ly_order_details,ly_order_details_process,ly_process
+		where ly_order.id=ly_order_details.orderId
+		and ly_order_details.id=ly_order_details_process.orderdetailsId
+		and ly_process.id=ly_order_details_process.processId
+		and ly_order.id='${orderId}'
+	</select>
+
+	<select id="getStateCountByOrderdetailsprocessId" resultType="java.lang.Integer">
+		select DISTINCT count(DISTINCT state) as stateCount from ly_order_details_process
+		where ly_order_details_process.orderdetailsId=(select orderdetailsId from ly_order_details_process where id='${id}')
+	</select>
+
+	<select id="findByCompleteUserNameAndStartTimeAndEndTime" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+		select
+		ly_user.userName,
+		ly_order.orderId,
+		ly_order.name as ordername,
+		ly_order_details.goodName,
+		ly_order_details.goodId,
+		ly_order_details_process.id,
+		ly_order_details_process.processId,
+		ly_workersubmit.usetime as time,
+		ly_order_details_process.orderdetailsId,
+		ly_order_details_process.state,
+		ly_process.`code`,
+		ly_process.`name`,
+		DATE(ly_workersubmit.submitTime) as submitTime,
+		ly_workersubmit.amount as submitAmount,
+		ly_order_details_process.amount,
+		ly_order_details_process.uncompleteAmount,
+		ly_order_details_process.completeAmount
+		from ly_order_details_process,ly_process,ly_order,ly_order_details,ly_workersubmit,ly_user
+		where ly_order_details_process.processId=ly_process.id
+		and ly_workersubmit.orderdetailsprocessId=ly_order_details_process.id
+		and ly_order.id=ly_order_details.orderId
+		and ly_order_details.id=ly_order_details_process.orderdetailsId
+		and ly_user.id=ly_workersubmit.userId
+		and ly_user.userName like '%${userName}%'
+		<if test="startTime != null and startTime != ''">
+			and ly_workersubmit.submitTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_workersubmit.submitTime &lt; '${endTime}'
+		</if>
+		order by submitTime DESC
+	</select>
+
+	<select id="findProcessStateAndProcessByOrderId" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+		select ly_order_details.id,goodId,goodName,
+		(select name from ly_order where id=#{id}) as ordername,
+ly_order_details.amount,
+(select id  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 0,1) as orderdetailsprocessId1,
+(select id  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 1,1) as orderdetailsprocessId2,
+(select id  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 2,1) as orderdetailsprocessId3,
+(select id  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 3,1) as orderdetailsprocessId4,
+(select id  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 4,1) as orderdetailsprocessId5,
+(select processId  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 0,1) as processId1,
+(select processId  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 1,1) as processId2,
+(select processId  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 2,1) as processId3,
+(select processId  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 3,1) as processId4,
+(select processId  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 4,1) as processId5,
+(select name from ly_process where ly_process.id=processId1) as processName1,
+if((select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 0,1)='已完成',(select DATE(completeTime)  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 0,1),(select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 0,1)) as state1,
+if((select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 1,1)='已完成',(select DATE(completeTime)  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 1,1),(select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 1,1)) as state2,
+if((select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 2,1)='已完成',(select DATE(completeTime)  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 2,1),(select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 2,1)) as state3,
+if((select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 3,1)='已完成',(select DATE(completeTime)  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 3,1),(select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 3,1)) as state4,
+if((select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 4,1)='已完成',(select DATE(completeTime)  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 4,1),(select state  from ly_order_details_process where ly_order_details_process.orderdetailsId=ly_order_details.id LIMIT 4,1)) as state5,
+(select name from ly_process where ly_process.id=processId2) as processName2,
+(select name from ly_process where ly_process.id=processId3) as processName3,
+(select name from ly_process where ly_process.id=processId4) as processName4,
+(select name from ly_process where ly_process.id=processId5) as processName5
+		from ly_order_details
+		where  ly_order_details.orderId=#{id}
+	</select>
+
+
+	<select id="findByCompleteUserIdAndStartTimeAndEndTime" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+		select
+		ly_order.orderId,
+		ly_order_details.goodName,
+		ly_order_details.goodId,
+		ly_order_details_process.id,
+		ly_order_details_process.processId,
+		ly_workersubmit.usetime as time,
+		ly_order_details_process.orderdetailsId,
+		ly_order_details_process.state,
+		ly_process.`code`,
+		ly_process.`name`,
+		ly_workersubmit.submitTime,
+		ly_workersubmit.amount as submitAmount,
+		ly_order_details_process.amount,
+		ly_order_details_process.uncompleteAmount,
+		ly_order_details_process.completeAmount
+		from ly_order_details_process,ly_process,ly_order,ly_order_details,ly_workersubmit
+		where ly_order_details_process.processId=ly_process.id
+		and ly_workersubmit.orderdetailsprocessId=ly_order_details_process.id
+		and ly_order.id=ly_order_details.orderId
+		and ly_order_details.id=ly_order_details_process.orderdetailsId
+		and ly_workersubmit.userId='${completeUserId}'
+		<if test="startTime != null and startTime != ''">
+			and ly_workersubmit.submitTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_workersubmit.submitTime &lt; '${endTime}'
+		</if>
+		order by submitTime DESC
+	</select>
+
+	<select id="findTimeAndAmountByCompleteUserIdAndStartTimeAndEndTime" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+		select
+		sum(ly_workersubmit.amount) as allAmount,
+		FORMAT((sum(ly_workersubmit.usetime)),4)  as allTime
+		from ly_order_details_process,ly_process,ly_order,ly_order_details,ly_workersubmit
+		where ly_order_details_process.processId=ly_process.id
+		and ly_workersubmit.orderdetailsprocessId=ly_order_details_process.id
+		and ly_order.id=ly_order_details.orderId
+		and ly_order_details.id=ly_order_details_process.orderdetailsId
+		and ly_workersubmit.userId='${completeUserId}'
+		<if test="startTime != null and startTime != ''">
+			and ly_workersubmit.submitTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_workersubmit.submitTime &lt; '${endTime}'
+		</if>
+		order by submitTime DESC
+	</select>
+
+	<select id="findCountByCompleteUserNameAndStartTimeAndEndTime" resultType="java.lang.Integer">
+		select
+		count(DISTINCT ly_workersubmit.userId)
+		from ly_workersubmit,ly_user
+		where
+		ly_user.id=ly_workersubmit.userId
+		and ly_user.userName like '%${name}%'
+		<if test="starttime != null and starttime != ''">
+			and ly_workersubmit.submitTime &gt; '${starttime}'
+		</if>
+		<if test="endtime != null and endtime != ''">
+			and ly_workersubmit.submitTime &lt; '${endtime}'
+		</if>
+	</select>
+
+
+	<select id="findAllUseTimeAndAllAmountByCompleteUserNameAndStartTimeAndEndTime" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+		select
+		ly_user.userName,
+		ly_user.id as userId,
+		FORMAT((sum(ly_workersubmit.usetime)),4)  as allTime,
+		sum(ly_workersubmit.amount) as allAmount
+		from ly_workersubmit,ly_user
+		where
+		ly_user.id=ly_workersubmit.userId
+		and ly_user.userName like '%${name}%'
+		<if test="starttime != null and starttime != ''">
+			and ly_workersubmit.submitTime &gt; '${starttime}'
+		</if>
+		<if test="endtime != null and endtime != ''">
+			and ly_workersubmit.submitTime &lt; '${endtime}'
+		</if>
+		GROUP BY ly_user.id
+	</select>
+
+	<delete id="deleteByOrderId" parameterType="String">
+delete from ly_order_details_process
+where orderdetailsId in (select id from ly_order_details where orderId=#{orderId})
+	</delete>
+	<select id="getDetailsByBatchNumberAndRoleId" resultType="com.zhjh.entity.OrderDetailsProcessFormMap">
+		select
+		ly_order_details.orderId,
+		ly_order_details_process.id,
+ly_order_details_process.processId,
+ly_process.`name`,
+ly_process.`code`,
+ly_order_details.goodId,
+ly_order_details.goodName,
+ly_order_details_process.time,
+ly_order_details_process.state,
+ly_order_details_process.amount,
+ly_order_details_process.uncompleteAmount,
+ly_order_details_process.completeAmount
+ from ly_order_details,ly_order_details_process,ly_process,ly_role_process
+where
+ly_order_details.id=ly_order_details_process.orderdetailsId
+and
+ly_process.id=ly_order_details_process.processId
+and
+ly_process.id=ly_role_process.processId
+and
+batchNumber='${batchNumber}'
+and
+ly_role_process.roleId='${roleId}'
+and ly_order_details.orderId is not NULL
+	</select>
+</mapper>

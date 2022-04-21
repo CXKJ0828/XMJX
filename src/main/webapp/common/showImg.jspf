@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<title>新明机械企业管理系统</title>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<!--
+width - viewport的宽度 height - viewport的高度
+initial-scale - 初始的缩放比例
+minimum-scale - 允许用户缩放到的最小比例
+maximum-scale - 允许用户缩放到的最大比例
+user-scalable - 用户是否可以手动缩放
+ -->
+
+	<!-- base start 重要部分不可删改-->
+<script type="text/javascript" src="${ctx}/js/jquery-1.4.4.min.js"></script>
+
+<script type="text/javascript" src="${ctx}/js/site.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery.fs.zoomer.js"></script>
+
+
+<script type="text/javascript" src="${ctx}/js/jquery.jqprint-0.3.js"></script>
+
+<link rel="stylesheet" type="text/css" href="${ctx}/css/site.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/css/jquery.fs.zoomer.css">

@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.HeatTreatMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		ly_heattreat.id,
+		ly_heattreat.isPrint,
+		ly_heattreat.makeUser,
+		ly_heattreat.userNames,
+		ly_heattreat.isMakeCarburization,
+		ly_heattreat.isMakeMidfrequency,
+		(select count(*) from ly_good_process where ly_good.id=ly_good_process.goodId) as count,
+		ly_heattreat.clientId,
+(select ly_client.fullName from ly_client where ly_client.id=ly_heattreat.clientId) as clientName,
+		ly_good.taxPrice,
+		ly_good.img,
+		ly_heattreat.oprateProcessId,
+(select ly_process.`name` from ly_process where ly_process.id=ly_heattreat.oprateProcessId ) as opreateProcessShow,
+ly_heattreat.oprateState,
+ly_heattreat.oprateUserId,
+(select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_heattreat.oprateUserId) as opreateUserShow,
+(select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_heattreat.userId) as userShow,
+ly_heattreat.pickTime,
+ly_heattreat.contractNumber,
+ly_heattreat.goodId,
+ly_good.`name` as goodName,
+ly_good.mapNumber,
+ly_heattreat.goodSize,
+ly_heattreat.goodWeight,
+(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) as materialQualityName,
+(select name from ly_hardness where ly_hardness.id=ly_heattreat.hardnessId) as hardnessName,
+ly_heattreat.amount,
+ly_heattreat.distributionAmount,
+ly_heattreat.weight,
+ly_heattreat.materialQuality,
+ly_heattreat.hardnessId,
+ly_heattreat.deliveryTime,
+ly_heattreat.remarks1,
+ly_heattreat.backTime,
+ly_heattreat.backAmount,
+ly_heattreat.remarks2,
+ly_heattreat.isJump,
+ly_heattreat.sendAmount,
+ly_heattreat.sendTime,
+ly_heattreat.stockAmount,
+ly_heattreat.isSend,
+ly_heattreat.origin
+	</sql>
+
+	<sql id="selectDispatch">
+		ly_heattreat.id,
+ly_heattreat.clientId,
+(select fullname from ly_client where ly_client.id=ly_heattreat.clientId) as clientFullName,
+ly_heattreat.contractNumber,
+(select mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+(select name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+(select img from ly_good where ly_good.id=ly_heattreat.goodId) as img,
+ly_heattreat.materialQuality,
+(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) as materialQualityName,
+ly_heattreat.deliveryTime,
+ly_heattreat.pickTime,
+ly_heattreat.goodId,
+ly_heattreat.amount,ly_heattreat.goodSize
+	</sql>
+	<select id="findDispatchCountByDispatch" parameterType="String" resultType="java.lang.Integer">
+	SELECT
+	count(*)
+	from  ly_heattreat,ly_good
+	where
+		ly_good.id=ly_heattreat.goodId
+		and
+	<include refid="selectDispatchWhere" />
+	</select>
+	<select id="findBadOrderPrintContentById" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		select
+			contractNumber,
+			mapNumber,
+			ly_good.name,
+			taxPrice
+			 from ly_heattreat,ly_good
+			 where
+			ly_good.id=ly_heattreat.goodId
+			and
+			ly_heattreat.id=#{id}
+	</select>
+	<select id="findDispatchAmountByDispatch" parameterType="String" resultType="java.lang.String">
+		SELECT
+		sum(ly_heattreat.amount)
+		from  ly_heattreat,ly_good
+		where
+		ly_good.id=ly_heattreat.goodId
+		and
+		<include refid="selectDispatchWhere" />
+	</select>
+	<select id="findGoodIdById" parameterType="String" resultType="java.lang.String">
+		SELECT
+		ly_heattreat.goodId
+		from  ly_heattreat
+		where
+		ly_heattreat.id =#{id}
+	</select>
+	<select id="findDispatchContentByDispatch" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		<include refid="selectDispatch" />
+		from  ly_heattreat,ly_good
+		where
+		ly_good.id=ly_heattreat.goodId
+		and
+		<include refid="selectDispatchWhere" />
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+	<select id="findSmallShow2ClientByContent" resultType="com.zhjh.entity.HeatTreatFormMap">
+		select
+		DISTINCT ly_heattreat.clientId as id,
+		(select ly_client.fullName from ly_client where ly_client.id=ly_heattreat.clientId) as text,
+		'closed' as open
+		from  ly_heattreat,ly_good
+		where
+		ly_good.id=ly_heattreat.goodId
+		and
+		ly_heattreat.clientId is not NULL
+		and ly_heattreat.clientId!=''
+		and
+		<include refid="selectDispatchWhere" />
+	</select>
+	<select id="findSmallShow2OrderByContent" resultType="com.zhjh.entity.HeatTreatFormMap">
+		select
+		DISTINCT CONCAT_WS("",ly_heattreat.contractNumber,'订单') as id, ly_heattreat.contractNumber as text
+		from  ly_heattreat,ly_good
+		where
+		ly_good.id=ly_heattreat.goodId
+		and
+		<include refid="selectDispatchWhere" />
+		<if test="clientId != null and clientId != ''">
+			and ly_heattreat.clientId ='${clientId}'
+		</if>
+	</select>
+	<select id="findSmallShow2OrderDetailsByContent" resultType="com.zhjh.entity.HeatTreatFormMap">
+		select
+		DISTINCT CONCAT_WS("",ly_heattreat.goodId,'明细') as id,
+
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as text
+		from  ly_heattreat,ly_good
+		where
+		ly_good.id=ly_heattreat.goodId
+		and
+		<include refid="selectDispatchWhere" />
+		<if test="clientId != null and clientId != ''">
+			and ly_heattreat.clientId ='${clientId}'
+		</if>
+	</select>
+	<sql id="selectDispatchWhere">
+		<if test="origin == '正火调质'">
+			(
+			ly_heattreat.origin= '正火'
+			or
+			ly_heattreat.origin= '调质'
+			)
+		</if>
+		<if test="origin != '正火调质'">
+				ly_heattreat.origin= '${origin}'
+		</if>
+		<if test="contractNumber != null and contractNumber != ''">
+			and ly_heattreat.contractNumber like '%${contractNumber}%'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_heattreat.clientId = '${clientId}'
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and ly_good.name LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				ly_good.name LIKE '%垫%'
+				OR
+				ly_good.name LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				ly_good.name not LIKE '%垫%'
+				and
+				ly_good.name not LIKE '%片%'
+				and
+				ly_good.name not LIKE '%轴%'
+				and
+				ly_good.name not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="startTimePick != null and startTimePick != ''">
+			and ly_heattreat.pickTime &gt;= '${startTimePick}'
+		</if>
+		<if test="endTimePick != null and endTimePick != ''">
+			and ly_heattreat.pickTime &lt; '${endTimePick}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_heattreat.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_heattreat.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="mapNumber != null and mapNumber != '' and mapNumber != '不限'">
+			and ly_good.mapNumber like '%${mapNumber}%'
+		</if>
+		<if test="goodSize != null and goodSize != '' and goodSize != '不限'">
+			and ly_heattreat.goodSize like '%${goodSize}%'
+		</if>
+		<if test="materialQuality != null and materialQuality != '' and materialQuality != '不限'">
+			and (select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) like '%${materialQuality}%'
+		</if>
+	</sql>
+
+	<sql id="selectMainGoodAndOrder">
+ly_heattreat.id,
+		ly_good.mapNumber,
+		ly_good.`name`,
+			CONCAT_WS("",
+(select content from ly_system_config where ly_system_config.name='imgURL')
+,ly_good.img) as img,
+		ly_heattreat.contractNumber,
+ly_heattreat.deliveryTime
+	</sql>
+	<sql id="isPinShaftWhere">
+		and
+				ly_heattreat.isPinShaft ='是'
+				and (
+				ly_heattreat.backTime is not NULL
+				and
+				ly_heattreat.backTime!=""
+				)
+				and (
+				ly_good.`name` LIKE '%轴%'
+				OR
+				ly_good.`name` LIKE '%铰边%'
+				OR
+				ly_good.`name` LIKE '%铰销%'
+				)
+	</sql>
+	<sql id="isPadWhere">
+		and
+				ly_heattreat.isPad ='是'
+				and (
+				ly_heattreat.backTime is not NULL
+				and
+				ly_heattreat.backTime!=""
+				)
+				and (
+				ly_good.`name` LIKE '%垫%'
+				OR
+				ly_good.`name` LIKE '%片%'
+				)
+	</sql>
+	<sql id="isCarbehindpadWhere">
+		and (
+		ly_good.`name` LIKE '%垫%'
+		OR
+		ly_good.`name` LIKE '%片%'
+		)
+	</sql>
+	<sql id="isCarbehindpinshaftWhere">
+		and (
+		ly_good.`name` LIKE '%轴%'
+		OR
+		ly_good.`name` LIKE '%铰边%'
+		OR
+		ly_good.`name` LIKE '%铰销%'
+		)
+	</sql>
+	<sql id="isCarbehindsteelsleeveWhere">
+		and (
+		ly_good.`name` LIKE '%钢套%'
+		OR
+		ly_good.`name` LIKE '%钢司%'
+		)
+	</sql>
+	<sql id="isJumpWhere">
+		and ly_heattreat.isJump ='是'
+				and (
+				ly_heattreat.backTime is not NULL
+				and
+				ly_heattreat.backTime!=""
+				)
+				and (
+				ly_good.`name` LIKE '%钢套%'
+				OR
+				ly_good.`name` LIKE '%钢司%'
+				)
+	</sql>
+	<sql id="selectWhere">
+		<if test="origin != null and origin != ''">
+			and ly_heattreat.origin= '${origin}'
+		</if>
+		<if test="content != null and content != ''">
+			and (
+			ly_heattreat.contractNumber like '%${content}%' or
+			ly_good.mapNumber like '%${content}%' or
+			ly_heattreat.goodSize like '%${content}%' or
+			(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_good.materialQuality) like '%${content}%' or
+			(select name from ly_hardness where ly_hardness.id=ly_heattreat.hardnessId) like '%${content}%' or
+			ly_heattreat.remarks1 like '%${content}%' or
+			(select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_heattreat.oprateUserId) like '%${content}%' or
+			(select ly_process.`name` from ly_process where ly_process.id=ly_heattreat.oprateProcessId ) like '%${content}%' or
+			ly_heattreat.oprateState like '%${content}%' or
+			ly_heattreat.backTime like '%${content}%' or
+			ly_heattreat.remarks2 like '%${content}%'
+			)
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_heattreat.clientId = '${clientId}'
+		</if>
+		<choose>
+			<when test='remarks != null and remarks != "" and remarks=="外圆粗磨"'>
+				<include refid="isJumpWhere" />
+			</when>
+			<when test='remarks != null and remarks != "" and remarks=="外圆磨（轴）"'>
+				<include refid="isPinShaftWhere" />
+			</when>
+			<when test='remarks != null and remarks != "" and remarks=="平磨（垫片）"'>
+				<include refid="isPadWhere" />
+			</when>
+			<when test='remarks != null and remarks != "" and remarks=="成品库"'>
+				and ly_heattreat.origin= '成品库'
+			</when>
+			<when test='remarks != null and remarks != "" and remarks=="销轴"'>
+				<include refid="isCarbehindpinshaftWhere" />
+			</when>
+			<when test='remarks != null and remarks != "" and remarks=="钢套"'>
+				<include refid="isCarbehindsteelsleeveWhere" />
+			</when>
+			<when test='remarks != null and remarks != "" and remarks=="垫"'>
+				<include refid="isCarbehindpadWhere" />
+			</when>
+		</choose>
+
+		<if test="isMakeCarburization != null and isMakeCarburization != '' and isMakeCarburization != '不限'">
+			<if test="isMakeCarburization == '未生成'">
+				and (
+				ly_heattreat.isMakeCarburization is NULL
+				or
+				ly_heattreat.isMakeCarburization=""
+				)
+			</if>
+			<if test="isMakeCarburization == '已生成'">
+				and ly_heattreat.isMakeCarburization ='是'
+			</if>
+		</if>
+		<if test="isDistribution != null and isDistribution != ''">
+			<if test="isDistribution == '未分配'">
+				<if test="origin == '调质'">
+					and (
+					oprateProcessId is NULL
+					or
+					oprateProcessId=""
+					or (
+					ly_heattreat.oprateProcessId = '46619'
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id and ly_workersubmit_hearttreat.processId='46619')=1
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id )=1
+					)
+					)
+				</if>
+				<if test="origin == '中频'">
+					and (
+					oprateProcessId is NULL
+					or
+					oprateProcessId=""
+					or (
+					ly_heattreat.oprateProcessId = '46730'
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id and ly_workersubmit_hearttreat.processId='46730')=1
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id )=1
+					)
+					)
+				</if>
+				<if test="origin == '渗碳'">
+					and (
+					oprateProcessId is NULL
+					or
+					oprateProcessId=""
+					or (
+						ly_heattreat.oprateProcessId = '46742'
+						AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id and ly_workersubmit_hearttreat.processId='46742')=1
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id )=1
+						)
+					)
+				</if>
+				<if test="origin != '渗碳' and origin != '中频' and origin != '调质'">
+					and (
+					oprateProcessId is NULL
+					or
+					oprateProcessId="")
+				</if>
+			</if>
+			<if test="isDistribution == '已分配'">
+				<if test="origin == '调质'">
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id and ly_workersubmit_hearttreat.processId!='46619')>0
+				</if>
+				<if test="origin == '中频'">
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id and ly_workersubmit_hearttreat.processId!='46730')>0
+				</if>
+				<if test="origin == '渗碳'">
+					AND
+					(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id and ly_workersubmit_hearttreat.processId!='46742')>0
+				</if>
+				<if test="origin != '渗碳' and origin != '中频' and origin != '调质'">
+					and oprateProcessId is not NULL
+					and oprateProcessId !=''
+				</if>
+
+			</if>
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_heattreat.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_heattreat.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="materialQuality != null and materialQuality != ''">
+			and ly_heattreat.materialQuality = '${materialQuality}'
+		</if>
+		<if test="oprateProcessId != null and oprateProcessId != ''">
+			and ly_heattreat.oprateProcessId = '${oprateProcessId}'
+		</if>
+		<if test="userId != null and userId != ''">
+			and ly_heattreat.userId = '${userId}'
+		</if>
+		<if test="state != null and state != ''">
+			<if test="state=='未回料'">
+				and ly_heattreat.backAmount=''
+			</if>
+			<if test="state=='已回料'">
+				and ly_heattreat.backAmount!=''
+			</if>
+		</if>
+		<if test="sendstate != null and sendstate != ''">
+			<if test="sendstate=='未发货'">
+				and
+				isSend='否'
+			</if>
+			<if test="sendstate=='已发货'">
+				and
+				isSend='是'
+			</if>
+		</if>
+		<if test="getstate != null and getstate != '' and getstate != '不限'">
+			<if test="getstate=='未接收'">
+				and (oprateState is null or oprateState='')
+			</if>
+			<if test="getstate=='已接收'">
+				and
+				(select count(*) from ly_workersubmit_hearttreat where ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id and  ly_workersubmit_hearttreat.startTime!='' and ly_workersubmit_hearttreat.startTime is not null and (ly_workersubmit_hearttreat.completeTime='' or ly_workersubmit_hearttreat.completeTime is null))>0
+			</if>
+			<if test="getstate=='已完成'">
+				and oprateState is not null
+				and oprateState!=''
+				and oprateState like '%已完成%'
+				and substring(oprateState, 5)&gt;=ly_heattreat.amount
+			</if>
+		</if>
+		<if test="oprateUserId != null and oprateUserId != ''">
+			and ly_heattreat.oprateUserId = '${oprateUserId}'
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and ly_good.`name` LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				ly_good.`name` LIKE '%垫%'
+				OR
+				ly_good.`name` LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				ly_good.`name` not LIKE '%垫%'
+				and
+				ly_good.`name` not LIKE '%片%'
+				and
+				ly_good.`name` not LIKE '%轴%'
+				and
+				ly_good.`name` not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="pickTimeStart != null and pickTimeStart != ''">
+			and ly_heattreat.pickTime &gt;= '${pickTimeStart}'
+		</if>
+		<if test="pickTimeEnd != null and pickTimeEnd != ''">
+			and ly_heattreat.pickTime &lt;= '${pickTimeEnd}'
+		</if>
+		<if test="backTimeStart != null and backTimeStart != ''">
+			and ly_heattreat.backTime &gt;= '${backTimeStart}'
+		</if>
+		<if test="backTimeEnd != null and backTimeEnd != ''">
+			and ly_heattreat.backTime &lt;= '${backTimeEnd}'
+		</if>
+	</sql>
+
+	<sql id="selectExecutionWhere">
+		<if test="content != null and content != ''">
+			and (
+			ly_heattreat.contractNumber like '%${content}%' or
+			ly_good.mapNumber like '%${content}%' or
+			ly_heattreat.goodSize like '%${content}%' or
+			(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_good.materialQuality) like '%${content}%' or
+			(select ly_process.`name` from ly_process where ly_process.id=ly_heattreat.oprateProcessId ) like '%${content}%'
+			)
+		</if>
+		<if test="origin != null and origin != ''">
+			and ly_heattreat.origin = '${origin}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_heattreat.clientId = '${clientId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_heattreat.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_heattreat.deliveryTime &lt; '${endTime}'
+		</if>
+		<if test="startTimeGet != null and startTimeGet != ''">
+			and ly_workersubmit_hearttreat.startTime &gt;= '${startTimeGet}'
+		</if>
+		<if test="endTimeGet != null and endTimeGet != ''">
+			and ly_workersubmit_hearttreat.startTime &lt; '${endTimeGet}'
+		</if>
+		<if test="startTimeComplete != null and startTimeComplete != ''">
+			and ly_workersubmit_hearttreat.completeTime &gt;= '${startTimeComplete}'
+		</if>
+		<if test="endTimeComplete != null and endTimeComplete != ''">
+			and ly_workersubmit_hearttreat.completeTime &lt; '${endTimeComplete}'
+		</if>
+		<if test="materialQuality != null and materialQuality != ''">
+			and ly_heattreat.materialQuality = '${materialQuality}'
+		</if>
+		<if test="oprateUserId != null and oprateUserId != ''">
+			and ly_workersubmit_hearttreat.submiterId = '${oprateUserId}'
+		</if>
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				and (ly_workersubmit_hearttreat.completeTime is not null
+				and ly_workersubmit_hearttreat.completeTime!='')
+			</if>
+				<if test="state == '未完成'">
+					and (ly_workersubmit_hearttreat.completeTime is  null
+					or ly_workersubmit_hearttreat.completeTime='')
+				</if>
+		</if>
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and ly_good.`name` LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				ly_good.`name` LIKE '%垫%'
+				OR
+				ly_good.`name` LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				ly_good.`name` not LIKE '%垫%'
+				and
+				ly_good.`name` not LIKE '%片%'
+				and
+				ly_good.`name` not LIKE '%轴%'
+				and
+				ly_good.`name` not LIKE '%套%'
+				)
+			</if>
+		</if>
+	</sql>
+	<select id="findExecutionCountByAllLike" parameterType="String" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_heattreat,ly_good,ly_workersubmit_hearttreat
+		where ly_good.id=ly_heattreat.goodId
+		and ly_heattreat.id=ly_workersubmit_hearttreat.hearttreatId
+		<include refid="selectExecutionWhere" />
+	</select>
+	<select id="findIsCylindricalroughgrindingById" parameterType="String" resultType="java.lang.String">
+		select if(count(*)=1,'true','false') from ly_heattreat,ly_good
+			where
+			ly_heattreat.goodId=ly_good.id
+			and ly_heattreat.id=#{id}
+			and
+			(
+			ly_heattreat.isJump ='是'
+				and (
+				ly_heattreat.backTime is not NULL
+				and
+				ly_heattreat.backTime!=""
+				)
+				and (
+				ly_good.`name` LIKE '%钢套%'
+				OR
+				ly_good.`name` LIKE '%钢司%'
+				)
+)
+	</select>
+	<select id="findIsPinShaftById" parameterType="String" resultType="java.lang.String">
+		select if(count(*)=1,'true','false') from ly_heattreat,ly_good
+		where
+		ly_heattreat.goodId=ly_good.id
+		and ly_heattreat.id=#{id}
+		<include refid="isPinShaftWhere" />
+	</select>
+	<select id="findIsPadById" parameterType="String" resultType="java.lang.String">
+		select if(count(*)=1,'true','false') from ly_heattreat,ly_good
+		where
+		ly_heattreat.goodId=ly_good.id
+		and ly_heattreat.id=#{id}
+		<include refid="isPadWhere" />
+	</select>
+
+	<select id="findSumExecutionByAllLike" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		cast(IFNULL(sum(ly_workersubmit_hearttreat.amount),0) AS SIGNED  ) as getAmount,
+		cast(IFNULL(sum(ly_workersubmit_hearttreat.completeAmount),0) AS SIGNED) as completeAmount,
+		cast(IFNULL(sum(ly_workersubmit_hearttreat.badAmount),0) AS SIGNED) as badAmount,
+		cast(IFNULL((sum(ly_workersubmit_hearttreat.amount) -cast(IFNULL(sum(ly_workersubmit_hearttreat.completeAmount),0) AS SIGNED)-cast(IFNULL(sum(ly_workersubmit_hearttreat.badAmount),0) AS SIGNED)),0) AS SIGNED) as unComplete
+		from ly_heattreat,ly_good,ly_workersubmit_hearttreat
+		where ly_good.id=ly_heattreat.goodId
+		and ly_heattreat.id=ly_workersubmit_hearttreat.hearttreatId
+		<include refid="selectExecutionWhere" />
+	</select>
+	<select id="findExecutionByAllLike" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		ly_workersubmit_hearttreat.id,
+		ly_heattreat.deliveryTime,
+		(select ly_client.fullName from ly_client where ly_client.id=ly_heattreat.clientId) as clientName,
+		ly_heattreat.contractNumber,
+		ly_good.`name` as goodName,
+		ly_good.mapNumber,
+		ly_heattreat.goodSize,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) as materialQualityName,
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+		(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as userName,
+		ly_workersubmit_hearttreat.amount,
+		ly_workersubmit_hearttreat.startTime,
+		ly_workersubmit_hearttreat.completeAmount,
+		ly_workersubmit_hearttreat.completeTime,
+		ly_workersubmit_hearttreat.badAmount
+		from ly_heattreat,ly_good,ly_workersubmit_hearttreat
+		where ly_good.id=ly_heattreat.goodId
+		and ly_heattreat.id=ly_workersubmit_hearttreat.hearttreatId
+		<include refid="selectExecutionWhere" />
+		<if test="sort != null and sort != ''">
+			<if test="sort== 'goodSize'">
+				order by substring_index(replace(ly_heattreat.goodSize,"Φ",""),"*",1)+0 ${order},deliveryTime ASC
+			</if>
+			<if test="sort!= 'goodSize'">
+				order by ${sort} ${order}
+			</if>
+
+		</if>
+	</select>
+
+	<select id="findCountByAllLike" parameterType="String" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		<include refid="selectWhere" />
+	</select>
+	<select id="findIdsByProgressSearchIds" parameterType="String" resultType="java.lang.String">
+		select  GROUP_CONCAT(ly_heattreat.id SEPARATOR ',')
+		from ly_heattreat,ly_progress_search
+		where ly_progress_search.contractNumber=ly_heattreat.contractNumber
+		and ly_progress_search.mapNumber=(select mapNumber from ly_good where ly_good.id=ly_heattreat.goodId)
+		and ly_progress_search.deliveryTime=ly_heattreat.deliveryTime
+		and FIND_IN_SET(ly_progress_search.id,(#{ids}))
+
+	</select>
+	<select id="findByProgressSearchId" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		select  ly_heattreat.*
+		from ly_heattreat,ly_progress_search
+		where ly_progress_search.contractNumber=ly_heattreat.contractNumber
+		and ly_progress_search.mapNumber=(select mapNumber from ly_good where ly_good.id=ly_heattreat.goodId)
+		and ly_progress_search.deliveryTime=ly_heattreat.deliveryTime
+		and origin!='进度查询'
+		and ly_progress_search.id=#{id}
+		limit 0,1
+	</select>
+
+	<select id="findByProgressSearchIdNoLimitDeliveryTime" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		select ly_heattreat.*
+ from ly_heattreat,ly_progress_search
+where ly_progress_search.contractNumber=ly_heattreat.contractNumber
+and ly_progress_search.mapNumber=(select mapNumber from ly_good where ly_good.id=ly_heattreat.goodId)
+		and origin!='进度查询'
+		and ly_progress_search.id=#{id}
+	</select>
+	<select id="findClientByAllLike" parameterType="String" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		DISTINCT ly_heattreat.clientId,
+		(select fullName from ly_client where ly_client.id=ly_heattreat.clientId) as fullName
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		and ly_heattreat.clientId is not NULL
+		and ly_heattreat.clientId!=''
+		<include refid="selectWhere" />
+		ORDER BY ly_heattreat.clientId DESC
+	</select>
+	<select id="findExecutionClientByAllLike" parameterType="String" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		DISTINCT ly_heattreat.clientId,
+		(select fullName from ly_client where ly_client.id=ly_heattreat.clientId) as fullName
+		from ly_heattreat,ly_good,ly_workersubmit_hearttreat
+		where ly_good.id=ly_heattreat.goodId
+		and ly_heattreat.id=ly_workersubmit_hearttreat.hearttreatId
+		<include refid="selectExecutionWhere" />
+		ORDER BY ly_heattreat.clientId DESC
+	</select>
+	<select id="findByAllLike" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		<include refid="selectWhere" />
+		<if test="sort != null and sort != ''">
+			<if test="sort== 'goodSize'">
+				order by substring_index(replace(ly_heattreat.goodSize,"Φ",""),"*",1)+0 ${order},deliveryTime ASC
+			</if>
+			<if test="sort!= 'goodSize'">
+				order by ${sort} ${order}
+			</if>
+
+		</if>
+	</select>
+	<select id="findSumWeightAndAmountByAllLike" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		(select count(*) from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId <include refid="selectWhere" />) as amount,
+		(select count(*) from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId <include refid="selectWhere" /> and (oprateProcessId is null or oprateProcessId='')) as unDistributionAmount,
+		(select count(*)  from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId <include refid="selectWhere" /> and oprateProcessId is not null and oprateProcessId!='') as alDistributionAmount,
+		TRUNCATE(SUM(ly_heattreat.amount),2)	 as sumAmount,
+		TRUNCATE(SUM(ly_heattreat.weight),2)	 as sumWeight,
+		TRUNCATE(SUM(ly_heattreat.backAmount),2)	 as sumBackAmount,
+		(TRUNCATE(SUM(ly_heattreat.amount),2)-TRUNCATE(SUM(ly_heattreat.backAmount),2)	) as sumUnBackAmount
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		<include refid="selectWhere" />
+	</select>
+	<select id="findSumWeightAndAmountByIds" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		TRUNCATE(SUM(ly_heattreat.amount),2)	 as sumAmount,
+		TRUNCATE(SUM(ly_heattreat.weight),2)	 as sumWeight
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		and FIND_IN_SET(ly_heattreat.id,(#{ids}))
+	</select>
+	<update id="updateIsMakeCarburizationTrueById">
+		update ly_heattreat set isMakeCarburization='是' where ly_heattreat.id=#{id}
+	</update>
+	<update id="updateIsJumpStateById">
+		update ly_heattreat set isJump=#{state} where ly_heattreat.id=#{id}
+	</update>
+	<update id="updateIsSendStateByIds">
+		update ly_heattreat set isSend=#{state} where FIND_IN_SET(ly_heattreat.id,(#{ids}))
+	</update>
+	<update id="updateIsGoodStateById">
+		update ly_heattreat set isGood=#{state} where ly_heattreat.id=#{id}
+	</update>
+	<update id="updateIsPadStateById">
+		update ly_heattreat set isPad=#{state} where ly_heattreat.id=#{id}
+	</update>
+	<update id="updateIsPinShaftStateById">
+		update ly_heattreat set isPinShaft=#{state} where ly_heattreat.id=#{id}
+	</update>
+	<update id="updateIsMakeMidfrequencyTrueById">
+		update ly_heattreat set isMakeMidfrequency='是' where ly_heattreat.id=#{id}
+	</update>
+	<update id="updateIsPrintTrueByIds">
+		update ly_heattreat set isPrint='是' where FIND_IN_SET(ly_heattreat.id,(#{ids}))
+	</update>
+	<select id="findProcessIdsById" parameterType="String" resultType="java.lang.String">
+		select
+	GROUP_CONCAT(processId)
+	from ly_workersubmit_hearttreat where hearttreatId=#{id}
+	</select>
+
+	<select id="findByIds" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		and FIND_IN_SET(ly_heattreat.id,(#{ids}))
+	</select>
+	<select id="findDistributionAmountByIds" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		distributionAmount,ly_good.id
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		and FIND_IN_SET(ly_heattreat.id,(#{ids}))
+	</select>
+	<select id="findMainGoodAndOrderByIds" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		<include refid="selectMainGoodAndOrder" />
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		and FIND_IN_SET(ly_heattreat.id,(#{ids}))
+	</select>
+	<select id="findMainGoodAndOrderNoImgByIds" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+ly_heattreat.id,
+ly_heattreat.goodId,
+ly_heattreat.amount,
+		ly_good.mapNumber,
+		ly_good.`name`,
+		ly_heattreat.contractNumber,
+ly_heattreat.deliveryTime
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		and FIND_IN_SET(ly_heattreat.id,(#{ids}))
+	</select>
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.HeatTreatFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_heattreat,ly_good
+		where ly_good.id=ly_heattreat.goodId
+		and ly_heattreat.id=#{id}
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_heattreat
+		where id=#{id}
+	</delete>
+	<delete id="deleteByProgressSearchId" parameterType="String">
+		DELETE from ly_heattreat
+where ly_heattreat.contractNumber=(select ly_progress_search.contractNumber from ly_progress_search where ly_progress_search.id='${id}')
+and ly_heattreat.goodId=(select ly_good.id from ly_progress_search,ly_good where ly_good.mapNumber=ly_progress_search.mapNumber and ly_progress_search.id='${id}')
+and ly_heattreat.deliveryTime=(select ly_progress_search.deliveryTime from ly_progress_search where ly_progress_search.id='${id}')
+	</delete>
+</mapper>

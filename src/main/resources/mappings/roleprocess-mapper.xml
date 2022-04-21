@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.RoleProcessMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+ ly_process.id,ly_process.`name`,ly_process.`code`,ly_process.simpleName
+	</sql>
+	<select id="findByRoleId" resultType="com.zhjh.entity.RoleProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_role_process,ly_process
+		where ly_process.id=ly_role_process.processId
+		and
+		ly_role_process.roleId='${roleId}'
+
+	</select>
+
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.ToolInMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		id,toolId,userId,time,amount,remarks,money,price,amount as oldAmount,
+		(select name from ly_tool where ly_tool.id=ly_toolin.toolId) as toolName,
+		(select ly_tooltype.name from ly_tool,ly_tooltype where ly_tool.toolTypeId=ly_tooltype.id and ly_tool.id=ly_toolin.toolId) as toolTypeName,
+(select ly_unit.name from ly_tool,ly_unit where ly_tool.unitId=ly_unit.id and ly_tool.id=ly_toolin.toolId) as unitName,
+		(select CONCAT_WS('-',ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_toolin.userId) as userShow
+	</sql>
+	<sql id="selectWhere">
+		(
+		(select name from ly_tool where ly_tool.id=ly_toolin.toolId) like CONCAT('%',#{content},'%')
+		OR
+		(select ly_unit.name from ly_tool,ly_unit where ly_tool.unitId=ly_unit.id and ly_tool.id=ly_toolin.toolId) like CONCAT('%',#{content},'%')
+		OR
+		ly_toolin.remarks like CONCAT('%',#{content},'%')
+		)
+		<if test="toolTypeId != null and toolTypeId != ''">
+			and (select toolTypeId from ly_tool where ly_tool.id=ly_toolin.toolId)=${toolTypeId}
+		</if>
+		<if test="userId != null and userId != ''">
+			and ly_toolin.userId=${userId}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_toolin.time &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_toolin.time &lt;= '${endTime}'
+		</if>
+	</sql>
+	<select id="findCountByAllLike"  resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_toolin
+		where
+		<include refid="selectWhere" />
+	</select>
+
+	<select id="findAmountAndMoneySumByAllLike"  resultType="com.zhjh.entity.ToolInFormMap">
+		SELECT
+		SUM(amount) as sumAmount,SUM(money) as sumMoney
+		from ly_toolin
+		where
+		<include refid="selectWhere" />
+	</select>
+
+	<select id="findByAllLike"  resultType="com.zhjh.entity.ToolInFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_toolin
+		where
+		<include refid="selectWhere" />
+		ORDER BY time DESC
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_toolin
+		where id=#{id}
+	</delete>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.WagesMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+		ly_wages.id,
+ly_wages.contractNumber,
+ly_wages.goodName,
+ly_wages.mapNumber,
+ly_wages.processId,
+(select name from ly_process where ly_process.id=ly_wages.processId) as processName,
+ly_wages.userId,
+(select accountName from ly_user where ly_user.id=ly_wages.userId) as accountName,
+(select userName from ly_user where ly_user.id=ly_wages.userId) as userName,
+ly_wages.completeAmount,
+ly_wages.completeTime,
+ly_wages.remarks,
+ly_wages.wages
+	</sql>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.WagesFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_wages
+		where
+		(
+		(select accountName from ly_user where ly_user.id=ly_wages.userId)   like '%${user}%'
+		or
+		(select userName from ly_user where ly_user.id=ly_wages.userId)   like '%${user}%'
+		)
+
+		<if test="startTime != null and startTime != ''">
+			and ly_wages.completeTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_wages.completeTime &lt; '${endTime}'
+		</if>
+		and
+		(
+		ly_wages.goodName like '%${content}%' or
+		ly_wages.mapNumber  like '%${content}%' or
+		ly_wages.contractNumber  like '%${content}%' or
+		(select name from ly_process where ly_process.id=ly_wages.processId)  like '%${content}%' or
+		ly_wages.completeAmount  like '%${content}%' or
+		ly_wages.remarks  like '%${content}%'
+		)
+		order by ly_wages.completeTime desc
+	</select>
+
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_wages
+		where
+		(
+		(select accountName from ly_user where ly_user.id=ly_wages.userId)   like '%${user}%'
+		or
+		(select userName from ly_user where ly_user.id=ly_wages.userId)   like '%${user}%'
+		)
+		<if test="startTime != null and startTime != ''">
+			and ly_wages.completeTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_wages.completeTime &lt; '${endTime}'
+		</if>
+		and
+		(
+		ly_wages.goodName like '%${content}%' or
+		ly_wages.mapNumber  like '%${content}%' or
+		ly_wages.contractNumber  like '%${content}%' or
+		(select name from ly_process where ly_process.id=ly_wages.processId)  like '%${content}%' or
+		ly_wages.completeAmount  like '%${content}%' or
+		ly_wages.remarks  like '%${content}%'
+		)
+	</select>
+	<select id="findAllMoneyByStartTimeAndEndTimeAndContentAndUser"  resultType="java.lang.String">
+		select convert(SUM(wages),decimal(10,2)) as wages
+		from ly_wages
+		where
+		(
+		(select accountName from ly_user where ly_user.id=ly_wages.userId)   like '%${user}%'
+		or
+		(select userName from ly_user where ly_user.id=ly_wages.userId)   like '%${user}%'
+		)
+		<if test="startTime != null and startTime != ''">
+			and ly_wages.completeTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_wages.completeTime &lt; '${endTime}'
+		</if>
+		and
+		(
+		ly_wages.goodName like '%${content}%' or
+		ly_wages.mapNumber  like '%${content}%' or
+		ly_wages.contractNumber  like '%${content}%' or
+		(select name from ly_process where ly_process.id=ly_wages.processId)  like '%${content}%' or
+		ly_wages.completeAmount  like '%${content}%' or
+		ly_wages.remarks  like '%${content}%'
+		)
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_wages
+		where id=#{id}
+	</delete>
+</mapper>

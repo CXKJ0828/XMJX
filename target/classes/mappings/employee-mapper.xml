@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.EmployeeMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<select id="selectNotInUserEntity" resultType="com.zhjh.entity.EmployeeFormMap">
+		select * from ly_employee where employeeId not in (select accountName from ly_user)
+	</select>
+	<sql id="selectId">
+		ly_employee.id,
+ly_employee.name,
+sex,
+ly_employee.age,
+ly_employee.department,
+IDcard,
+birthday,
+native,
+address,
+isMarry,
+politicalOutlook,
+education,
+major,
+title,
+incumbency,
+post,
+wages,
+fixedPhone,
+ly_employee.phone,
+entrytime,
+contractStart,
+contractEnd,
+insuredSituation,
+rank,
+leavingTime,
+leavingReason,
+shifts,
+type,
+ly_employee.remark,
+ly_employee.modifytime,
+(select userName from ly_user where ly_user.id=ly_employee.userId LIMIT 0,1) as userName,
+ly_employee.isUse,
+ly_employee.organization,
+(select roleId from ly_role where ly_role.id=ly_employee.roleId LIMIT 0,1 ) as roleId ,
+(select name from ly_role where ly_role.id=ly_employee.roleId LIMIT 0,1) as roleName
+	</sql>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_employee
+		where id=#{id}
+	</delete>
+
+	<sql id="whereAllLike">
+		<if test="content != null and content != ''">
+			and (
+			ly_employee.name like '%${content}%' or
+			sex like '%${content}%' or
+			age like '%${content}%' or
+			department like '%${content}%' or
+			IDcard like '%${content}%' or
+			birthday like '%${content}%' or
+			native like '%${content}%' or
+			address like '%${content}%' or
+			isMarry like '%${content}%' or
+			politicalOutlook like '%${content}%' or
+			education like '%${content}%' or
+			major like '%${content}%' or
+			title like '%${content}%' or
+			incumbency like '%${content}%' or
+			post like '%${content}%' or
+			wages like '%${content}%' or
+			fixedPhone like '%${content}%' or
+			ly_employee.phone like '%${content}%' or
+			entrytime like '%${content}%' or
+			contractStart like '%${content}%' or
+			contractEnd like '%${content}%' or
+			insuredSituation like '%${content}%' or
+			rank like '%${content}%' or
+			leavingTime like '%${content}%' or
+			leavingReason like '%${content}%' or
+			shifts like '%${content}%' or
+			type like '%${content}%' or
+			ly_employee.remark like '%${content}%' or
+			ly_employee.modifytime like '%${content}%' or
+			ly_employee.isuse like '%${content}%' or
+			ly_employee.organization  like '%${content}%'
+			)
+		</if>
+
+	</sql>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.EmployeeFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_employee
+		where
+		1=1
+		<include refid="whereAllLike" />
+		order BY department DESC
+	</select>
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_employee
+		where
+		1=1
+		<include refid="whereAllLike" />
+	</select>
+
+</mapper>

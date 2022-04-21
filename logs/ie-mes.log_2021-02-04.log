@@ -1,0 +1,402 @@
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AccountMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AccountMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AppConfigMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AppConfigMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AreaMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AreaMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AttendanceMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AttendanceMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BadnoticeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BadnoticeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\base\BaseMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\base\BaseMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankDetailsMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankDetailsMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankProcessMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankProcessMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankSizeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankSizeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ButtomMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ButtomMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\CidRoleMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\CidRoleMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ClientMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ClientMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\EmployeeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\EmployeeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodProcessMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodProcessMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HardNessMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HardNessMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HeatTreatMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HeatTreatMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LeaveMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LeaveMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LogMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LogMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsDetailsMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsDetailsMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialbuyorderdetailsBlankMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialbuyorderdetailsBlankMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderDetailsMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderDetailsMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialQualityTypeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialQualityTypeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialweightMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialweightMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsProcessMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsProcessMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderGoodCodeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderGoodCodeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PodetailsMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PodetailsMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PoMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PoMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ProcessMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ProcessMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResourcesMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResourcesMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResRoleMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResRoleMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleProcessMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleProcessMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScanCodeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScanCodeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScrapMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScrapMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SendInputMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SendInputMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\StockMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\StockMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SupplierMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SupplierMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SystemconfigMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SystemconfigMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\TeamMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\TeamMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolInMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolInMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolOutMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolOutMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolStockMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolStockMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolTypeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolTypeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnitMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnitMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnqualifiedMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnqualifiedMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserLoginMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserLoginMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserRoleMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserRoleMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WagesMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WagesMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkersubmitMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkersubmitMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkGoodcodeMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkGoodcodeMapper.class]
+2021/02/04 10:58:50 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkoverwageMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkoverwageMapper.class]
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'accountMapper' and 'com.zhjh.mapper.AccountMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'accountMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'appConfigMapper' and 'com.zhjh.mapper.AppConfigMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'appConfigMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'areaMapper' and 'com.zhjh.mapper.AreaMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'areaMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'attendanceMapper' and 'com.zhjh.mapper.AttendanceMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'attendanceMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'badnoticeMapper' and 'com.zhjh.mapper.BadnoticeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'badnoticeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'baseMapper' and 'com.zhjh.mapper.base.BaseMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'baseMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankDetailsMapper' and 'com.zhjh.mapper.BlankDetailsMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankDetailsMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankMapper' and 'com.zhjh.mapper.BlankMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankProcessMapper' and 'com.zhjh.mapper.BlankProcessMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankProcessMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankSizeMapper' and 'com.zhjh.mapper.BlankSizeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankSizeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'buttomMapper' and 'com.zhjh.mapper.ButtomMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'buttomMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'cidRoleMapper' and 'com.zhjh.mapper.CidRoleMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'cidRoleMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'clientMapper' and 'com.zhjh.mapper.ClientMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'clientMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'employeeMapper' and 'com.zhjh.mapper.EmployeeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'employeeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'goodMapper' and 'com.zhjh.mapper.GoodMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'goodMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'goodProcessMapper' and 'com.zhjh.mapper.GoodProcessMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'goodProcessMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'hardNessMapper' and 'com.zhjh.mapper.HardNessMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'hardNessMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'heatTreatMapper' and 'com.zhjh.mapper.HeatTreatMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'heatTreatMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'leaveMapper' and 'com.zhjh.mapper.LeaveMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'leaveMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'logMapper' and 'com.zhjh.mapper.LogMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'logMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderDetailsDetailsMapper' and 'com.zhjh.mapper.MaterialBackOrderDetailsDetailsMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderDetailsDetailsMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderDetailsMapper' and 'com.zhjh.mapper.MaterialBackOrderDetailsMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderDetailsMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderMapper' and 'com.zhjh.mapper.MaterialBackOrderMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialbuyorderdetailsBlankMapper' and 'com.zhjh.mapper.MaterialbuyorderdetailsBlankMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialbuyorderdetailsBlankMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBuyOrderDetailsMapper' and 'com.zhjh.mapper.MaterialBuyOrderDetailsMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBuyOrderDetailsMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBuyOrderMapper' and 'com.zhjh.mapper.MaterialBuyOrderMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBuyOrderMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialMapper' and 'com.zhjh.mapper.MaterialMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialQualityTypeMapper' and 'com.zhjh.mapper.MaterialQualityTypeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialQualityTypeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialweightMapper' and 'com.zhjh.mapper.MaterialweightMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialweightMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderDetailsMapper' and 'com.zhjh.mapper.OrderDetailsMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderDetailsMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderDetailsProcessMapper' and 'com.zhjh.mapper.OrderDetailsProcessMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderDetailsProcessMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderGoodCodeMapper' and 'com.zhjh.mapper.OrderGoodCodeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderGoodCodeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderMapper' and 'com.zhjh.mapper.OrderMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'podetailsMapper' and 'com.zhjh.mapper.PodetailsMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'podetailsMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'poMapper' and 'com.zhjh.mapper.PoMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'poMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'processMapper' and 'com.zhjh.mapper.ProcessMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'processMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'resourcesMapper' and 'com.zhjh.mapper.ResourcesMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'resourcesMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'resRoleMapper' and 'com.zhjh.mapper.ResRoleMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'resRoleMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'roleMapper' and 'com.zhjh.mapper.RoleMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'roleMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'roleProcessMapper' and 'com.zhjh.mapper.RoleProcessMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'roleProcessMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'scanCodeMapper' and 'com.zhjh.mapper.ScanCodeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'scanCodeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'scrapMapper' and 'com.zhjh.mapper.ScrapMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'scrapMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'sendInputMapper' and 'com.zhjh.mapper.SendInputMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'sendInputMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'stockMapper' and 'com.zhjh.mapper.StockMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'stockMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'supplierMapper' and 'com.zhjh.mapper.SupplierMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'supplierMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'systemconfigMapper' and 'com.zhjh.mapper.SystemconfigMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'systemconfigMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'teamMapper' and 'com.zhjh.mapper.TeamMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'teamMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolInMapper' and 'com.zhjh.mapper.ToolInMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolInMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolMapper' and 'com.zhjh.mapper.ToolMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolOutMapper' and 'com.zhjh.mapper.ToolOutMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolOutMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolStockMapper' and 'com.zhjh.mapper.ToolStockMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolStockMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolTypeMapper' and 'com.zhjh.mapper.ToolTypeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolTypeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'unitMapper' and 'com.zhjh.mapper.UnitMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'unitMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'unqualifiedMapper' and 'com.zhjh.mapper.UnqualifiedMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'unqualifiedMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userLoginMapper' and 'com.zhjh.mapper.UserLoginMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userLoginMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userMapper' and 'com.zhjh.mapper.UserMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userRoleMapper' and 'com.zhjh.mapper.UserRoleMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userRoleMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'wagesMapper' and 'com.zhjh.mapper.WagesMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'wagesMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workersubmitMapper' and 'com.zhjh.mapper.WorkersubmitMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workersubmitMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workGoodcodeMapper' and 'com.zhjh.mapper.WorkGoodcodeMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workGoodcodeMapper'.
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workoverwageMapper' and 'com.zhjh.mapper.WorkoverwageMapper' mapperInterface
+2021/02/04 10:58:50 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workoverwageMapper'.
+2021/02/04 10:59:00  INFO DruidDataSource:715 - {dataSource-1} inited
+2021/02/04 10:59:02 DEBUG SqlSessionFactoryBean:362 - Property 'configLocation' not specified, using default MyBatis Configuration
+2021/02/04 10:59:03 DEBUG SqlSessionFactoryBean:383 - Scanned package: 'com.zhjh.entity' for aliases
+2021/02/04 10:59:03 DEBUG SqlSessionFactoryBean:401 - Registered plugin: 'com.zhjh.plugin.PagePlugin@55ecbafe'
+2021/02/04 10:59:04 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\area-mapper.xml]'
+2021/02/04 10:59:04 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\attendance-mapper.xml]'
+2021/02/04 10:59:04 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\base-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blank-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blankprocess-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blanksize-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\cid-role-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\client-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\employee-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\good-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\goodprocess-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\hardness-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\heattreat-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\leave-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\log-mapper.xml]'
+2021/02/04 10:59:05 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\material-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorder-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorderdetails-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorderdetailsdetails-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorder-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorderdetails-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorderdetailsblank-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialqualitytype-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialweight-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\order-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\orderdetails-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\orderdetailsprocess-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\ordergoodcode-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\po-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\podetails-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\process-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\resources-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\role-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\roleprocess-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\scrap-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\sendinput-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\stock-mapper.xml]'
+2021/02/04 10:59:06 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\supplier-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\systemconfig-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\team-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\tool-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolin-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolout-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolstock-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\tooltype-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\unit-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\user-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\userrole-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\wages-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\workersubmit-mapper.xml]'
+2021/02/04 10:59:07 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\workoverwage-mapper.xml]'
+2021/02/04 10:59:15 DEBUG SqlSessionUtils:104 - Creating a new SqlSession
+2021/02/04 10:59:15 DEBUG SqlSessionUtils:120 - Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35eb4a3b]
+2021/02/04 10:59:15 DEBUG SpringManagedTransaction:86 - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@70c53dbe] will be managed by Spring
+2021/02/04 10:59:15 DEBUG selectByMaterialbuyorderIdAndSearch:139 - ==>  Preparing: select DISTINCT ly_materialbuyorder_details.id, (select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) as backAmount, (select ly_materialbackorder_details.lackAmount from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) as lackAmount, ly_materialbuyorder_details.materialQuality, ly_materialbuyorder_details.outerCircle, (select weight from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockWeight, (select length from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockLength, (select money from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as money, IFNULL((select taxPrice from ly_material where ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle LIMIT 0,1),'0') as taxPrice, FORMAT((SELECT sum(ly_blank.length) from ly_materialbuyorderdetails_blank,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id ),4) as length, FORMAT((SELECT sum(ly_blank.length) from ly_materialbuyorderdetails_blank,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id ),4) as lengthAll, FORMAT((SELECT sum(ly_blank.weight) from ly_materialbuyorderdetails_blank,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id ),4) as weight, FORMAT((SELECT sum(ly_blank.weight) from ly_materialbuyorderdetails_blank,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id ),4) as weightAll, ly_materialbuyorder_details.buyLength, ly_materialbuyorder_details.buyWeight, ly_materialbuyorder_details.state, ly_materialbuyorder_details.buyTime, ly_materialbuyorder_details.materialbuyorderId from ly_materialbuyorder_details,ly_materialbuyorderdetails_blank where materialbuyorderId='102' and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id GROUP BY materialQuality,outerCircle 
+2021/02/04 10:59:16 DEBUG selectByMaterialbuyorderIdAndSearch:139 - ==> Parameters: 
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==    Columns: id, backAmount, lackAmount, materialQuality, outerCircle, stockWeight, stockLength, money, taxPrice, length, lengthAll, weight, weightAll, buyLength, buyWeight, state, buyTime, materialbuyorderId
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1512, null, null, 20CrMnTiH, 100, 37.7415, 611.694, 190594.67, 5050, 38.6160, 38.6160, 2.3826, 2.3826, 38.6160, 2.3826, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1525, null, null, 20CrMnTiH, 110, 9.4068, 126.0, 47504.25, 5050, 43.9600, 43.9600, 3.2819, 3.2819, 43.9600, 3.2819, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1503, null, null, 20CrMnTiH, 160, null, null, null, 5050, 0.3300, 0.3300, 0.0521, 0.0521, 0.3300, 0.0521, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1538, null, null, 20CrMnTiH, 230, null, null, null, 0, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1454, null, null, 20CrMnTiH, 28, 3.628, 750.0, 18321.2, 5050, 23.8520, 23.8520, 0.1154, 0.1154, 23.8520, 0.1154, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1527, null, null, 20CrMnTiH, 32, 3.0327, 480.0, 17286.27, 5,700, 15.8700, 15.8700, 0.1003, 0.1003, 15.8700, 0.1003, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1522, null, null, 20CrMnTiH, 35, 2.6303, 348.0, 13282.87, 5050, 7.4880, 7.4880, 0.0566, 0.0566, 7.4880, 0.0566, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1518, null, null, 20CrMnTiH, 350, null, null, null, 5050, 0.3680, 0.3680, 0.2781, 0.2781, 0.368, 0.2781, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1505, null, null, 20CrMnTiH, 40, 21.6789, 2196.0, 109478.51, 5050, 319.2920, 319.2920, 3.1518, 3.1518, 319.2920, 3.1521, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1462, null, null, 20CrMnTiH, 45, 20.9903, 1680.0, 106001.22, 5050, 305.7180, 305.7180, 3.8197, 3.8197, 305.7180, 3.8197, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1519, null, null, 20CrMnTiH, 50, 28.8756, 1872.0, 145821.78, 5050, 140.5540, 140.5540, 2.1681, 2.1681, 140.5540, 2.1680, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1483, null, null, 20CrMnTiH, 55, 46.3238, 2481.955, 233935.33, 5050, 334.1100, 334.1100, 6.2359, 6.2359, 334.1100, 6.2359, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1526, null, null, 20CrMnTiH, 60, 21.2933, 958.641, 107531.34, 5050, 17.1500, 17.1500, 0.3808, 0.3808, 17.1500, 0.3809, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1507, null, null, 20CrMnTiH, 65, 73.6971, 2827.0811, 372170.14, 5050, 452.4030, 452.4030, 11.7934, 11.7934, 452.4030, 11.7934, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1475, null, null, 20CrMnTiH, 70, 71.2228, 2355.796, 359675.04, 5050, 184.8000, 184.8000, 5.5870, 5.5870, 184.8000, 5.5871, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1520, null, null, 20CrMnTiH, 75, 83.295, 2400.0, 420639.75, 5050, 292.6090, 292.6090, 10.1555, 10.1555, 292.6090, 10.1554, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1467, null, null, 20CrMnTiH, 80, 6.0643, 153.5720, 30624.47, 5050, 244.1700, 244.1700, 9.6418, 9.6418, 244.1700, 9.6418, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1461, null, null, 20CrMnTiH, 85, 28.8867, 648.0, 145877.87, 5050, 56.6500, 56.6500, 2.5254, 2.5254, 56.65, 2.5254, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1516, null, null, 20CrMnTiH, 90, 281.8703, 5640.0, 1423444.91, 5050, 289.3720, 289.3720, 14.4618, 14.4618, 289.3720, 14.4619, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1491, null, null, 20CrMnTiH, 95, 74.6367, 1340.356, 376915.43, 5050, 62.2250, 62.2250, 3.4650, 3.4650, 62.2250, 3.4650, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1524, null, null, 20CrMnTiH管, 104*80, 4.2505, 156.0, 27203.13, 6400, 62.0940, 62.0940, 1.6919, 1.6919, 62.0940, 1.6919, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1528, null, null, 20CrMnTiH管, 108*75, 16.8736, 452.854, 107991.2, 6400, 27.9360, 27.9360, 1.0408, 1.0408, 27.9360, 1.0409, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1500, null, null, 20CrMnTiH管, 108*79, 3.346, 100.0, 21414.34, 6400, 23.9400, 23.9400, 0.8010, 0.8010, 23.9400, 0.8010, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1531, null, null, 20CrMnTiH管, 114*74, 4.6568, 100.365, 30036.2, 6450, 8.3000, 8.3000, 0.3851, 0.3851, 8.3000, 0.3851, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1541, null, null, 20CrMnTiH管, 114*87, null, null, null, 0, 1.6260, 1.6260, 0.0544, 0.0544, 1.6260, 0.0544, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1497, null, null, 20CrMnTiH管, 127*87, 15.0202, 284.392, 96129.41, 6400, 9.9200, 9.9200, 0.5239, 0.5239, 9.9200, 0.5239, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1511, null, null, 20CrMnTiH管, 133*107, 2.079, 54.0000, 13929.59, 6700, 7.6675, 7.6675, 0.2952, 0.2952, 7.6675, 0.2952, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1496, null, null, 20CrMnTiH管, 133*97, 12.7949, 250.451, 85726.1, 6700, 14.4330, 14.4330, 0.7373, 0.7373, 14.4330, 0.7373, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1470, null, null, 20CrMnTiH管, 146*112, null, null, null, 6600, 37.7000, 37.7000, 2.0404, 2.0404, 37.7000, 2.0404, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1504, null, null, 20CrMnTiH管, 152*85, 5.7687, 58.88, 36342.66, 6300, 4.2800, 4.2800, 0.4194, 0.4194, 4.2800, 0.4193, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1492, null, null, 20CrMnTiH管, 159*90, 23.9346, 225.784, 160362.04, 6700, 7.3660, 7.3660, 0.7808, 0.7808, 7.3660, 0.7808, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1532, null, null, 20CrMnTiH管, 167*129, null, null, null, 0, 3.1920, 3.1920, 0.2215, 0.2215, 3.192, 0.2215, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1539, null, null, 20CrMnTiH管, 168*127, 1.4231, 19.0700, 9534.91, 6700, 2.7900, 2.7900, 0.2082, 0.2082, 2.79, 0.2082, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1460, null, null, 20CrMnTiH管, 186*120, 4.9096, 39.4, 32894.37, 6700, 5.8400, 5.8400, 0.7277, 0.7277, 5.8400, 0.7277, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1493, null, null, 20CrMnTiH管, 194*140, 5.2162, 46.8740, 34948.8, 6700, 0.3780, 0.3780, 0.0421, 0.0421, 0.378, 0.0421, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1514, null, null, 20CrMnTiH管, 203*95, 22.3361, 112.482, 149652.17, 6700, 10.7320, 10.7320, 2.1311, 2.1311, 10.7320, 2.1311, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1469, null, null, 20CrMnTiH管, 224*146, 22.8156, 128.13, 152864.67, 6700, 20.2160, 20.2160, 3.5998, 3.5998, 20.2160, 3.5998, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1468, null, null, 20CrMnTiH管, 232*156, 13.845, 76.096, 91376.86, 6600, 18.9960, 18.9960, 3.4563, 3.4563, 18.9960, 3.4562, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1515, null, null, 20CrMnTiH管, 245*125, 14.7877, 53.98, 99077.68, 6700, 6.8240, 6.8240, 1.8692, 1.8692, 6.8240, 1.8694, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1542, null, null, 20CrMnTiH管, 245*195, null, null, null, 6700, 0.1720, 0.1720, 0.0233, 0.0233, 0.172, 0.0233, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1517, null, null, 20CrMnTiH管, 267*170, 13.7541, 52.589, 92152.7, 6700, 12.2440, 12.2440, 3.2023, 3.2023, 12.2440, 3.2023, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1490, null, null, 20CrMnTiH管, 285*149, 12.5124, 34.358, 83833.28, 6700, 0.9800, 0.9800, 0.3569, 0.3569, 0.9800, 0.3569, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1494, null, null, 20CrMnTiH管, 295*159, null, null, null, 6700, 0.1280, 0.1280, 0.0488, 0.0488, 0.1280, 0.0488, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1474, null, null, 20CrMnTiH管, 345*215, null, null, null, 7850, 4.0200, 4.0200, 1.8056, 1.8056, 4.0200, 1.8057, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1455, null, null, 20CrMnTiH管, 38*22, null, null, null, 6200, 21.7540, 21.7540, 0.1288, 0.1288, 21.7540, 0.1289, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1521, null, null, 20CrMnTiH管, 385*235, 5.9332, 10.3400, 47168.9, 7950, 1.1200, 1.1200, 0.6427, 0.6427, 1.12, 0.6427, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1478, null, null, 20CrMnTiH管, 45*27, 3.0409, 380.288, 19613.83, 6450, 66.6600, 66.6600, 0.5332, 0.5332, 66.6600, 0.5330, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1457, null, null, 20CrMnTiH管, 48*32, null, null, null, 6450, 49.9600, 49.9600, 0.3946, 0.3946, 49.9600, 0.3946, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1466, null, null, 20CrMnTiH管, 54*35, 6.8092, 652.631, 42217.08, 6200, 54.6480, 54.6480, 0.5701, 0.5701, 54.6480, 0.5702, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1499, null, null, 20CrMnTiH管, 57*42, 0.4998, 54.5450, 3098.55, 6200, 1.7940, 1.7940, 0.0164, 0.0164, 1.794, 0.0164, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1463, null, null, 20CrMnTiH管, 60*38, 9.068, 681.675, 58035.17, 6400, 16.5300, 16.5300, 0.2199, 0.2199, 16.5300, 0.2199, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1523, null, null, 20CrMnTiH管, 63*42, 7.315, 537.674, 46815.83, 6400, 33.4400, 33.4400, 0.4549, 0.4549, 33.4400, 0.4549, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1495, null, null, 20CrMnTiH管, 65*47, 4.813, 386.939, 30803.37, 6400, 92.1280, 92.1280, 1.1458, 1.1458, 92.1280, 1.1460, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1506, null, null, 20CrMnTiH管, 68*47, 2.5537, 171.3830, 17492.85, 6850, 31.1520, 31.1520, 0.4642, 0.4642, 31.1520, 0.4642, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1477, null, null, 20CrMnTiH管, 73*52, 7.5006, 463.11, 48004.13, 6400, 42.8560, 42.8560, 0.6942, 0.6942, 42.8560, 0.6941, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1513, null, null, 20CrMnTiH管, 76*55, 3.9888, 235.0000, 25528.4, 6400, 106.5060, 106.5060, 1.8079, 1.8079, 106.5060, 1.8078, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1498, null, null, 20CrMnTiH管, 80*57, 16.6788, 857.891, 106744.54, 6400, 42.6380, 42.6380, 0.8289, 0.8289, 42.6380, 0.8290, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1476, null, null, 20CrMnTiH管, 83*62, 8.2808, 440.755, 52996.8, 6400, 118.9700, 118.9700, 2.2352, 2.2352, 118.9700, 2.2352, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1456, null, null, 20CrMnTiH管, 88*67, 9.7915, 487.543, 62665.58, 6400, 67.4600, 67.4600, 1.3548, 1.3548, 67.4600, 1.3548, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1471, null, null, 20CrMnTiH管, 95*67, 7.5186, 268.645, 48870.9, 6500, 25.2200, 25.2200, 0.7058, 0.7058, 25.2200, 0.7058, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1465, null, null, 20CrMnTiH管, 95*72, 11.5903, 489.063, 74177.85, 6400, 74.3690, 74.3690, 1.7625, 1.7625, 74.3690, 1.7625, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1464, null, null, 20CrMnTiH管, 98*77, 6.3907, 281.841, 40900.31, 6400, 29.9580, 29.9580, 0.6794, 0.6794, 29.9580, 0.6793, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1540, null, null, 38CrMoAlA, (210, null, null, null, 0, 0.0000, 0.0000, 0.0000, 0.0000, 0.0, 0.0, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1481, null, null, 38CrMoAlA, 100, 31.0968, 504.0, 189690.48, 6100, 83.5580, 83.5580, 5.1555, 5.1555, 83.5580, 5.1555, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1480, null, null, 38CrMoAlA, 110, 28.6683, 384.0, 174876.56, 6100, 9.4220, 9.4220, 0.7034, 0.7034, 9.422, 0.7034, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1472, null, null, 38CrMoAlA, 120, 48.511, 546.0, 295917.15, 6100, 98.2000, 98.2000, 8.7249, 8.7249, 98.2000, 8.7249, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1533, null, null, 38CrMoAlA, 140, 8.7071, 72.0, 53113.33, 6100, 12.8460, 12.8460, 1.5535, 1.5535, 12.8460, 1.5535, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1485, null, null, 38CrMoAlA, 35, 3.8094, 504.0, 26284.57, 6,900, 33.5740, 33.5740, 0.2538, 0.2538, 33.5740, 0.2538, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1486, null, null, 38CrMoAlA, 40, 5.0347, 510.0, 30711.79, 6100, 60.1720, 60.1720, 0.5940, 0.5940, 60.1720, 0.5940, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1510, null, null, 38CrMoAlA, 45, 15.8177, 1266.0, 96488.1, 6100, 139.8710, 139.8710, 1.7476, 1.7476, 139.8710, 1.7476, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1484, null, null, 38CrMoAlA, 50, 8.5146, 552.0, 51939.06, 6100, 56.9120, 56.9120, 0.8778, 0.8778, 56.9120, 0.8779, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1489, null, null, 38CrMoAlA, 55, null, null, null, 6100, 27.1920, 27.1920, 0.5075, 0.5075, 27.1920, 0.5075, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1482, null, null, 38CrMoAlA, 60, 2.1324, 96.0, 13007.35, 6100, 4.9320, 4.9320, 0.1095, 0.1095, 4.9320, 0.1095, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1487, null, null, 38CrMoAlA, 65, 20.0204, 768.0, 122124.54, 6100, 286.2520, 286.2520, 7.4621, 7.4621, 286.2520, 7.4621, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1502, null, null, 38CrMoAlA, 70, 67.6615, 2238.0, 412734.87, 6100, 264.9500, 264.9500, 8.0102, 8.0102, 264.9500, 8.0102, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1473, null, null, 38CrMoAlA, 75, 2.2906, 66.0, 13972.74, 6100, 154.8450, 154.8450, 5.3741, 5.3741, 154.8450, 5.3741, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1501, null, null, 38CrMoAlA, 80, 41.6993, 1056.0, 254365.9, 6100, 210.2860, 210.2860, 8.3040, 8.3040, 210.2860, 8.3038, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1537, null, null, 38CrMoAlA, 85, 10.1638, 228.0, 61999.43, 6100, 22.9150, 22.9150, 1.0215, 1.0215, 22.9150, 1.0215, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1488, null, null, 38CrMoAlA, 90, 58.1732, 1164.0, 354856.69, 6100, 177.7220, 177.7220, 8.8820, 8.8820, 177.7220, 8.8820, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1534, null, null, 40Cr, 110, null, null, null, 4800, 0.6380, 0.6380, 0.0476, 0.0476, 0.638, 0.0476, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1508, null, null, 40Cr, 35, 0.0076, 1, 36.48, 4800, 24.3000, 24.3000, 0.1837, 0.1837, 24.3, 0.1837, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1459, null, null, 40Cr, 40, 8.4109, 852.0, 40372.53, 4800, 82.7710, 82.7710, 0.8171, 0.8171, 82.7710, 0.8171, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1529, null, null, 40Cr, 45, 2.4739, 198.0, 11874.54, 4800, 8.2000, 8.2000, 0.1025, 0.1025, 8.2, 0.1025, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1453, null, null, 40Cr, 55, 11.6465, 624.0, 55903.16, 4800, 112.3140, 112.3140, 2.0962, 2.0962, 112.3140, 2.0963, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1479, null, null, 40Cr, 60, 14.9265, 672.0, 71647.03, 4800, 105.5180, 105.5180, 2.3438, 2.3438, 105.5180, 2.3438, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1509, null, null, 40Cr, 70, null, null, null, 4800, 39.0000, 39.0000, 1.1791, 1.1791, 39.0, 1.1791, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1458, null, null, 40Cr, 75, 37.8992, 1092.0, 181916.28, 4800, 88.5720, 88.5720, 3.0740, 3.0740, 88.5720, 3.0740, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1530, null, null, 40Cr, 80, 6.634, 168.0, 31843.12, 4800, 12.4500, 12.4500, 0.4916, 0.4916, 12.45, 0.4916, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1544, null, null, 42CrMoA, 100, 4.4424, 72.0, 23544.72, 5300, 13.9260, 13.9260, 0.8592, 0.8592, 13.9260, 0.8592, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1535, null, null, 42CrMoA, 60, 7.5965, 342.0, 40261.47, 5300, 7.0800, 7.0800, 0.1573, 0.1573, 7.0800, 0.1573, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1543, null, null, 42CrMoA, 65, 9.2282, 354.0, 48909.25, 5300, 12.2200, 12.2200, 0.3186, 0.3186, 12.2200, 0.3186, 未订料, , 102
+2021/02/04 10:59:19 TRACE selectByMaterialbuyorderIdAndSearch:145 - <==        Row: 1536, null, null, 42CrMoA, 85, null, null, null, 5300, 29.6130, 29.6130, 1.3201, 1.3201, 29.6130, 1.3201, 未订料, , 102
+2021/02/04 10:59:19 DEBUG selectByMaterialbuyorderIdAndSearch:139 - <==      Total: 92
+2021/02/04 10:59:19 DEBUG SqlSessionUtils:163 - Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35eb4a3b]
+2021/02/04 10:59:28 DEBUG SqlSessionUtils:287 - Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35eb4a3b]
+2021/02/04 10:59:28 DEBUG SqlSessionUtils:292 - Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35eb4a3b]
+2021/02/04 10:59:34  INFO DruidDataSource:1444 - {dataSource-1} closed

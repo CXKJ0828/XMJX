@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.LeaveMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+		ly_leave.id,
+		ly_leave.userId,
+		ly_leave.modifyTime,
+		ly_leave.days,
+
+		(select userName from ly_user where ly_user.id=ly_leave.userId) as userName
+	</sql>
+
+
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.LeaveFormMap">
+		select
+		<include refid="selectId" />
+		from ly_leave
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_leave.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_leave.modifyTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_leave.modifyTime &lt; '${endTime}'
+		</if>
+		and ly_leave.days  like '%${content}%'
+		ORDER BY modifyTime DESC
+	</select>
+
+	<select id="findAllDaysByAllLike" resultType="java.lang.String">
+		SELECT
+		sum(days) as allDays
+		from ly_leave
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_leave.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_leave.modifyTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_leave.modifyTime &lt; '${endTime}'
+		</if>
+		and ly_leave.days  like '%${content}%'
+
+	</select>
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_leave
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_leave.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_leave.modifyTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_leave.modifyTime &lt; '${endTime}'
+		</if>
+		and ly_leave.days  like '%${content}%'
+
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_leave
+		where id=#{id}
+	</delete>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.ScrapMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<select id="getByWorkersubmitId" resultType="com.zhjh.entity.ScrapFormMap">
+	select
+ly_scrap.id,
+ly_scrap.workersubmitId,
+ly_scrap.badReason,
+ly_scrap.materialCost,
+ly_scrap.forgingCost,
+ly_scrap.adjustmentCost,
+ly_scrap.cuttingCost,
+ly_scrap.carriageCost,
+ly_scrap.allCost,
+ly_scrap.conclusion,
+ly_scrap.userId,
+ly_scrap.approvalName,
+(select accountName from ly_user where ly_user.id=ly_scrap.userId) as accountName,
+(select userName from ly_user where ly_user.id=ly_scrap.userId) as userName
+from ly_scrap
+where ly_scrap.workersubmitId=#{workersubmitId}
+LIMIT 0,1
+	</select>
+	<select id="getByWorkersubmitHeattreatId" resultType="com.zhjh.entity.ScrapFormMap">
+		select
+		ly_scrap.id,
+		ly_scrap.workersubmitId,
+		ly_scrap.badReason,
+		ly_scrap.materialCost,
+		ly_scrap.forgingCost,
+		ly_scrap.adjustmentCost,
+		ly_scrap.cuttingCost,
+		ly_scrap.carriageCost,
+		ly_scrap.allCost,
+		ly_scrap.conclusion,
+		ly_scrap.userId,
+		ly_scrap.approvalName,
+		(select accountName from ly_user where ly_user.id=ly_scrap.userId) as accountName,
+		(select userName from ly_user where ly_user.id=ly_scrap.userId) as userName
+		from ly_scrap
+		where ly_scrap.workersubmitHeattreatId=#{workersubmitHeattreatId}
+		LIMIT 0,1
+	</select>
+</mapper>

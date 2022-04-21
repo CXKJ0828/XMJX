@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialBackExcelMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+ly_materialback_excel.id,
+		ly_materialback_excel.size,
+CAST((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','') LIMIT 0,1) AS decimal(10,2)) as price,
+ly_materialback_excel.length,
+ly_materialback_excel.weight,
+ly_materialback_excel.materialQuality,
+ly_materialback_excel.remarks,
+ROUND((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','') LIMIT 0,1)*weight,2) as money,
+ly_materialback_excel.backLength,
+ly_materialback_excel.backWeight,
+ROUND((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','') LIMIT 0,1)*backWeight,2)  as backMoney,
+ly_materialback_excel.lackLength,
+ROUND((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','')  LIMIT 0,1)*backWeight-(select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','')  LIMIT 0,1)*weight,2)  as lackMoney
+	</sql>
+
+	<select id="findDifferentRemarksTreeShow" resultType="com.zhjh.entity.MaterialBackExcelFormMap">
+		select
+		DISTINCT remarks as id,
+remarks as text
+		from ly_materialback_excel
+		ORDER BY remarks
+	</select>
+	<select id="findByRemarks" resultType="com.zhjh.entity.MaterialBackExcelFormMap">
+		select
+		<include refid="selectId" />
+		from ly_materialback_excel
+		where remarks=#{remarks}
+		<include refid="whereState" />
+		ORDER BY materialQuality,size
+	</select>
+	<select id="findSumMaterialQualityByRemarks" resultType="com.zhjh.entity.MaterialBackExcelFormMap">
+		select
+ly_materialback_excel.id,
+sum(ly_materialback_excel.length) as length,
+sum(ly_materialback_excel.weight) as weight,
+ROUND(SUM((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','') LIMIT 0,1)*weight),2) as money,
+ly_materialback_excel.materialQuality,
+ly_materialback_excel.remarks,
+SUM(ly_materialback_excel.backLength) as backLength,
+SUM(ly_materialback_excel.backWeight) as backWeight,
+ROUND(SUM((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','') LIMIT 0,1)*backWeight),2) as backMoney,
+SUM(ly_materialback_excel.lackLength) as lackLength,
+ROUND(SUM((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','')  LIMIT 0,1)*backWeight-(select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialback_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialback_excel.size,'Φ','')  LIMIT 0,1)*weight ),2) as lackMoney
+		from ly_materialback_excel
+		where remarks=#{remarks}
+		<include refid="whereState" />
+		group by materialQuality
+	</select>
+	<sql id="whereState">
+		<if test="state == '回料已完成'">
+			and ly_materialback_excel.lackLength &gt;= 0
+		</if>
+		<if test="state == '回料未完成'">
+			and ly_materialback_excel.lackLength &lt; 0
+		</if>
+	</sql>
+	<delete id="deleteByIds" parameterType="String">
+		delete from
+		ly_materialback_excel
+		where FIND_IN_SET(id,(#{ids}))
+	</delete>
+
+	<select id="findIsExistByEntity" parameterType="com.zhjh.entity.MaterialBackExcelFormMap" resultType="java.lang.String">
+		select if(count(*)=1,ly_materialback_excel.id ,'false')
+		from ly_materialback_excel
+		where
+		ly_materialback_excel.size='${size}'
+		and ly_materialback_excel.materialQuality='${materialQuality}'
+		and ly_materialback_excel.remarks='${remarks}'
+	</select>
+
+	<update id="updateAmountByEntity">
+		update ly_materialback_excel
+		set
+		ly_materialback_excel.length=ly_materialback_excel.length+${length},
+		ly_materialback_excel.weight=ly_materialback_excel.weight+${weight},
+		ly_materialback_excel.lackLength=ly_materialback_excel.lackLength+(-${length})
+		where id='${id}'
+	</update>
+	<update id="updateAmountByBackEntity">
+		update ly_materialback_excel
+		set
+		ly_materialback_excel.backLength=ly_materialback_excel.backLength+${length},
+		ly_materialback_excel.backWeight=ly_materialback_excel.backWeight+${weight},
+		ly_materialback_excel.lackLength=ly_materialback_excel.lackLength+${length}
+		where id='${materialbackExcelId}'
+	</update>
+</mapper>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.GoodproductCategoryMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<sql id="selectId">
+		ly_goodproduct_category.id,
+ly_goodproduct_category.clientId,
+ly_client.simpleName as clientName,
+ly_goodproduct_category.goodId,
+ly_good.mapNumber,
+ly_good.name as goodName,
+ly_good.goodSize,
+(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_good.materialQuality) as materialQualityName,
+ly_goodproduct_category.amount,
+ly_goodproduct_category.deliveryTime,
+ly_goodproduct_category.leader,
+ly_goodproduct_category.completeTime,
+ly_goodproduct_category.isComplete,
+ly_goodproduct_category.isOverTime,
+ly_goodproduct_category.completeAmount,
+if(ly_goodproduct_category.completeAmount>0,(ly_goodproduct_category.amount-ly_goodproduct_category.completeAmount),'') as badAmount,
+ly_goodproduct_category.badUserId,
+ly_goodproduct_category.overTimeUserId,
+(select userName from ly_user where ly_user.id=ly_goodproduct_category.badUserId) as badUserName,
+(select userName from ly_user where ly_user.id=ly_goodproduct_category.overTimeUserId) as overTimeUserName,
+ly_goodproduct_category.reason,
+ly_goodproduct_category.receiptTime,
+ly_goodproduct_category.backTime,
+ly_goodproduct_category.isBack
+	</sql>
+	<select id="findDistinctLeader" resultType="com.zhjh.entity.GoodproductCategoryFormMap">
+		SELECT
+		DISTINCT  leader
+		from ly_goodproduct_category
+		where
+		leader like CONCAT('%',#{content},'%')
+	</select>
+	<select id="findStatisticsByAllLike" resultType="com.zhjh.entity.GoodproductCategoryFormMap">
+		SELECT
+        count(isComplete='是' or null) as completeCount,
+        count(isComplete='否' or null) as unCompleteCount,
+        cast(
+        sum(
+        if(ly_goodproduct_category.completeTime>ly_goodproduct_category.deliveryTime and ly_goodproduct_category.deliveryTime !='',
+        (unix_timestamp(ly_goodproduct_category.completeTime)-unix_timestamp(ly_goodproduct_category.deliveryTime))/86400,
+        0))
+        as decimal(9,2))  as deliveryoverTimeDaySum,
+        cast(
+        sum(
+        if(ly_goodproduct_category.backTime>ly_goodproduct_category.receiptTime and ly_goodproduct_category.receiptTime !='',
+        (unix_timestamp(ly_goodproduct_category.backTime)-unix_timestamp(ly_goodproduct_category.receiptTime))/86400,
+        0))
+        as decimal(9,2))  as receiptoverTimeDaySum,
+        sum(if(isComplete='是',amount,0)) as completeSum,
+        sum(if(isComplete='否',amount,0)) as unCompleteSum,
+        sum(if(ly_goodproduct_category.completeAmount>0,(ly_goodproduct_category.amount-ly_goodproduct_category.completeAmount),'')) as badAmountSum,
+        sum(
+        if(ly_goodproduct_category.completeTime>ly_goodproduct_category.deliveryTime and ly_goodproduct_category.deliveryTime !='',
+        (unix_timestamp(ly_goodproduct_category.completeTime)-unix_timestamp(ly_goodproduct_category.deliveryTime))/86400,
+        0))
+        *
+        (select content from ly_system_config where name='deductionBaseValueCategory') as deliveryoverTimeMoney,
+        sum(
+        if(ly_goodproduct_category.backTime>ly_goodproduct_category.receiptTime and ly_goodproduct_category.receiptTime !='',
+        (unix_timestamp(ly_goodproduct_category.backTime)-unix_timestamp(ly_goodproduct_category.receiptTime))/86400,
+        0))
+        *
+        (select content from ly_system_config where name='deductionBaseValueCategory') as receiptoverTimeMoney
+		from ly_goodproduct_category,ly_client,ly_good
+		where ly_good.id=ly_goodproduct_category.goodId
+		and ly_client.id=ly_goodproduct_category.clientId
+		<include refid="whereSelectAll" />
+	</select>
+	<select id="findClientByAllLike" parameterType="String" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		DISTINCT ly_goodproduct_category.clientId,
+		(select simpleName from ly_client where ly_client.id=ly_goodproduct_category.clientId) as simpleName
+		from ly_goodproduct_category,ly_client,ly_good
+		where ly_good.id=ly_goodproduct_category.goodId
+		and ly_client.id=ly_goodproduct_category.clientId
+		and ly_goodproduct_category.clientId is not NULL
+		and ly_goodproduct_category.clientId!=''
+		<include refid="whereSelectAll" />
+		ORDER BY ly_goodproduct_category.clientId DESC
+	</select>
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_goodproduct_category,ly_client,ly_good
+		where ly_good.id=ly_goodproduct_category.goodId
+		and ly_client.id=ly_goodproduct_category.clientId
+		<include refid="whereSelectAll" />
+	</select>
+	<select id="findByAllLike" resultType="com.zhjh.entity.GoodproductCategoryFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_goodproduct_category,ly_client,ly_good
+		where ly_good.id=ly_goodproduct_category.goodId
+		and ly_client.id=ly_goodproduct_category.clientId
+		<include refid="whereSelectAll" />
+		<if test="sort != null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+	<select id="findByIds" parameterType="String" resultType="com.zhjh.entity.GoodproductCategoryFormMap">
+		SELECT
+		*
+		from ly_goodproduct_category
+		where FIND_IN_SET(ly_goodproduct_category.id,(#{ids}))
+	</select>
+	<sql id="whereSelectAll">
+		<if test="origin != null and origin != '' ">
+			and	ly_goodproduct_category.origin='${origin}'
+		</if>
+		<if test="clientId != null and clientId != '' and clientId != '不限'">
+			and	ly_goodproduct_category.clientId='${clientId}'
+		</if>
+		<if test="materialQuality != null and materialQuality != '' and materialQuality != '不限'">
+			and ly_good.materialQuality='${materialQuality}'
+		</if>
+		<if test="startTimeDelivery != null and startTimeDelivery != ''">
+			and ly_goodproduct_category.deliveryTime &gt;= '${startTimeDelivery}'
+		</if>
+		<if test="endTimeDelivery != null and endTimeDelivery != ''">
+			and ly_goodproduct_category.deliveryTime &lt; '${endTimeDelivery}'
+		</if>
+		<if test="startTimeComplete != null and startTimeComplete != ''">
+			and ly_goodproduct_category.completeTime &gt;= '${startTimeComplete}'
+		</if>
+		<if test="endTimeComplete != null and endTimeComplete != ''">
+			and ly_goodproduct_category.completeTime &lt; '${endTimeComplete}'
+		</if>
+        <if test="startTimeBack != null and startTimeBack != ''">
+            and ly_goodproduct_category.backTime &gt;= '${startTimeBack}'
+        </if>
+        <if test="endTimeBack != null and endTimeBack != ''">
+            and ly_goodproduct_category.backTime &lt; '${endTimeBack}'
+        </if>
+        <if test="startTimeReceipt != null and startTimeReceipt != ''">
+            and ly_goodproduct_category.receiptTime &gt;= '${startTimeReceipt}'
+        </if>
+        <if test="endTimeReceipt != null and endTimeReceipt != ''">
+            and ly_goodproduct_category.receiptTime &lt; '${endTimeReceipt}'
+        </if>
+		<if test="leader != null and leader != '' and leader != '不限'">
+			and	ly_goodproduct_category.leader='${leader}'
+		</if>
+		<if test="isComplete != null and isComplete != '' and isComplete != '不限'">
+			and	ly_goodproduct_category.isComplete='${isComplete}'
+		</if>
+        <if test="isBack != null and isBack != '' and isBack != '不限'">
+            and	ly_goodproduct_category.isBack='${isBack}'
+        </if>
+		<if test="isOverTime != null and isOverTime != '' and isOverTime != '不限'">
+			and	ly_goodproduct_category.isOverTime='${isOverTime}'
+		</if>
+		<if test="content != null and content != ''">
+			and
+			(  ly_good.mapNumber  like '%${content}%' or
+			ly_good.name  like '%${content}%' or
+			ly_good.goodSize  like '%${content}%'
+			)
+		</if>
+		<if test="reason != null and reason != ''">
+			and ly_goodproduct_category.reason  like '%${reason}%'
+		</if>
+		<if test="badUserId != null and badUserId != '' and badUserId != '不限'">
+			and	ly_goodproduct_category.badUserId='${badUserId}'
+		</if>
+		<if test="overTimeUserId != null and overTimeUserId != '' and overTimeUserId != '不限'">
+			and	ly_goodproduct_category.overTimeUserId='${overTimeUserId}'
+		</if>
+		<if test="isBad != null and isBad != ''">
+			<if test='isBad == "是"'>
+				and	(ly_goodproduct_category.amount-ly_goodproduct_category.completeAmount)>0
+			</if>
+			<if test='isBad == "否"'>
+				and	ly_goodproduct_category.isComplete='是'
+				and (
+				(ly_goodproduct_category.amount-ly_goodproduct_category.completeAmount)=0
+				or
+				(ly_goodproduct_category.amount-ly_goodproduct_category.completeAmount) is null
+				)
+			</if>
+		</if>
+	</sql>
+	<delete id="deleteByIds" parameterType="String">
+		delete from
+		ly_goodproduct_category
+		where FIND_IN_SET(id,(#{ids}))
+	</delete>
+
+</mapper>

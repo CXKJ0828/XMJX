@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.StockMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		ly_stock.id,
+ly_stock.goodId,
+ly_stock.amount,
+ly_stock.price,
+ly_stock.money,
+ly_stock.remarks,
+ly_stock.userId,
+ly_stock.modifyTime,
+(select name from ly_good where ly_good.id=ly_stock.goodId) as goodName,
+(select mapNumber from ly_good where ly_good.id=ly_stock.goodId) as mapNumber,
+(select goodSize from ly_good where ly_good.id=ly_stock.goodId) as goodSize
+	</sql>
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_stock
+		where
+		ly_stock.id like '%${content}%' or
+ly_stock.goodId like '%${content}%' or
+ly_stock.amount like '%${content}%' or
+ly_stock.price like '%${content}%' or
+ly_stock.money like '%${content}%' or
+ly_stock.remarks like '%${content}%' or
+ly_stock.userId like '%${content}%' or
+ly_stock.modifyTime like '%${content}%' or
+(select name from ly_good where ly_good.id=ly_stock.goodId) like '%${content}%' or
+(select mapNumber from ly_good where ly_good.id=ly_stock.goodId) like '%${content}%' or
+(select goodSize from ly_good where ly_good.id=ly_stock.goodId) like '%${content}%'
+	</select>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.StockFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_stock
+		where
+		ly_stock.id like '%${content}%' or
+		ly_stock.goodId like '%${content}%' or
+		ly_stock.amount like '%${content}%' or
+		ly_stock.price like '%${content}%' or
+		ly_stock.money like '%${content}%' or
+		ly_stock.remarks like '%${content}%' or
+		ly_stock.userId like '%${content}%' or
+		ly_stock.modifyTime like '%${content}%' or
+		(select name from ly_good where ly_good.id=ly_stock.goodId) like '%${content}%' or
+		(select mapNumber from ly_good where ly_good.id=ly_stock.goodId) like '%${content}%' or
+		(select goodSize from ly_good where ly_good.id=ly_stock.goodId) like '%${content}%'
+		<if test="sort != null and state != ''">
+			order by ${sort} ${order}
+		</if>
+		ORDER BY (select mapNumber from ly_good where ly_good.id=ly_stock.goodId) ASC
+	</select>
+	<select id="findByGoodId" parameterType="String" resultType="com.zhjh.entity.StockFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_stock
+		where
+		ly_stock.goodId=#{goodId}
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_stock
+		where id=#{id}
+	</delete>
+</mapper>

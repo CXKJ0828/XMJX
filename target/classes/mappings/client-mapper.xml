@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.ClientMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+	ly_client.id,
+	ly_client.taxRate,
+	ly_client.taxRate as taxRateOld,
+ly_client.fullName,
+ly_client.simpleName,
+ly_client.leader,
+ly_client.taxNumber,
+ly_client.bank1,
+ly_client.account1,
+ly_client.bank2,
+ly_client.account2,
+ly_client.contacts,
+ly_client.phone,
+ly_client.fax,
+ly_client.taxFreeRatio,
+ly_client.taxFreeRatio as taxFreeRatioOld,
+ly_client.address,
+ly_client.remarks,
+ly_client.modifyTime,
+ly_client.userId
+	</sql>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client
+		where  ly_client.id like '%${content}%' or
+		ly_client.fullName like '%${content}%' or
+		ly_client.simpleName like '%${content}%' or
+		ly_client.leader like '%${content}%' or
+		ly_client.taxNumber like '%${content}%' or
+		ly_client.bank1 like '%${content}%' or
+		ly_client.account1 like '%${content}%' or
+		ly_client.bank2 like '%${content}%' or
+		ly_client.account2 like '%${content}%' or
+		ly_client.contacts like '%${content}%' or
+		ly_client.phone like '%${content}%' or
+		ly_client.fax like '%${content}%' or
+		ly_client.taxFreeRatio like '%${content}%' or
+		ly_client.address like '%${content}%' or
+		ly_client.remarks like '%${content}%' or
+		ly_client.modifyTime like '%${content}%' or
+		ly_client.userId like '%${content}%'
+	</select>
+
+	<select id="findByFullName" parameterType="String" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client
+		where
+		fullName=#{fullName}
+	</select>
+	<select id="findBySimpleName" parameterType="String" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client
+		where
+		simpleName=#{simpleName}
+	</select>
+
+	<select id="findSimpleNameText" parameterType="String" resultType="com.zhjh.bean.ComboboxEntity">
+		SELECT
+			ly_client.id,
+			ly_client.simpleName as text
+		from ly_client
+		where simpleName like CONCAT('%',#{simpleName},'%')
+	</select>
+
+
+
+	<select id="findBySimpleNameLike" parameterType="String" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client
+		where
+		simpleName like CONCAT('%',#{simpleName},'%')
+		order by remarks is null,remarks='', remarks asc
+	</select>
+
+	<select id="findSimpleNameByIds" parameterType="String" resultType="java.lang.String">
+		select
+		 IFNULL(GROUP_CONCAT(simpleName),"")
+		 from ly_client where FIND_IN_SET(id,#{ids})
+	</select>
+
+	<select id="findOrderClientGroupByClientId" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client,ly_order
+		where  ly_order.clientId=ly_client.id
+		GROUP BY clientId
+	</select>
+	<select id="findUnCompleteOrderClientGroupByClientId"  resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client,ly_order_details,ly_good,ly_order
+		where
+		ly_order.id=ly_order_details.orderId
+		and
+		ly_order_details.goodId=ly_good.id
+		and
+		ly_order.clientId=ly_client.id
+		and ly_order.state!='已完成'
+		and ly_good.mapNumber like '%${mapNumber}%'
+		and ly_order.contractNumber like '%${contractNumber}%'
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		GROUP BY ly_order.clientId
+	</select>
+
+	<select id="findUnSendOrderClientGroupByClientId" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client,ly_order
+		where  ly_order.clientId=ly_client.id
+		and ly_order.state!='已完成'
+		GROUP BY clientId
+	</select>
+
+	<select id="findByFullNameLike" parameterType="String" resultType="com.zhjh.entity.ClientFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_client
+		where
+		fullName like CONCAT('%',#{fullName},'%')
+		order by remarks is null,remarks='', remarks asc
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_client
+		where id=#{id}
+	</delete>
+	
+</mapper>

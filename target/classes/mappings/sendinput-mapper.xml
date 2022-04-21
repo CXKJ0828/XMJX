@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.SendInputMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		(select orderId from ly_order_details where ly_order_details.id=ly_send_input.orderdetailsId) as orderId,
+(select ly_client.fullName from ly_client,ly_order where ly_client.id=ly_order.clientId and ly_order.id=(select orderId from ly_order_details where ly_order_details.id=ly_send_input.orderdetailsId)) as clientName,
+(select ly_good.mapNumber from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) as mapNumber,
+(select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) as goodName,
+(select ly_good.taxPrice from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) as taxPrice,
+convert(
+((select ly_good.taxPrice from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId)*ly_send_input.amount),
+decimal(10,2))
+ as money,
+(select ly_good.goodSize from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) as goodSize,
+(select ly_order.contractNumber from ly_order where ly_order.id=(select orderId from ly_order_details where ly_order_details.id=ly_send_input.orderdetailsId)) as contractNumber,
+ly_send_input.id,
+ly_send_input.orderdetailsId,
+ly_send_input.amount,
+(select ly_user.userName from ly_user where ly_user.id=ly_send_input.modifyuserId) as userName,
+ly_send_input.modifyuserId,
+ly_send_input.modifyTime,
+ly_send_input.remarks,
+ly_send_input.origin
+	</sql>
+	<select id="findCountByLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		 from ly_send_input
+WHERE
+		1=1
+		<include refid="whereAllLike" />
+	</select>
+<sql id="whereAllLike">
+	<if test="goodName != null and goodName != ''  and goodName != '不限'">
+		<if test="goodName != '垫/片' and goodName != '其他'">
+			and (select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) LIKE '%${goodName}%'
+		</if>
+		<if test="goodName == '垫/片'">
+			and (
+			(select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) LIKE '%垫%'
+			OR
+			(select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) LIKE '%片%'
+			)
+		</if>
+		<if test="goodName == '其他'">
+			and (
+			(select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) not LIKE '%垫%'
+			and
+			(select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) not LIKE '%片%'
+			and
+			(select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) not LIKE '%轴%'
+			and
+			(select ly_good.name from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) not LIKE '%套%'
+			)
+		</if>
+	</if>
+	<if test="clientId != null and clientId != ''">
+		and (select ly_order.clientId from ly_order where ly_order.id=(select orderId from ly_order_details where ly_order_details.id=ly_send_input.orderdetailsId))='${clientId}'
+	</if>
+
+	and
+	(select ly_order.contractNumber from ly_order where ly_order.id=(select orderId from ly_order_details where ly_order_details.id=ly_send_input.orderdetailsId)) like '%${contractNumber}%'
+	AND
+	(select ly_good.mapNumber from ly_order_details,ly_good where ly_good.id=ly_order_details.goodId and ly_order_details.id=ly_send_input.orderdetailsId) like '%${mapNumber}%'
+	<if test="startTime != null and startTime != ''">
+		and ly_send_input.modifyTime &gt; '${startTime}'
+	</if>
+	<if test="endTime != null and endTime != ''">
+		and ly_send_input.modifyTime &lt; '${endTime}'
+	</if>
+	and ly_send_input.origin='${origin}'
+</sql>
+	<select id="findByLike" resultType="com.zhjh.entity.SendInputFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_send_input
+		WHERE
+		1=1
+		<include refid="whereAllLike" />
+		ORDER  by ly_send_input.modifyTime DESC
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_send_input
+		where id=#{id}
+	</delete>
+</mapper>

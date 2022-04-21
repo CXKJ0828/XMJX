@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialBuyExcelMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<sql id="selectId">
+		ly_materialbuy_excel.id,
+		ly_materialbuy_excel.size,
+		CAST((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialbuy_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialbuy_excel.size,'Φ','') LIMIT 0,1) AS decimal(10,2)) as price,
+		ly_materialbuy_excel.length,
+		ly_materialbuy_excel.weight,
+		ly_materialbuy_excel.materialQuality,
+		ROUND((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialbuy_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialbuy_excel.size,'Φ','') LIMIT 0,1)*weight,2) as money
+	</sql>
+	<select id="findByMaterialQuality" resultType="com.zhjh.entity.MaterialBuyExcelFormMap">
+		select
+		<include refid="selectId" />
+		from ly_materialbuy_excel
+		where
+		1=1
+		<if test="materialQuality != null and materialQuality != '' and materialQuality != '不限'">
+			and materialQuality=#{materialQuality}
+		</if>
+		ORDER BY materialQuality,size
+	</select>
+	<select id="findSumByMaterialQuality" resultType="com.zhjh.entity.MaterialBuyExcelFormMap">
+		select
+		ly_materialbuy_excel.id,
+		sum(ly_materialbuy_excel.length) as length,
+		sum(ly_materialbuy_excel.weight) as weight,
+		ROUND(SUM((select ly_material.taxPrice from ly_material where ly_material.materialQuality=ly_materialbuy_excel.materialQuality and replace(ly_material.outerCircle,'Φ','')=replace(ly_materialbuy_excel.size,'Φ','') LIMIT 0,1)*weight),2) as money,
+		ly_materialbuy_excel.materialQuality
+		from ly_materialbuy_excel
+		where
+		1=1
+		<if test="materialQuality != null and materialQuality != '' and materialQuality != '不限'">
+			and materialQuality=#{materialQuality}
+		</if>
+		group by materialQuality
+	</select>
+	<delete id="deleteByIds" parameterType="String">
+		delete from
+		ly_materialbuy_excel
+		where FIND_IN_SET(id,(#{ids}))
+	</delete>
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		ly_materialbuy_excel
+	</delete>
+	<select id="findIsExistBySizeAndMaterialQuality" parameterType="com.zhjh.entity.MaterialBuyExcelFormMap" resultType="java.lang.String">
+		select if(count(*)=1,ly_materialbuy_excel.id ,'false')
+		from ly_materialbuy_excel
+		where
+		ly_materialbuy_excel.size='${size}'
+		and ly_materialbuy_excel.materialQuality='${materialQuality}'
+	</select>
+	<update id="updateAmountByEntity">
+		update ly_materialbuy_excel
+		set
+		ly_materialbuy_excel.length=ly_materialbuy_excel.length+${length},
+		ly_materialbuy_excel.weight=ly_materialbuy_excel.weight+${weight},
+		ly_materialbuy_excel.lackLength=ly_materialbuy_excel.lackLength+(-${length})
+		where id='${id}'
+	</update>
+</mapper>

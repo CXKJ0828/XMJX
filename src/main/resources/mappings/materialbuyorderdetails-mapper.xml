@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialBuyOrderDetailsMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<select id="selectMaterialQualityBymaterialBuyOrderId" parameterType="String" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		select materialQuality,ly_materialbuyorder_details.materialBuyOrderId from ly_materialbuyorder_details where ly_materialbuyorder_details.materialBuyOrderId=#{materialBuyOrderId} GROUP BY materialQuality
+	</select>
+	<select id="selectByMaterialQualityAndMaterialbuyorderId" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		select
+		ly_materialbuyorder_details.id,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		(select weight from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle) as stockWeight,
+		ly_materialbuyorder_details.length,
+		ly_materialbuyorder_details.weight,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.buyWeight,
+		ly_materialbuyorder_details.state,
+		ly_materialbuyorder_details.materialbuyorderId
+		from ly_materialbuyorder_details
+		where ly_materialbuyorder_details.materialQuality='${materialQuality}' and ly_materialbuyorder_details.materialbuyorderId='${materialbuyorderId}'
+	</select>
+
+	<select id="selectDistinctMaterialQuality" resultType="com.zhjh.entity.MaterialQualityTypeFormMap">
+		select DISTINCT ly_materialbuyorder_details.materialQuality from ly_materialbuyorder_details
+	</select>
+
+	<select id="selectByMaterialbuyorderId" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		select
+		ly_materialbuyorder_details.id,
+		(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_materialbuyorder_details.materialQuality) as materialQualityName,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+				(select weight from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockWeight,
+		(select length from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockLength,
+		(select money from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as money,
+		(select taxPrice from ly_material where  ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as taxPrice,
+		ly_materialbuyorder_details.length,
+		ly_materialbuyorder_details.weight,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.buyWeight,
+		ly_materialbuyorder_details.state,
+		ly_materialbuyorder_details.buyTime,
+		ly_materialbuyorder_details.materialbuyorderId
+		from ly_materialbuyorder_details
+	where materialbuyorderId=#{materialbuyorderId}
+	ORDER BY materialQuality
+	</select>
+
+	<select id="selectByMaterialbuyorderIdAndSearch" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		select
+		DISTINCT ly_materialbuyorder_details.id,
+		(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) as backAmount,
+		(select ly_materialbackorder_details.lackAmount from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) as lackAmount,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		(select weight from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockWeight,
+		(select length from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockLength,
+		(select money from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as money,
+		IFNULL((select taxPrice from ly_material where  ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle LIMIT 0,1),'0') as taxPrice,
+
+		FORMAT((SELECT
+		sum(ly_blank.length)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and (select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)='${clientId}'
+		</if>),4) as length,
+		FORMAT((SELECT
+		sum(ly_blank.length)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		),4) as lengthAll,
+		FORMAT((SELECT
+		sum(ly_blank.weight)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=ly_blank.orderdetailsId) &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and (select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=ly_blank.orderdetailsId)='${clientId}'
+		</if>),4) as weight,
+		FORMAT((SELECT
+		sum(ly_blank.weight)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		),4) as weightAll,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.buyWeight,
+		ly_materialbuyorder_details.state,
+		ly_materialbuyorder_details.buyTime,
+		ly_materialbuyorder_details.materialbuyorderId
+		from ly_materialbuyorder_details,ly_materialbuyorderdetails_blank
+		where materialbuyorderId='${materialbuyorderId}'
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="materialQualityName != null and materialQualityName != ''and materialQualityName != '不限'">
+			and ly_materialbuyorder_details.materialQuality='${materialQualityName}'
+		</if>
+		<if test="isLack != null and isLack != '' and isLack != '不限'">
+			<if test="isLack == '欠料'">
+				<!-- 订料大于回料-->
+				and
+				(
+				(
+				if(replace(ly_materialbuyorder_details.state,"已订料:","")='未订料',0,replace(ly_materialbuyorder_details.state,"已订料:",""))+0
+				>
+				(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id)+0
+				)
+				OR
+				(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) is NULL
+				)
+				and ly_materialbuyorder_details.state!='未订料'
+			</if>
+			<if test="isLack == '未欠料'">
+				<!-- 订料小于等于回料-->
+				and (
+				if(replace(ly_materialbuyorder_details.state,"已订料:","")='未订料',0,replace(ly_materialbuyorder_details.state,"已订料:",""))+0
+				&lt;=
+				(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id)+0
+				)
+				and ly_materialbuyorder_details.state!='未订料'
+			</if>
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=(select ly_blank.orderdetailsId from ly_blank where ly_blank.id=ly_materialbuyorderdetails_blank.blankId)) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details where ly_order_details.id=(select ly_blank.orderdetailsId from ly_blank where ly_blank.id=ly_materialbuyorderdetails_blank.blankId)) &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and (select clientId from ly_order,ly_order_details where ly_order.id=ly_order_details.orderId and ly_order_details.id=(select ly_blank.orderdetailsId from ly_blank where ly_blank.id=ly_materialbuyorderdetails_blank.blankId))='${clientId}'
+		</if>
+		GROUP BY materialQuality,outerCircle
+	</select>
+	<select id="selectByMaterialbuyorderIdAndSearchAndBlankIds" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		select
+		DISTINCT ly_materialbuyorder_details.id,
+		(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) as backAmount,
+		(select ly_materialbackorder_details.lackAmount from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) as lackAmount,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		(select weight from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockWeight,
+		(select length from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockLength,
+		(select money from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as money,
+		IFNULL((select taxPrice from ly_material where  ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle LIMIT 0,1),'0') as taxPrice,
+
+		FORMAT((SELECT
+		sum(ly_blank.length)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="clientId != null and clientId != ''and clientId != '不限'">
+			and (select ly_order.clientId from ly_order,ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_order.id=ly_order_details.orderId and ly_blank.orderdetailsId=ly_order_details.id) in (${clientId})
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &lt; '${endTime}'
+		</if>
+		and FIND_IN_SET(ly_materialbuyorder_details.id,#{blankIds})),4) as length,
+		FORMAT((SELECT
+		sum(ly_blank.length)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		),4) as lengthAll,
+		FORMAT((SELECT
+		sum(ly_blank.weight)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="clientId != null and clientId != ''and clientId != '不限'">
+			and (select ly_order.clientId from ly_order,ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_order.id=ly_order_details.orderId and ly_blank.orderdetailsId=ly_order_details.id) in (${clientId})
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &lt; '${endTime}'
+		</if>
+		and FIND_IN_SET(ly_materialbuyorder_details.id,#{blankIds})),4) as weight,
+		FORMAT((SELECT
+		sum(ly_blank.weight)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		),4) as weightAll,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.buyWeight,
+		ly_materialbuyorder_details.state,
+		ly_materialbuyorder_details.buyTime,
+		ly_materialbuyorder_details.materialbuyorderId
+		from ly_materialbuyorder_details,ly_materialbuyorderdetails_blank
+		where materialbuyorderId='${materialbuyorderId}'
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="materialQualityName != null and materialQualityName != ''and materialQualityName != '不限'">
+			and ly_materialbuyorder_details.materialQuality='${materialQualityName}'
+		</if>
+		<if test="isLack != null and isLack != '' and isLack != '不限'">
+			<if test="isLack == '欠料'">
+				<!-- 订料大于回料-->
+				and
+				(
+				(
+				if(replace(ly_materialbuyorder_details.state,"已订料:","")='未订料',0,replace(ly_materialbuyorder_details.state,"已订料:",""))+0
+				>
+				(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id)+0
+				)
+				OR
+				(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id) is NULL
+				)
+				and ly_materialbuyorder_details.state!='未订料'
+			</if>
+			<if test="isLack == '未欠料'">
+				<!-- 订料小于等于回料-->
+				and (
+				if(replace(ly_materialbuyorder_details.state,"已订料:","")='未订料',0,replace(ly_materialbuyorder_details.state,"已订料:",""))+0
+				&lt;=
+				(select ly_materialbackorder_details.length from ly_materialbackorder_details where ly_materialbackorder_details.materialBuyOrderDetailsId=ly_materialbuyorder_details.id)+0
+				)
+				and ly_materialbuyorder_details.state!='未订料'
+			</if>
+		</if>
+		and FIND_IN_SET(ly_materialbuyorder_details.id,#{blankIds})
+		GROUP BY materialQuality,outerCircle
+	</select>
+	<select id="selectBuyExcelByMaterialbuyorderIdAndSearchAndBlankIds" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		select
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle as size,
+		FORMAT((SELECT
+		sum(ly_blank.length)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="clientId != null and clientId != ''and clientId != '不限'">
+			and (select ly_order.clientId from ly_order,ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_order.id=ly_order_details.orderId and ly_blank.orderdetailsId=ly_order_details.id) in (${clientId})
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &lt; '${endTime}'
+		</if>
+		and FIND_IN_SET(ly_materialbuyorder_details.id,#{blankIds})),4) as length,
+		FORMAT((SELECT
+		sum(ly_blank.weight)
+		from 	ly_materialbuyorderdetails_blank,ly_blank
+		where ly_materialbuyorderdetails_blank.blankId=ly_blank.id
+		and ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		<if test="clientId != null and clientId != ''and clientId != '不限'">
+			and (select ly_order.clientId from ly_order,ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id and ly_order.id=ly_order_details.orderId and ly_blank.orderdetailsId=ly_order_details.id) in (${clientId})
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and (select ly_order_details.deliveryTime from ly_order_details,ly_blank where ly_materialbuyorderdetails_blank.blankId=ly_blank.id  and ly_blank.orderdetailsId=ly_order_details.id) &lt; '${endTime}'
+		</if>
+		and FIND_IN_SET(ly_materialbuyorder_details.id,#{blankIds})),4) as weight
+		from ly_materialbuyorder_details,ly_materialbuyorderdetails_blank
+		where ly_materialbuyorderdetails_blank.materialBuyOrderDetailsId=ly_materialbuyorder_details.id
+		and FIND_IN_SET(ly_materialbuyorder_details.id,#{blankIds})
+		GROUP BY materialQuality,outerCircle
+
+	</select>
+
+	<select id="selectByMaterialQualityAndOuterCircleAndMaterialbuyorderId" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		select
+		ly_materialbuyorder_details.id,
+		ly_materialbuyorder_details.materialQuality,
+		ly_materialbuyorder_details.outerCircle,
+		(select weight from ly_materialweight,ly_material where ly_material.id=ly_materialweight.materialId and ly_materialbuyorder_details.materialQuality=ly_material.materialQuality and ly_materialbuyorder_details.outerCircle=ly_material.outerCircle limit 0,1) as stockWeight,
+		ly_materialbuyorder_details.length,
+		ly_materialbuyorder_details.weight,
+		ly_materialbuyorder_details.buyLength,
+		ly_materialbuyorder_details.buyWeight,
+		ly_materialbuyorder_details.state,
+		ly_materialbuyorder_details.materialbuyorderId
+		from ly_materialbuyorder_details
+		where ly_materialbuyorder_details.materialQuality='${materialQuality}'
+		and ly_materialbuyorder_details.materialbuyorderId='${materialbuyorderId}'
+		and ly_materialbuyorder_details.outerCircle='${outerCircle}'
+		limit 0,1
+	</select>
+
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.MaterialBuyOrderDetailsFormMap">
+		SELECT
+		*
+		from ly_materialbuyorder_details
+		where ly_materialbuyorder_details.id=#{id}
+	</select>
+
+</mapper>

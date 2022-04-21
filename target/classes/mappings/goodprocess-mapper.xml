@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.GoodProcessMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+ly_good_process.id,
+ly_good_process.number,
+ly_good_process.goodId,
+ly_good_process.processId,
+ly_good_process.content,
+(select name from ly_process where ly_process.id=ly_good_process.processId) as processName,
+ly_good_process.artificial,
+ly_good_process.remark,
+ly_good_process.isMust,
+ly_good_process.multiple,
+ly_good_process.modifyTime,
+ly_good_process.userId,
+(select userName from ly_user where ly_user.id=ly_good_process.userId) as userName
+	</sql>
+	<select id="findArtificialByNameAndGoodId"  resultType="com.zhjh.entity.GoodProcessFormMap">
+		select
+		ly_good_process.artificial,ly_good.id,ly_good_process.processId
+		from ly_good_process,ly_good,ly_process
+		where
+		ly_good_process.processId=ly_process.id
+		and ly_good_process.goodId=ly_good.id
+		and ly_good.id=#{goodId}
+		and
+		FIND_IN_SET(ly_process.name,(#{processNames}))
+
+	</select>
+	<select id="findByGoodId" parameterType="String" resultType="com.zhjh.entity.GoodProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good_process
+		where goodId=#{goodId}
+		order by CAST(number AS SIGNED)
+	</select>
+	<select id="findSumArtificialByGoodId" parameterType="String" resultType="java.lang.String">
+		SELECT
+		IFNULL(cast(sum(ly_good_process.artificial) AS decimal(15,2)),0)
+		from ly_good_process
+		where goodId=#{goodId}
+	</select>
+	<select id="findStringByGoodId" parameterType="String" resultType="java.lang.String">
+		SELECT
+		GROUP_CONCAT(ly_good_process.processId)
+		from ly_good_process
+		where goodId=#{goodId}
+	</select>
+	<select id="findByGoodIdAndProcessIdAndNumber" resultType="com.zhjh.entity.GoodProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good_process
+		where goodId='${goodId}'
+		and processId='${processId}'
+		and number='${number}'
+	</select>
+	<select id="findByGoodIdAndProcessId" resultType="com.zhjh.entity.GoodProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_good_process
+		where goodId='${goodId}'
+		and processId='${processId}'
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_good_process
+		where id=#{id}
+	</delete>
+	<delete id="deleteByGoodIdAndProcessIdAndNumberNotNull" >
+	delete from ly_good_process
+	where goodId='${goodId}'
+		and processId='${processId}'
+		 and (
+		 number is not NULL
+		 )
+	</delete>
+</mapper>

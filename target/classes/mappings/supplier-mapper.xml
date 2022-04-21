@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.SupplierMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+	ly_supplier.id,
+ly_supplier.fullName,
+ly_supplier.simpleName,
+ly_supplier.leader,
+ly_supplier.taxNumber,
+ly_supplier.bank1,
+ly_supplier.account1,
+ly_supplier.bank2,
+ly_supplier.account2,
+ly_supplier.contacts,
+ly_supplier.phone,
+ly_supplier.fax,
+ly_supplier.zipCode,
+ly_supplier.address,
+ly_supplier.remarks,
+ly_supplier.modifyTime,
+ly_supplier.userId
+	</sql>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_supplier
+		where id=#{id}
+	</delete>
+	<select id="findByAllLike" resultType="com.zhjh.entity.SupplierFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_supplier,ly_user
+		where  ly_supplier.userId=ly_user.id AND
+		(
+		ly_supplier.id like '%${content}%' or
+		ly_supplier.fullName like '%${content}%' or
+		ly_supplier.simpleName like '%${content}%' or
+		ly_supplier.leader like '%${content}%' or
+		ly_supplier.taxNumber like '%${content}%' or
+		ly_supplier.bank1 like '%${content}%' or
+		ly_supplier.account1 like '%${content}%' or
+		ly_supplier.bank2 like '%${content}%' or
+		ly_supplier.account2 like '%${content}%' or
+		ly_supplier.contacts like '%${content}%' or
+		ly_supplier.phone like '%${content}%' or
+		ly_supplier.fax like '%${content}%' or
+		ly_supplier.zipCode like '%${content}%' or
+		ly_supplier.address like '%${content}%' or
+		ly_supplier.remarks like '%${content}%' or
+		ly_supplier.modifyTime like '%${content}%' or
+		ly_supplier.userId like '%${content}%'
+		)
+	</select>
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_supplier,ly_user
+		where  ly_supplier.userId=ly_user.id AND
+		(
+		ly_supplier.id like '%${content}%' or
+		ly_supplier.fullName like '%${content}%' or
+		ly_supplier.simpleName like '%${content}%' or
+		ly_supplier.leader like '%${content}%' or
+		ly_supplier.taxNumber like '%${content}%' or
+		ly_supplier.bank1 like '%${content}%' or
+		ly_supplier.account1 like '%${content}%' or
+		ly_supplier.bank2 like '%${content}%' or
+		ly_supplier.account2 like '%${content}%' or
+		ly_supplier.contacts like '%${content}%' or
+		ly_supplier.phone like '%${content}%' or
+		ly_supplier.fax like '%${content}%' or
+		ly_supplier.zipCode like '%${content}%' or
+		ly_supplier.address like '%${content}%' or
+		ly_supplier.remarks like '%${content}%' or
+		ly_supplier.modifyTime like '%${content}%' or
+		ly_supplier.userId like '%${content}%'
+		)
+	</select>
+
+</mapper>

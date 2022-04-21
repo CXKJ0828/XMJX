@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.OrderMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		ly_order.id,
+ly_order.makeTime,
+ly_order.clientId,
+(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) as clientName,
+ly_order.contractNumber,
+ly_order.remakrs,
+ly_order.modifytime,
+ly_order.userId,
+ly_order.state,
+(select userName from ly_user where ly_user.id=ly_order.userId) as userName,
+(select convert(SUM(ly_order_details.money),decimal(10,2)) from ly_order_details where ly_order_details.orderId=ly_order.id) as money
+	</sql>
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_order
+where
+		1=1
+		<if test="startTime != null and startTime != ''">
+			and ly_order.makeTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order.makeTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		and
+		(
+		(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) like '%${content}%'or
+		ly_order.contractNumber  like '%${content}%'or
+		ly_order.remakrs  like '%${content}%'or
+		ly_order.modifytime  like '%${content}%'or
+		ly_order.state  like '%${content}%'
+		)
+
+	</select>
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.OrderFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_order
+		where
+		1=1
+		<if test="startTime != null and startTime != ''">
+			and ly_order.makeTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order.makeTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		and
+		(
+		(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) like '%${content}%'or
+		ly_order.contractNumber  like '%${content}%'or
+		ly_order.remakrs  like '%${content}%'or
+		ly_order.modifytime  like '%${content}%'or
+		ly_order.state  like '%${content}%'
+		)
+
+		<if test="sort != null and state != ''">
+			order by ${sort} ${order}
+		</if>
+	</select>
+
+	<select id="findAllMoneyByContentLike"  resultType="java.lang.String">
+		select convert(SUM(ly_order_details.money),decimal(10,2)) as money
+		from ly_order_details,ly_order
+		where ly_order_details.orderId=ly_order.id
+		<if test="startTime != null and startTime != ''">
+			and ly_order.makeTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order.makeTime &lt; '${endTime}'
+		</if>
+		<if test="clientId != null and clientId != ''">
+			and ly_order.clientId='${clientId}'
+		</if>
+		and (
+		 ly_order.contractNumber like '%${content}%'
+		or ly_order.state like '%${content}%'
+		or (select fullName from ly_client where ly_client.id=ly_order.clientId) like '%${content}%'
+		)
+	</select>
+
+	<select id="findByContractNumber" parameterType="String" resultType="com.zhjh.entity.OrderFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_order
+		where
+		ly_order.contractNumber=#{contractNumber}
+	</select>
+	<select id="findByClientId" parameterType="String" resultType="com.zhjh.entity.OrderFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_order
+		where
+		ly_order.clientId=#{clientId}
+	</select>
+
+	<select id="findUnSendByClientId"  resultType="com.zhjh.entity.OrderFormMap">
+		SELECT
+		DISTINCT ly_order.id,
+ly_order.makeTime,
+ly_order.clientId,
+(select ly_client.fullName from ly_client where ly_client.id=ly_order.clientId) as clientName,
+ly_order.contractNumber,
+ly_order.remakrs,
+ly_order.modifytime,
+ly_order.userId,
+ly_order.state,
+(select userName from ly_user where ly_user.id=ly_order.userId) as userName,
+(select convert(SUM(ly_order_details.money),decimal(10,2)) from ly_order_details where ly_order_details.orderId=ly_order.id) as money
+		from ly_order,ly_order_details,ly_good
+		where
+		ly_order.clientId='${clientId}'
+		and
+		ly_order.id=ly_order_details.orderId
+		and
+		ly_order_details.goodId=ly_good.id
+		and (
+		(select count(ly_order_details.state) from ly_order_details where ly_order.id=ly_order_details.orderId and ly_order.clientId='${clientId}' and ly_order_details.state!='已完成生产') &gt; 0
+		)
+		and ly_order.contractNumber like '%${contractNumber}%'
+		and ly_good.mapNumber like '%${mapNumber}%'
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+	</select>
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.OrderFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_order
+		where
+		ly_order.id=#{id}
+	</select>
+</mapper>

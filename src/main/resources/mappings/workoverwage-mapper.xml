@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.WorkoverwageMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+		ly_workoverwage.id,
+		ly_workoverwage.userId,
+		ly_workoverwage.modifyTime,
+		ly_workoverwage.duration,
+		ly_workoverwage.wages,
+		(select userName from ly_user where ly_user.id=ly_workoverwage.userId) as userName
+	</sql>
+
+
+
+	<select id="findByAllLike" resultType="com.zhjh.entity.WorkoverwageFormMap">
+		select
+		<include refid="selectId" />
+		from ly_workoverwage
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_workoverwage.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_workoverwage.modifyTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_workoverwage.modifyTime &lt; '${endTime}'
+		</if>
+		and ly_workoverwage.duration  like '%${content}%'
+		ORDER BY modifyTime DESC
+	</select>
+	<select id="findAllSumByAllLike" resultType="com.zhjh.entity.WorkoverwageFormMap">
+		SELECT
+		sum(duration) as allDuration,sum(wages) as allWages
+		from ly_workoverwage
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_workoverwage.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_workoverwage.modifyTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_workoverwage.modifyTime &lt; '${endTime}'
+		</if>
+		and ly_workoverwage.duration  like '%${content}%'
+
+	</select>
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_workoverwage
+		where
+		1=1
+		<if test="userId != null and userId != ''">
+			and ly_workoverwage.userId='${userId}'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ly_workoverwage.modifyTime &gt; '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_workoverwage.modifyTime &lt; '${endTime}'
+		</if>
+		and ly_workoverwage.duration  like '%${content}%'
+
+	</select>
+
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_workoverwage
+		where id=#{id}
+	</delete>
+</mapper>

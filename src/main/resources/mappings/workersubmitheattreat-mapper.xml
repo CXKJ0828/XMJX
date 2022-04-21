@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.WorkersubmitHeatTreatMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectIdMaxEstimateCompleteTime">
+		ly_workersubmit_hearttreat.id,
+		round(distributionWages,2) as distributionWages,
+		MAX(ly_workersubmit_hearttreat.estimateCompleteTime) as estimateCompleteTime,
+		if(
+		((unix_timestamp(estimateCompleteTime)-unix_timestamp(now()))/3600) &lt;  3,
+		'true',
+		'false') as isRed,
+		ly_workersubmit_hearttreat.overTimeLimit,
+		FORMAT((select ly_good.taxPrice from ly_good where ly_good.id=ly_heattreat.goodId),2) as taxPrice,
+		ly_workersubmit_hearttreat.badAmount,
+		ly_workersubmit_hearttreat.useTime,
+		ly_workersubmit_hearttreat.isOverTime,
+		ly_workersubmit_hearttreat.hearttreatId,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_heattreat.goodId) as goodSizeGoodTable,
+		(select ly_good.img from ly_good where ly_good.id=ly_heattreat.goodId) as img,
+		(select artificial from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as artificial,
+		(select content from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as cotnent,
+		ly_heattreat.contractNumber,
+		ly_heattreat.goodId,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as goodCode,
+		(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+		ly_heattreat.goodSize,
+		ly_heattreat.materialQuality,
+		(select ly_materialqualitytype.`name` from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) as materialQualityName,
+		ly_heattreat.deliveryTime,
+		ly_workersubmit_hearttreat.processId,
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+		ly_workersubmit_hearttreat.submiterId,
+		(select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as submiterShow,
+		ly_workersubmit_hearttreat.amount,
+		ly_workersubmit_hearttreat.startTime,
+		ly_workersubmit_hearttreat.completeAmount,
+		ly_workersubmit_hearttreat.completeTime,
+		ly_workersubmit_hearttreat.trueWages,
+		ly_workersubmit_hearttreat.wages,
+		ly_workersubmit_hearttreat.deductRate,
+		ly_workersubmit_hearttreat.deductWages
+	</sql>
+	<sql id="selectId">
+		ly_workersubmit_hearttreat.id,
+		ly_workersubmit_hearttreat.sureCompleteUser,
+		round(distributionWages,2) as distributionWages,
+		ly_workersubmit_hearttreat.estimateCompleteTime,
+		if(
+		((unix_timestamp(estimateCompleteTime)-unix_timestamp(now()))/3600) &lt;  3,
+		'true',
+		'false') as isRed,
+		ly_workersubmit_hearttreat.overTimeLimit,
+		FORMAT((select ly_good.taxPrice from ly_good where ly_good.id=ly_heattreat.goodId),2) as taxPrice,
+		ly_workersubmit_hearttreat.badAmount,
+		ly_workersubmit_hearttreat.useTime,
+		ly_workersubmit_hearttreat.isOverTime,
+		ly_workersubmit_hearttreat.hearttreatId,
+		(select ly_good.goodSize from ly_good where ly_good.id=ly_heattreat.goodId) as goodSizeGoodTable,
+		(select ly_good.img from ly_good where ly_good.id=ly_heattreat.goodId) as img,
+		(select artificial from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as artificial,
+		(select content from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as cotnent,
+ly_heattreat.contractNumber,
+ly_heattreat.goodId,
+(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as goodCode,
+(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+ly_heattreat.goodSize,
+ly_heattreat.materialQuality,
+(select ly_materialqualitytype.`name` from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) as materialQualityName,
+ly_heattreat.deliveryTime,
+ly_workersubmit_hearttreat.processId,
+(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+ly_workersubmit_hearttreat.submiterId,
+(select CONCAT_WS("-",ly_user.accountName,ly_user.userName) from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as submiterShow,
+ly_workersubmit_hearttreat.amount,
+ly_workersubmit_hearttreat.startTime,
+ly_workersubmit_hearttreat.completeAmount,
+ly_workersubmit_hearttreat.completeTime,
+ly_workersubmit_hearttreat.trueWages,
+ly_workersubmit_hearttreat.wages,
+ly_workersubmit_hearttreat.deductRate,
+ly_workersubmit_hearttreat.deductWages
+	</sql>
+
+	<sql id="selectWhere2Table">
+		<if test="goodName != null and goodName != '' and goodName != '不限'">
+			<if test="goodName != '垫/片' and goodName != '其他'">
+				and (select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) LIKE '%${goodName}%'
+			</if>
+			<if test="goodName == '垫/片'">
+				and (
+				(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) LIKE '%垫%'
+				OR
+				(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) LIKE '%片%'
+				)
+			</if>
+			<if test="goodName == '其他'">
+				and (
+				(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) not LIKE '%垫%'
+				and
+				(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) not LIKE '%片%'
+				and
+				(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) not LIKE '%轴%'
+				and
+				(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) not LIKE '%套%'
+				)
+			</if>
+		</if>
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				<if test="startTime != null and startTime != ''">
+					and ly_workersubmit_hearttreat.completeTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_workersubmit_hearttreat.completeTime &lt; '${endTime}'
+				</if>
+				<if test="startTimeGET != null and startTimeGET != ''">
+					and ly_workersubmit_hearttreat.startTime &gt; '${startTimeGET}'
+				</if>
+				<if test="endTimeGET != null and endTimeGET != ''">
+					and ly_workersubmit_hearttreat.startTime &lt; '${endTimeGET}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and (ly_workersubmit_hearttreat.completeTime is  null
+
+					or ly_workersubmit_hearttreat.completeTime='')
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit_hearttreat.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit_hearttreat.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		<if test="content != null and content != ''">
+			and
+			(
+			ly_heattreat.contractNumber like   '%${content}%' or
+			(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) like   '%${content}%' or
+			(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) like   '%${content}%' or
+			(select ly_materialqualitytype.`name` from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) like   '%${content}%' or
+			(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) like   '%${content}%' or
+			ly_heattreat.goodSize like  '%${content}%'
+			)
+		</if>
+		<if test="user != null and user != ''">
+			AND (
+			(select accountName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%' or
+			(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%'
+			)
+		</if>
+		<if test="sureCompleteUser != null and sureCompleteUser != ''">
+			AND ly_workersubmit_hearttreat.sureCompleteUser='${sureCompleteUser}'
+		</if>
+		<if test="isOverTime != null and isOverTime != '' and isOverTime != '不限'">
+			and ly_workersubmit_hearttreat.isOverTime='${isOverTime}'
+		</if>
+
+
+	</sql>
+	<select id="findUnqualifiedShowById" parameterType="String" resultType="com.zhjh.entity.UnqualifiedFormMap">
+		SELECT
+		ly_heattreat.contractNumber,
+		ly_good.`name` as goodName,
+		ly_good.mapNumber,
+		ly_good.taxPrice,
+		(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as userName,
+		ly_workersubmit_hearttreat.badAmount,
+		ly_unqualified.ratio,
+		ly_unqualified.money,
+		ly_unqualified.bossOpinion,
+		ly_unqualified.directorOpinion,
+		ly_unqualified.unqualifiedReason
+		from ly_heattreat,ly_good,ly_workersubmit_hearttreat,ly_unqualified
+		where ly_good.id=ly_heattreat.goodId
+		and ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_unqualified.workersubmitHeattreatId=ly_workersubmit_hearttreat.id
+		and ly_workersubmit_hearttreat.id=#{id}
+		LIMIT 0,1
+	</select>
+	<select id="findMaxEstimateCompleteTimeBySubmiterId" parameterType="String" resultType="java.lang.String">
+		select
+if(MAX(estimateCompleteTime) is null,"",MAX(estimateCompleteTime))
+	from ly_workersubmit_hearttreat where submiterId=#{submiterId}
+			and (ly_workersubmit_hearttreat.completeTime is  null
+
+					or ly_workersubmit_hearttreat.completeTime='')
+	</select>
+
+	<select id="findBadNoticeShowById" parameterType="String" resultType="com.zhjh.entity.BadnoticeFormMap">
+	SELECT
+ly_heattreat.contractNumber,
+ly_good.`name` as goodName,
+ly_good.mapNumber,
+ly_heattreat.goodSize,
+ly_workersubmit_hearttreat.badAmount,
+(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as userName,
+ly_badnotice.trueSize,
+ly_badnotice.result,
+ly_badnotice.remarks
+		from ly_heattreat,ly_good,ly_workersubmit_hearttreat,ly_badnotice
+		where ly_good.id=ly_heattreat.goodId
+		and ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_badnotice.workersubmitHeattreatId=ly_workersubmit_hearttreat.id
+		and ly_workersubmit_hearttreat.id=#{id}
+		LIMIT 0,1
+	</select>
+
+	<select id="findSumAmountByContractNumberAndDeliveryTimeAndGoodIdAndProcessId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		SELECT
+COALESCE(SUM(if(completeTime='',ly_workersubmit_hearttreat.amount,0)),0) as amountSum,
+COALESCE(SUM(if(completeTime!='',completeAmount,0)),0) as completeAmountSum
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat.contractNumber=#{contractNumber}
+		and ly_heattreat.deliveryTime=#{deliveryTime}
+		and ly_heattreat.goodId=#{goodId}
+		and ly_workersubmit_hearttreat.processId=#{processId}
+
+
+	</select>
+	<select id="findUnCompleteAmountAndCompleteAmountByContractNumberAndDeliveryTimeAndGoodIdAndProcessId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		SELECT
+		if(ly_workersubmit_hearttreat.completeTime='',
+
+SUM(ly_workersubmit_hearttreat.amount)
+
+,0) as unCompleteAmount,
+	if(ly_workersubmit_hearttreat.completeTime!='',
+SUM(ly_workersubmit_hearttreat.completeAmount)
+,0) as completeAmount
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat.contractNumber=#{contractNumber}
+		and ly_heattreat.deliveryTime=#{deliveryTime}
+		and ly_heattreat.goodId=#{goodId}
+		and ly_workersubmit_hearttreat.processId=#{processId}
+
+
+	</select>
+	<select id="findProgressByContractNumberAndDeliveryTimeAndGoodId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+	ly_workersubmit_hearttreat.completeAmount,
+	left(startTime,10) as startTime,
+left(completeTime,10) as completeTime,
+	ly_workersubmit_hearttreat.amount,
+	submiterId,
+(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as userName,
+	processId,
+	(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName
+from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+	and ly_heattreat.contractNumber=#{contractNumber}
+		and ly_heattreat.deliveryTime=#{deliveryTime}
+		and ly_heattreat.goodId=#{goodId}
+	</select>
+	<select id="findUnCompleteAmountAndCompleteAmountByHeattreatIdAndProcessId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		SELECT
+		if(ly_workersubmit_hearttreat.completeTime='',
+
+		SUM(ly_workersubmit_hearttreat.amount)
+
+		,0) as unCompleteAmount,
+		if(ly_workersubmit_hearttreat.completeTime!='',
+		SUM(ly_workersubmit_hearttreat.completeAmount)
+		,0) as completeAmount
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.processId=#{processId}
+		and ly_workersubmit_hearttreat.hearttreatId=#{hearttreatId}
+	</select>
+	<select id="findAmountAndUserByContractNumberAndDeliveryTimeAndGoodIdAndProcessId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		SELECT
+		COALESCE((select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId),0) as userName,
+	if(ly_workersubmit_hearttreat.completeTime='',
+
+CONCAT_WS('已接收',left(ly_workersubmit_hearttreat.startTime,10),ly_workersubmit_hearttreat.amount)
+
+,0) as getMessage,
+	if(ly_workersubmit_hearttreat.completeTime!='',
+CONCAT_WS('已完成',left(ly_workersubmit_hearttreat.completeTime,10),ly_workersubmit_hearttreat.completeAmount)
+,0) as completeMessage
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat.contractNumber=#{contractNumber}
+		and ly_heattreat.deliveryTime=#{deliveryTime}
+		and ly_heattreat.goodId=#{goodId}
+		and ly_workersubmit_hearttreat.processId=#{processId}
+
+
+	</select>
+
+	<select id="findUserNameByContractNumberAndDeliveryTimeAndGoodIdAndProcessId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		SELECT
+		COALESCE((select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId),0) as userName
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat.contractNumber=#{contractNumber}
+		and ly_heattreat.deliveryTime=#{deliveryTime}
+		and ly_heattreat.goodId=#{goodId}
+		and ly_workersubmit_hearttreat.processId=#{processId}
+
+
+	</select>
+
+	<select id="findAmountAndUserByHeattreatIdAndProcessId" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		SELECT
+		COALESCE((select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId),0) as userName,
+		if(ly_workersubmit_hearttreat.completeTime='',
+
+		CONCAT_WS('已接收',left(ly_workersubmit_hearttreat.startTime,10),ly_workersubmit_hearttreat.amount)
+
+		,0) as getMessage,
+		if(ly_workersubmit_hearttreat.completeTime!='',
+		CONCAT_WS('已完成',left(ly_workersubmit_hearttreat.completeTime,10),ly_workersubmit_hearttreat.completeAmount)
+		,0) as completeMessage
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat.id=#{hearttreatId}
+		and ly_workersubmit_hearttreat.processId=#{processId}
+
+
+	</select>
+
+	<select id="findCountByContractNumberAndDeliveryTimeAndGoodIdAndProcessId" parameterType="String" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat.contractNumber=#{contractNumber}
+		and ly_heattreat.deliveryTime=#{deliveryTime}
+		and ly_heattreat.goodId=#{goodId}
+		and ly_workersubmit_hearttreat.processId=#{processId}
+	</select>
+
+	<select id="findUnCompleteCountByHeattreatIdAndProcessId" resultType="java.lang.Integer">
+		select count(*)
+		from ly_workersubmit_hearttreat
+		 where hearttreatId=#{hearttreatId}
+		 and processId=#{processId}
+		 and (ly_workersubmit_hearttreat.completeTime is  null
+
+					or ly_workersubmit_hearttreat.completeTime='')
+	</select>
+	<select id="findScrapShowById" parameterType="String" resultType="com.zhjh.entity.ScrapFormMap">
+		SELECT
+ly_heattreat.contractNumber,
+ly_good.`name` as goodName,
+ly_good.mapNumber,
+ly_workersubmit_hearttreat.badAmount,
+(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as userName,
+(select name from ly_process where ly_workersubmit_hearttreat.processId=ly_process.id) as processName,
+ly_scrap.badReason,
+(select name from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) as materialquality,
+ly_scrap.materialCost,
+ly_scrap.forgingCost,
+ly_scrap.adjustmentCost,
+ly_scrap.cuttingCost,
+ly_scrap.carriageCost,
+ly_scrap.allCost,
+ly_scrap.conclusion,
+ly_scrap.approvalName
+		from ly_heattreat,ly_good,ly_workersubmit_hearttreat,ly_scrap
+		where ly_good.id=ly_heattreat.goodId
+		and ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_scrap.workersubmitHeattreatId=ly_workersubmit_hearttreat.id
+		and ly_workersubmit_hearttreat.id=#{id}
+		limit 0,1
+	</select>
+	<select id="findBadMessageGroupCountByOrderDetailsId" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where <include refid="whereBadSearch" />
+	</select>
+	<select id="findBadSumAcountByOrderDetailsId" resultType="java.lang.Integer">
+		select
+		IFNULL(sum(ly_workersubmit_hearttreat.badAmount),0)
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where <include refid="whereBadSearch" />
+	</select>
+	<select id="findUserNamesByHeattreatId" resultType="java.lang.String">
+		select
+group_concat(DISTINCT ly_user.userName)
+from ly_workersubmit_hearttreat,ly_user
+where
+ly_workersubmit_hearttreat.submiterId=ly_user.id
+and ly_workersubmit_hearttreat.hearttreatId = #{hearttreatId}
+	</select>
+	<select id="findBadMessageGroupByOrderDetailsId" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		ly_workersubmit_hearttreat.id,
+		ly_heattreat.contractNumber,
+		ly_heattreat.deliveryTime,
+		ly_workersubmit_hearttreat.processId,
+		ly_heattreat.materialQuality,
+		ly_heattreat.goodId,
+		(select mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+		(select name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+		badAmount,
+		completeAmount,
+		(select CONCAT_WS("-",accountName,userName) from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as submiterShow,
+		completeTime,
+		ly_workersubmit_hearttreat.deductWages,
+		ly_workersubmit_hearttreat.state
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where <include refid="whereBadSearch" />
+		ORDER BY completeTime DESC
+	</select>
+	<sql id="whereBadSearch">
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.badAmount>0
+		and
+		(
+		ly_workersubmit_hearttreat.completeTime is not null
+		and ly_workersubmit_hearttreat.completeTime!=''
+		)
+		<if test="startTime != null and startTime != ''">
+			and ly_workersubmit_hearttreat.completeTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_workersubmit_hearttreat.completeTime &lt; '${endTime}'
+		</if>
+		<if test="userId != null and userId != ''">
+			and ly_workersubmit_hearttreat.submiterId='${userId}'
+		</if>
+		and (
+		ly_heattreat.contractNumber like '%${content}%'
+		OR
+		(select mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) like '%${content}%'
+		OR
+		(select name from ly_good where ly_good.id=ly_heattreat.goodId) like '%${content}%'
+		OR
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) like '%${content}%'
+		OR
+		ly_workersubmit_hearttreat.completeTime like '%${content}%'
+		)
+	</sql>
+	<select id="findProgressByHeattreatId" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+	completeAmount,
+	left(startTime,10) as startTime,
+left(completeTime,10) as completeTime,
+	amount,
+	submiterId,
+(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) as userName,
+	processId,
+	(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName
+from ly_workersubmit_hearttreat where hearttreatId=#{id}
+
+	</select>
+
+	<select id="findById" parameterType="String" resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and
+		ly_workersubmit_hearttreat.id=#{id}
+	</select>
+	<select id="findByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select
+		<include refid="selectId" />
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_good.id=ly_heattreat.goodId
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhere2Table" />
+	</select>
+
+	<select id="findGetHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		ly_workersubmit_hearttreat.id,
+		if((select COUNT(*) from ly_heattreat_check where ly_heattreat_check.workersubmithearttreatrId=ly_workersubmit_hearttreat.id)=0,'','需检验') as useCheck,
+		if((select COUNT(*) from ly_heattreat_check where ly_heattreat_check.workersubmithearttreatrId=ly_workersubmit_hearttreat.id and (ly_heattreat_check.checkTime != '' and ly_heattreat_check.checkTime is not NULL))=0,"未检验","已检验") as checkState,
+		ly_workersubmit_hearttreat.estimateCompleteTime,
+		if(
+		((unix_timestamp(estimateCompleteTime)-unix_timestamp(now()))/3600) &lt;  3,
+		'true',
+		'false') as isRed,
+		ly_workersubmit_hearttreat.hearttreatId,
+		(select ly_good.img from ly_good where ly_good.id=ly_heattreat.goodId) as img,
+		(select content from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as cotnent,
+		ly_heattreat.contractNumber,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+		(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+		ly_workersubmit_hearttreat.amount,
+		ly_workersubmit_hearttreat.startTime
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhereHeattreatPhoneByWorkerSubmitId" />
+			ORDER BY ly_workersubmit_hearttreat.startTime DESC
+	</select>
+
+	<select id="findGetCheckHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		ly_workersubmit_hearttreat.id,
+		ly_workersubmit_hearttreat.estimateCompleteTime,
+		if(
+		((unix_timestamp(estimateCompleteTime)-unix_timestamp(now()))/3600) &lt;  3,
+		'true',
+		'false') as isRed,
+		ly_workersubmit_hearttreat.hearttreatId,
+		(select ly_good.img from ly_good where ly_good.id=ly_heattreat.goodId) as img,
+		(select content from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as cotnent,
+		ly_heattreat.contractNumber,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+		(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+		ly_workersubmit_hearttreat.amount,
+		ly_workersubmit_hearttreat.startTime
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_heattreat_check
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.id=ly_heattreat_check.workersubmithearttreatrId
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhereCheckHeattreatPhoneByWorkerSubmitId" />
+		ORDER BY ly_workersubmit_hearttreat.startTime DESC
+	</select>
+
+	<select id="findCompleteHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		ly_workersubmit_hearttreat.id,
+		if((select COUNT(*) from ly_heattreat_check where ly_heattreat_check.workersubmithearttreatrId=ly_workersubmit_hearttreat.id)=0,'','需检验') as useCheck,
+		if((select COUNT(*) from ly_heattreat_check where ly_heattreat_check.workersubmithearttreatrId=ly_workersubmit_hearttreat.id and (ly_heattreat_check.checkTime != '' and ly_heattreat_check.checkTime is not NULL))=0,"未检验","已检验") as checkState,
+		ly_workersubmit_hearttreat.estimateCompleteTime,
+		ly_workersubmit_hearttreat.badAmount,
+		ly_workersubmit_hearttreat.isOverTime,
+		ly_workersubmit_hearttreat.hearttreatId,
+		(select ly_good.img from ly_good where ly_good.id=ly_heattreat.goodId) as img,
+		(select content from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as cotnent,
+		ly_heattreat.contractNumber,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+		(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+		ly_workersubmit_hearttreat.processId,
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+		ly_workersubmit_hearttreat.amount,
+		ly_workersubmit_hearttreat.completeAmount,
+		ly_workersubmit_hearttreat.completeTime,
+		ly_workersubmit_hearttreat.trueWages,
+		ly_workersubmit_hearttreat.wages,
+		ly_workersubmit_hearttreat.deductRate,
+		ly_workersubmit_hearttreat.deductWages
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhereHeattreatPhoneByWorkerSubmitId" />
+		<if test="state == '已完成'">
+			ORDER BY ly_workersubmit_hearttreat.completeTime DESC
+		</if>
+		<if test="state != '已完成'">
+			ORDER BY ly_workersubmit_hearttreat.startTime DESC
+		</if>
+	</select>
+	<select id="findCheckCompleteHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select ly_workersubmit_hearttreat.id,
+		ly_heattreat_check.amount as checkAmount,
+		ly_heattreat_check.badAmount as checkBadAmount,
+		ly_heattreat_check.badReason as checkBadReason,
+		ly_heattreat_check.checkTime,
+		ly_workersubmit_hearttreat.estimateCompleteTime,
+		ly_workersubmit_hearttreat.badAmount,
+		ly_workersubmit_hearttreat.isOverTime,
+		ly_workersubmit_hearttreat.hearttreatId,
+		(select ly_good.img from ly_good where ly_good.id=ly_heattreat.goodId) as img,
+		(select content from ly_good_process where ly_good_process.goodId=ly_heattreat.goodId and ly_good_process.processId=ly_workersubmit_hearttreat.processId LIMIT 0,1) as cotnent,
+		ly_heattreat.contractNumber,
+		(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) as mapNumber,
+		(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) as goodName,
+		ly_workersubmit_hearttreat.processId,
+		(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) as processName,
+		ly_workersubmit_hearttreat.amount,
+		ly_workersubmit_hearttreat.completeAmount,
+		ly_workersubmit_hearttreat.completeTime,
+		ly_workersubmit_hearttreat.trueWages,
+		ly_workersubmit_hearttreat.wages,
+		ly_workersubmit_hearttreat.deductRate,
+		ly_workersubmit_hearttreat.deductWages
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_heattreat_check
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat_check.workersubmithearttreatrId=ly_workersubmit_hearttreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhereCheckHeattreatPhoneByWorkerSubmitId" />
+		<if test="state == '已完成'">
+			ORDER BY ly_heattreat_check.checkTime DESC
+		</if>
+		<if test="state != '已完成'">
+			ORDER BY ly_workersubmit_hearttreat.startTime DESC
+		</if>
+	</select>
+	<select id="findHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		<include refid="selectId" />
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhereHeattreatPhoneByWorkerSubmitId" />
+		<if test="state == '已完成'">
+			ORDER BY ly_workersubmit_hearttreat.completeTime DESC
+		</if>
+		<if test="state != '已完成'">
+			ORDER BY ly_workersubmit_hearttreat.startTime DESC
+		</if>
+	</select>
+	<select id="findSumOverTimeHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		count(*) as overTimeCouont,
+		count(*)*(select content from ly_system_config where name='deductionBaseValue') as overTimeMoney
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		and ly_workersubmit_hearttreat.isOverTime='是'
+		<include refid="selectWhereHeattreatPhoneByWorkerSubmitId" />
+	</select>
+	<select id="findCheckSumOverTimeHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		count(*) as overTimeCouont,
+		count(*)*(select content from ly_system_config where name='deductionBaseValue') as overTimeMoney
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_heattreat_check
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat_check.workersubmithearttreatrId=ly_workersubmit_hearttreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		and ly_workersubmit_hearttreat.isOverTime='是'
+		<include refid="selectWhereCheckHeattreatPhoneByWorkerSubmitId" />
+	</select>
+	<select id="findSumWagesHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		convert(SUM(wages),decimal(10,2)) as wages,
+		convert(SUM(trueWages),decimal(10,2)) as trueWages,
+		convert(SUM(deductWages),decimal(10,2)) as deductWages
+		from ly_workersubmit_hearttreat,ly_heattreat
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhereHeattreatPhoneByWorkerSubmitId" />
+	</select>
+	<select id="findCheckSumWagesHeattreatPhoneByWorkerSubmitId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		convert(SUM(wages),decimal(10,2)) as wages,
+		convert(SUM(trueWages),decimal(10,2)) as trueWages,
+		convert(SUM(deductWages),decimal(10,2)) as deductWages
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_heattreat_check
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_heattreat_check.workersubmithearttreatrId=ly_workersubmit_hearttreat.id
+		and ly_workersubmit_hearttreat.submiterId=#{submiterId}
+		<include refid="selectWhereCheckHeattreatPhoneByWorkerSubmitId" />
+	</select>
+	<sql id="selectWhereHeattreatPhoneByWorkerSubmitId">
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				and (ly_workersubmit_hearttreat.completeTime is not null
+				and ly_workersubmit_hearttreat.completeTime!='')
+				<if test="startTime != null and startTime != ''">
+					and ly_workersubmit_hearttreat.completeTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_workersubmit_hearttreat.completeTime &lt; '${endTime}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and (ly_workersubmit_hearttreat.completeTime is  null
+
+					or ly_workersubmit_hearttreat.completeTime='')
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit_hearttreat.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit_hearttreat.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		<if test="content != null and content != ''">
+			and
+			(
+			ly_heattreat.contractNumber like   '%${content}%' or
+			(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) like   '%${content}%' or
+			(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) like   '%${content}%' or
+			(select ly_materialqualitytype.`name` from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) like   '%${content}%' or
+			(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) like   '%${content}%' or
+			ly_heattreat.goodSize like  '%${content}%'
+			)
+		</if>
+		<if test="user != null and user != ''">
+			AND (
+			(select accountName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%' or
+			(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%'
+			)
+		</if>
+	</sql>
+	<sql id="selectWhereCheckHeattreatPhoneByWorkerSubmitId">
+		<if test="state != ''">
+			<if test="state == '已完成'">
+				and (ly_heattreat_check.checkTime is not null
+				and ly_heattreat_check.checkTime!='')
+				<if test="startTime != null and startTime != ''">
+					and ly_heattreat_check.checkTime &gt; '${startTime}'
+				</if>
+				<if test="endTime != null and endTime != ''">
+					and ly_heattreat_check.checkTime &lt; '${endTime}'
+				</if>
+			</if>
+			<if test="state !=  '已完成'">
+				<if test="state == '已接收未完成'">
+					and (ly_heattreat_check.checkTime is  null
+
+					or ly_heattreat_check.checkTime='')
+					<if test="startTime != null and startTime != ''">
+						and ly_workersubmit_hearttreat.startTime &gt; '${startTime}'
+					</if>
+					<if test="endTime != null and endTime != ''">
+						and ly_workersubmit_hearttreat.startTime &lt; '${endTime}'
+					</if>
+				</if>
+			</if>
+
+		</if>
+		<if test="content != null and content != ''">
+			and
+			(
+			ly_heattreat.contractNumber like   '%${content}%' or
+			(select ly_good.mapNumber from ly_good where ly_good.id=ly_heattreat.goodId) like   '%${content}%' or
+			(select ly_good.name from ly_good where ly_good.id=ly_heattreat.goodId) like   '%${content}%' or
+			(select ly_materialqualitytype.`name` from ly_materialqualitytype where ly_materialqualitytype.id=ly_heattreat.materialQuality) like   '%${content}%' or
+			(select name from ly_process where ly_process.id=ly_workersubmit_hearttreat.processId) like   '%${content}%' or
+			ly_heattreat.goodSize like  '%${content}%'
+			)
+		</if>
+		<if test="user != null and user != ''">
+			AND (
+			(select accountName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%' or
+			(select userName from ly_user where ly_user.id=ly_workersubmit_hearttreat.submiterId) like  '%${user}%'
+			)
+		</if>
+	</sql>
+	<select id="findPhoneShowBySubmiterIds"  resultType="com.zhjh.entity.WorkersubmitFormMap">
+		select
+		ly_order_details.id as orderdetailsId,
+		ly_order.contractNumber,
+		ly_order_details.deliveryTime,
+		ly_blank.amount,
+		(select name from ly_good where ly_good.id=ly_order_details.goodId) as goodName,
+		(select mapNumber from ly_good where ly_good.id=ly_order_details.goodId) as mapNumber
+		from ly_workersubmit,ly_blank_process,ly_order_details,ly_order,ly_blank
+		where
+		ly_workersubmit.blankprocessId=ly_blank_process.id
+		and
+		ly_order.id=ly_order_details.orderId
+		and ly_blank.id=ly_blank_process.blankId
+		and ly_order_details.id=ly_blank.orderdetailsId
+		and
+		submiterId in (${submiterIds})
+		<if test="startTime != null and startTime != ''">
+			and ly_order_details.deliveryTime &gt;= '${startTime}'
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and ly_order_details.deliveryTime &lt; '${endTime}'
+		</if>
+		and
+		(
+		ly_order.contractNumber like '%${content}%'
+		OR
+		(select mapNumber from ly_good where ly_good.id=ly_order_details.goodId) like '%${content}%'
+		or
+		(select name from ly_good where ly_good.id=ly_order_details.goodId) like '%${content}%'
+		)
+		GROUP BY ly_order_details.id
+	</select>
+	<select id="findByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		<include refid="selectId" />
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_good.id=ly_heattreat.goodId
+		<include refid="selectWhere2Table" />
+		<if test="sort != null and sort != ''">
+			<if test="sort=='blankSize'">
+				order by ${sort} ${order}
+			</if>
+		</if>
+		<if test="sort != null and sort != ''">
+			<if test="sort=='goodSize'">
+				order by substring_index(replace(ly_heattreat.goodSize,"Φ",""),"*",1)+0 ${order}
+			</if>
+		</if>
+		<if test="sort != null and sort != ''">
+			<if test="sort=='goodSizeGoodTable'">
+				order by substring_index(replace((select ly_good.goodSize from ly_good where ly_good.id=ly_heattreat.goodId),"Φ",""),"*",1)+0 ${order}
+			</if>
+		</if>
+		<if test="sort == null or sort == ''">
+			<if test="state == '已完成'">
+				ORDER BY ly_workersubmit_hearttreat.completeTime DESC
+			</if>
+			<if test="state != '已完成'">
+				ORDER BY ly_workersubmit_hearttreat.startTime DESC
+			</if>
+		</if>
+	</select>
+	<select id="findMaxEstimateCompleteTimeByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+	select
+	<include refid="selectIdMaxEstimateCompleteTime" />
+	from ly_workersubmit_hearttreat,ly_heattreat,ly_good
+	where
+	ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+	and ly_good.id=ly_heattreat.goodId
+	<include refid="selectWhere2Table" />
+</select>
+	<select id="findMaxEstimateCompleteTimeAndIdByUserId"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		ly_workersubmit_hearttreat.id,max(estimateCompleteTime) as estimateCompleteTime
+		from ly_workersubmit_hearttreat
+		where
+		(ly_workersubmit_hearttreat.completeTime is  null
+
+					or ly_workersubmit_hearttreat.completeTime='')
+		and ly_workersubmit_hearttreat.submiterId=#{userId}
+	</select>
+	<select id="findCountByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser" resultType="java.lang.Integer">
+		select
+		count(*)
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_good.id=ly_heattreat.goodId
+		<include refid="selectWhere2Table" />
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_workersubmit_hearttreat
+		where id=#{id}
+	</delete>
+	<select id="findAllMoneyByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select convert(SUM(wages),decimal(10,2)) as wages,
+		convert(SUM(trueWages),decimal(10,2)) as trueWages,
+		convert(SUM(deductWages),decimal(10,2)) as deductWages,
+		SUM(ly_workersubmit_hearttreat.amount) as amount,
+		SUM(ly_workersubmit_hearttreat.completeAmount) as completeAmount,
+		SUM(ly_workersubmit_hearttreat.badAmount) as badAmount
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_good.id=ly_heattreat.goodId
+		<include refid="selectWhere2Table" />
+	</select>
+	<select id="findAllMoneyById"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select convert(SUM(wages),decimal(10,2)) as wages,
+		convert(SUM(trueWages),decimal(10,2)) as trueWages,
+		convert(SUM(deductWages),decimal(10,2)) as deductWages,
+		SUM(ly_workersubmit_hearttreat.amount) as amount,
+		SUM(ly_workersubmit_hearttreat.completeAmount) as completeAmount,
+		SUM(ly_workersubmit_hearttreat.badAmount) as badAmount
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_good.id=ly_heattreat.goodId
+		and ly_workersubmit_hearttreat.id=#{id}
+	</select>
+	<select id="findSumOverTimeByWorkerSubmitIdByStartTimeAndEndTimeAndContentAndUser"  resultType="com.zhjh.entity.WorkersubmitHeatTreatFormMap">
+		select
+		count(*) as overTimeCouont,
+		count(*)*(select content from ly_system_config where name='deductionBaseValue') as overTimeMoney
+		from ly_workersubmit_hearttreat,ly_heattreat,ly_good
+		where
+		ly_workersubmit_hearttreat.hearttreatId=ly_heattreat.id
+		and ly_good.id=ly_heattreat.goodId
+		and ly_workersubmit_hearttreat.isOverTime='是'
+		<include refid="selectWhere2Table" />
+	</select>
+	<update id="updateStateById">
+		update ly_workersubmit_hearttreat set ly_workersubmit_hearttreat.state=#{state} where ly_workersubmit_hearttreat.id=#{id}
+	</update>
+</mapper>

@@ -1,0 +1,685 @@
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AccountMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AccountMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AppConfigMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AppConfigMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AreaMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AreaMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AttendanceMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AttendanceMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BadnoticeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BadnoticeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\base\BaseMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\base\BaseMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankDetailsMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankDetailsMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankProcessMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankProcessMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankSizeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankSizeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ButtomMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ButtomMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\CidRoleMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\CidRoleMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ClientMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ClientMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\EmployeeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\EmployeeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodProcessMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodProcessMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HardNessMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HardNessMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HeatTreatMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HeatTreatMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LeaveMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LeaveMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LogMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LogMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsDetailsMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsDetailsMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialbuyorderdetailsBlankMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialbuyorderdetailsBlankMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderDetailsMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderDetailsMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialQualityTypeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialQualityTypeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialweightMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialweightMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsProcessMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsProcessMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderGoodCodeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderGoodCodeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PodetailsMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PodetailsMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PoMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PoMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ProcessMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ProcessMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResourcesMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResourcesMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResRoleMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResRoleMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleProcessMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleProcessMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScanCodeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScanCodeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScrapMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScrapMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SendInputMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SendInputMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\StockMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\StockMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SupplierMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SupplierMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SystemconfigMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SystemconfigMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\TeamMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\TeamMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolInMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolInMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolOutMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolOutMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolStockMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolStockMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolTypeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolTypeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnitMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnitMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnqualifiedMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnqualifiedMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserLoginMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserLoginMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserRoleMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserRoleMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WagesMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WagesMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkersubmitMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkersubmitMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkGoodcodeMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkGoodcodeMapper.class]
+2021/01/11 10:50:44 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkoverwageMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkoverwageMapper.class]
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'accountMapper' and 'com.zhjh.mapper.AccountMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'accountMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'appConfigMapper' and 'com.zhjh.mapper.AppConfigMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'appConfigMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'areaMapper' and 'com.zhjh.mapper.AreaMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'areaMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'attendanceMapper' and 'com.zhjh.mapper.AttendanceMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'attendanceMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'badnoticeMapper' and 'com.zhjh.mapper.BadnoticeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'badnoticeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'baseMapper' and 'com.zhjh.mapper.base.BaseMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'baseMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankDetailsMapper' and 'com.zhjh.mapper.BlankDetailsMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankDetailsMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankMapper' and 'com.zhjh.mapper.BlankMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankProcessMapper' and 'com.zhjh.mapper.BlankProcessMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankProcessMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankSizeMapper' and 'com.zhjh.mapper.BlankSizeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankSizeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'buttomMapper' and 'com.zhjh.mapper.ButtomMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'buttomMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'cidRoleMapper' and 'com.zhjh.mapper.CidRoleMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'cidRoleMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'clientMapper' and 'com.zhjh.mapper.ClientMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'clientMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'employeeMapper' and 'com.zhjh.mapper.EmployeeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'employeeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'goodMapper' and 'com.zhjh.mapper.GoodMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'goodMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'goodProcessMapper' and 'com.zhjh.mapper.GoodProcessMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'goodProcessMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'hardNessMapper' and 'com.zhjh.mapper.HardNessMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'hardNessMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'heatTreatMapper' and 'com.zhjh.mapper.HeatTreatMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'heatTreatMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'leaveMapper' and 'com.zhjh.mapper.LeaveMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'leaveMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'logMapper' and 'com.zhjh.mapper.LogMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'logMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderDetailsDetailsMapper' and 'com.zhjh.mapper.MaterialBackOrderDetailsDetailsMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderDetailsDetailsMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderDetailsMapper' and 'com.zhjh.mapper.MaterialBackOrderDetailsMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderDetailsMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderMapper' and 'com.zhjh.mapper.MaterialBackOrderMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialbuyorderdetailsBlankMapper' and 'com.zhjh.mapper.MaterialbuyorderdetailsBlankMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialbuyorderdetailsBlankMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBuyOrderDetailsMapper' and 'com.zhjh.mapper.MaterialBuyOrderDetailsMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBuyOrderDetailsMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBuyOrderMapper' and 'com.zhjh.mapper.MaterialBuyOrderMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBuyOrderMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialMapper' and 'com.zhjh.mapper.MaterialMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialQualityTypeMapper' and 'com.zhjh.mapper.MaterialQualityTypeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialQualityTypeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialweightMapper' and 'com.zhjh.mapper.MaterialweightMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialweightMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderDetailsMapper' and 'com.zhjh.mapper.OrderDetailsMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderDetailsMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderDetailsProcessMapper' and 'com.zhjh.mapper.OrderDetailsProcessMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderDetailsProcessMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderGoodCodeMapper' and 'com.zhjh.mapper.OrderGoodCodeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderGoodCodeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderMapper' and 'com.zhjh.mapper.OrderMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'podetailsMapper' and 'com.zhjh.mapper.PodetailsMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'podetailsMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'poMapper' and 'com.zhjh.mapper.PoMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'poMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'processMapper' and 'com.zhjh.mapper.ProcessMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'processMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'resourcesMapper' and 'com.zhjh.mapper.ResourcesMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'resourcesMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'resRoleMapper' and 'com.zhjh.mapper.ResRoleMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'resRoleMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'roleMapper' and 'com.zhjh.mapper.RoleMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'roleMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'roleProcessMapper' and 'com.zhjh.mapper.RoleProcessMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'roleProcessMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'scanCodeMapper' and 'com.zhjh.mapper.ScanCodeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'scanCodeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'scrapMapper' and 'com.zhjh.mapper.ScrapMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'scrapMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'sendInputMapper' and 'com.zhjh.mapper.SendInputMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'sendInputMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'stockMapper' and 'com.zhjh.mapper.StockMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'stockMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'supplierMapper' and 'com.zhjh.mapper.SupplierMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'supplierMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'systemconfigMapper' and 'com.zhjh.mapper.SystemconfigMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'systemconfigMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'teamMapper' and 'com.zhjh.mapper.TeamMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'teamMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolInMapper' and 'com.zhjh.mapper.ToolInMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolInMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolMapper' and 'com.zhjh.mapper.ToolMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolOutMapper' and 'com.zhjh.mapper.ToolOutMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolOutMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolStockMapper' and 'com.zhjh.mapper.ToolStockMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolStockMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolTypeMapper' and 'com.zhjh.mapper.ToolTypeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolTypeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'unitMapper' and 'com.zhjh.mapper.UnitMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'unitMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'unqualifiedMapper' and 'com.zhjh.mapper.UnqualifiedMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'unqualifiedMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userLoginMapper' and 'com.zhjh.mapper.UserLoginMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userLoginMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userMapper' and 'com.zhjh.mapper.UserMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userRoleMapper' and 'com.zhjh.mapper.UserRoleMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userRoleMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'wagesMapper' and 'com.zhjh.mapper.WagesMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'wagesMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workersubmitMapper' and 'com.zhjh.mapper.WorkersubmitMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workersubmitMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workGoodcodeMapper' and 'com.zhjh.mapper.WorkGoodcodeMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workGoodcodeMapper'.
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workoverwageMapper' and 'com.zhjh.mapper.WorkoverwageMapper' mapperInterface
+2021/01/11 10:50:44 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workoverwageMapper'.
+2021/01/11 10:50:48  INFO DruidDataSource:715 - {dataSource-1} inited
+2021/01/11 10:50:49 DEBUG SqlSessionFactoryBean:362 - Property 'configLocation' not specified, using default MyBatis Configuration
+2021/01/11 10:50:50 DEBUG SqlSessionFactoryBean:383 - Scanned package: 'com.zhjh.entity' for aliases
+2021/01/11 10:50:50 DEBUG SqlSessionFactoryBean:401 - Registered plugin: 'com.zhjh.plugin.PagePlugin@1c6804cd'
+2021/01/11 10:50:51 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\area-mapper.xml]'
+2021/01/11 10:50:51 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\attendance-mapper.xml]'
+2021/01/11 10:50:51 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\base-mapper.xml]'
+2021/01/11 10:50:51 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blank-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blankprocess-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blanksize-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\cid-role-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\client-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\employee-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\good-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\goodprocess-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\hardness-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\heattreat-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\leave-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\log-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\material-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorder-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorderdetails-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorderdetailsdetails-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorder-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorderdetails-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorderdetailsblank-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialqualitytype-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialweight-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\order-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\orderdetails-mapper.xml]'
+2021/01/11 10:50:52 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\orderdetailsprocess-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\ordergoodcode-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\po-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\podetails-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\process-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\resources-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\role-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\roleprocess-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\scrap-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\sendinput-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\stock-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\supplier-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\systemconfig-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\team-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\tool-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolin-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolout-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolstock-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\tooltype-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\unit-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\user-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\userrole-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\wages-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\workersubmit-mapper.xml]'
+2021/01/11 10:50:53 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\workoverwage-mapper.xml]'
+2021/01/11 10:51:00 DEBUG SqlSessionUtils:104 - Creating a new SqlSession
+2021/01/11 10:51:00 DEBUG SqlSessionUtils:120 - Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@34abdee4]
+2021/01/11 10:51:00 DEBUG SpringManagedTransaction:86 - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@3676ac27] will be managed by Spring
+2021/01/11 10:51:00 DEBUG findByAllLike:139 - ==>  Preparing: SELECT ly_client.id, ly_client.taxRate, ly_client.taxRate as taxRateOld, ly_client.fullName, ly_client.simpleName, ly_client.leader, ly_client.taxNumber, ly_client.bank1, ly_client.account1, ly_client.bank2, ly_client.account2, ly_client.contacts, ly_client.phone, ly_client.fax, ly_client.taxFreeRatio, ly_client.taxFreeRatio as taxFreeRatioOld, ly_client.address, ly_client.remarks, ly_client.modifyTime, ly_client.userId from ly_client where ly_client.id like '%%' or ly_client.fullName like '%%' or ly_client.simpleName like '%%' or ly_client.leader like '%%' or ly_client.taxNumber like '%%' or ly_client.bank1 like '%%' or ly_client.account1 like '%%' or ly_client.bank2 like '%%' or ly_client.account2 like '%%' or ly_client.contacts like '%%' or ly_client.phone like '%%' or ly_client.fax like '%%' or ly_client.taxFreeRatio like '%%' or ly_client.address like '%%' or ly_client.remarks like '%%' or ly_client.modifyTime like '%%' or ly_client.userId like '%%' 
+2021/01/11 10:51:00 DEBUG findByAllLike:139 - ==> Parameters: 
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==    Columns: id, taxRate, taxRateOld, fullName, simpleName, leader, taxNumber, bank1, account1, bank2, account2, contacts, phone, fax, taxFreeRatio, taxFreeRatioOld, address, remarks, modifyTime, userId
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 12, , , 佛山市宝捷精密机械有限公司, 宝捷, , , , , , , , , , , , , , 2020-05-31 09:55:09, 409
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 13, , , 天津颐和中威精密机器有限公司, 中威, , , , , , , , , , , , , , 2020-05-10 15:04:10, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 14, null, null, 必盛达机械有限公司, 必盛达, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 17, null, null, 大良得贻塑料机械有限公司, 得贻, , null, , , , , , , , , , 佛山市顺德区大良红岗工业区, null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 18, null, null, 大良汉的塑机配件经营部, 汉的, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 20, null, null, 东华机械有限公司, 东华, , null, , , , , , , 0769-22412054, , , 广东省东莞市东城区周屋工业区银珠路, null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 25, null, null, 佛山市安格信智能装备有限公司, 安格信, , null, , , , , 黄总, , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 26, null, null, 佛山市宝豪机电有限公司, 宝豪, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 28, null, null, 佛山市佳拿达科技有限公司, 佳拿达, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 30, null, null, 佛山市盟塑智能装备有限公司, , , null, , , , , , , , , , 佛山市顺德区南国西路番村锯柴工业园区, null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 32, null, null, 佛山市顺德区琛一机械有限公司, , , null, , , , , 程小姐, 13674021567, 0757-22278639, , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 33, null, null, 佛山市顺德区国式塑机有限公司, , , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 34, null, null, 佛山市顺德区恒迪辉精密塑料机械有限公司, 恒迪辉, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 35, null, null, 佛山市顺德区金辉注塑机配件, 金辉, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 36, null, null, 佛山市顺德区凯迪威机械有限公司, 凯迪威, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 38, null, null, 佛山市顺德区力科机械有限公司, 力科, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 39, null, null, 佛山市顺德区迈进机械制造有限公司, 迈进, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 40, null, null, 佛山市顺德区威玮机械有限公司, 威玮, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 41, , , 震德凤翔, 震德, , , , , , , , , , , , , 2, 2020-09-13 09:17:09, 489
+2021/01/11 10:51:00 TRACE findByAllLike:145 - <==        Row: 42, null, null, 佛山市震尔机械设备有限公司, 震尔机械, , null, , , , , 老蒋, , 0757-22289757, , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 47, , , 固德威精密机械有限公司, 固德威, , , , , , , , , , , , , , 2020-07-24 15:28:53, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 48, null, null, 广船国际, , , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 51, null, null, 广东佳明机器有限公司, 广东佳明, , null, 中国农业银行佛山南海平地支行, 510401040001284, , , , 88396220, , , , 佛山市南海区盐步平地开发区, null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 53, null, null, 广东顺德优铸精密机械有限公司, 优铸, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 54, , , 广东伊之密精密机械有限公司, 伊之密, , , , , , , , , , , , , 1, 2020-09-12 18:13:59, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 66, null, null, 杰联机械设备有限公司, , , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 67, , , 金迪威智能装备有限公司, 金迪威, , , , , , , , , , , , , , 2020-05-18 10:13:28, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 69, null, null, 金威机械有限公司, 金威, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 71, null, null, 科鲁迪, 科鲁迪, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 72, null, null, 科罗斯机械有限公司, 科罗斯, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 77, null, null, 柳州开宇塑料机械有限公司, 开宇, , null, , , , , 13607727, , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 78, null, null, 宁波斯曼尔电器有限公司, , , null, , , , , 孙娜群, , 0574-62228966, , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 81, null, null, 山东泰瑞达, , , null, , , , , 赵雪, , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 84, 0.13, 0.13, 上海配件, 上海配件, , , , , , , , , , , , , , 2021-01-11 09:57:10, 502
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 88, null, null, 苏州恒荣精密机电有限公司, 恒荣, , null, 工行新区支行, 1102021119000258380, , , 袁立锐, 0512-66577570, 0512-66562732, , , 苏州高新区通安青城山路300号日中架桥11幢, null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 89, null, null, 苏州慧驰, 苏州慧驰, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 92, null, null, 太原市新明机械有限公司, 内部, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 94, null, null, 太原重型机械（集团）铸锻有限公司精密铸造, 太重, , null, 工行万支流, 0502126009022133770, , , , 6269872, , , , 太原市万柏林区玉河街53号, null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 95, null, null, 泰瑞机器股份有限公司, 泰瑞, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 100, null, null, 伟达塑机, 伟达, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 102, null, null, 新明, 新明, , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 106, null, null, 耀威塑料机械有限公司, 耀威, , null, , , , , , 0757-22215888, 0757-22318863, , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 107, , , 伊之密高速包装, 伊高速, , , , , , , , , , , , , , 2020-05-18 10:26:27, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 111, , , 伊之密压铸事业部, 伊压铸, , , , , , , , , , , , , , 2020-05-31 09:56:28, 409
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 112, , , 伊之密江苏, 江苏, , , , , , , , , , , , , , 2020-06-02 09:56:02, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 117, null, null, 浙江圣邦智能装备有限公司, 圣邦, , null, , , , , 陈工, 0577-86805333, , , , 温州市滨海园区滨海五道与通海大道路口, null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 124, , , 震雄机械（深圳有限公司）, 震雄, , , , , , , , , , , , , , 2020-06-02 14:03:14, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 127, null, null, 中汇创智能装备有限公司, 中汇创, , null, , , , , 邓先生, ２９２８９３８８, , , , 佛山顺德杏坛昌教新工业区３路６Ａ, null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 128, null, null, 中山广美机械设备有限公司, , , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 129, null, null, 中山市实密智能科技有限公司, , , null, , , , , , , , , , , null, null, 3
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 134, , , 宝捷吹瓶, 宝捷, , , , , , , , , , , , , , 2020-05-18 10:00:57, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 135, , , 宏田机械有限公司, 宏田, , , , , , , , , , , , , , 2020-05-18 10:07:20, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 136, , , 威亚机械有限公司, 威亚, , , , , , , , , , , , , , 2020-05-18 10:23:43, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 137, , , 张瑞, 个人, , , , , , , , , , , , , , 2020-05-18 10:30:56, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 138, , , 震德红岗, 震德, , , , , , , , , , , , , 3, 2020-09-13 09:18:37, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 139, , , 浙江乐清, 乐清, , , , , , , , , , , , , , 2020-05-19 17:09:26, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 140, , , 广东铸德实业有限公司, 铸德, , , , , , , 蔡培培, , , , , , , 2020-06-12 10:12:51, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 141, , , 佛山速立信机械有限公司, 速立信, , , , , , , , , , , , , , 2020-08-10 08:37:31, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 142, , , 广东盈泰机械有限公司, 盈泰, , , , , , , 朱小姐, 0757-22280666, , , , , , 2020-09-12 16:29:44, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 143, , , 广东造裕力讯智能科技有限公司, 造裕, , , , , , , , , , , , , , 2020-09-17 17:50:15, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 144, , , 颐船智能科技有限公司, 颐船, , , , , , , , , , , , , , 2020-10-31 17:33:50, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 145, , , 威劲星光机械科技有限公司, 威劲星光, , , , , , , , , , , , , , 2020-10-31 17:35:05, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 146, , , 广东联升精密机械制造有限公司, 联升, , , , , , , , , , , , , , 2020-11-03 14:39:48, 489
+2021/01/11 10:51:01 TRACE findByAllLike:145 - <==        Row: 147, , , 威劲星光机械有限公司, 威劲星光, , , , , , , , , , , , , , 2020-11-04 18:12:43, 489
+2021/01/11 10:51:01 DEBUG findByAllLike:139 - <==      Total: 64
+2021/01/11 10:51:01 DEBUG SqlSessionUtils:163 - Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@34abdee4]
+2021/01/11 10:51:01 DEBUG SqlSessionUtils:287 - Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@34abdee4]
+2021/01/11 10:51:01 DEBUG SqlSessionUtils:292 - Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@34abdee4]
+2021/01/11 10:51:01  INFO DruidDataSource:1444 - {dataSource-1} closed
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AccountMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AccountMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AppConfigMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AppConfigMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AreaMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AreaMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AttendanceMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\AttendanceMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BadnoticeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BadnoticeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\base\BaseMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\base\BaseMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankDetailsMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankDetailsMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankProcessMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankProcessMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankSizeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\BlankSizeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ButtomMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ButtomMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\CidRoleMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\CidRoleMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ClientMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ClientMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\EmployeeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\EmployeeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodProcessMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\GoodProcessMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HardNessMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HardNessMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HeatTreatMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\HeatTreatMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LeaveMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LeaveMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LogMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\LogMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsDetailsMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsDetailsMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderDetailsMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBackOrderMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialbuyorderdetailsBlankMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialbuyorderdetailsBlankMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderDetailsMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderDetailsMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialBuyOrderMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialQualityTypeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialQualityTypeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialweightMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\MaterialweightMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsProcessMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderDetailsProcessMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderGoodCodeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderGoodCodeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\OrderMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PodetailsMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PodetailsMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PoMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\PoMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ProcessMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ProcessMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResourcesMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResourcesMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResRoleMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ResRoleMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleProcessMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\RoleProcessMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScanCodeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScanCodeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScrapMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ScrapMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SendInputMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SendInputMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\StockMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\StockMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SupplierMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SupplierMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SystemconfigMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\SystemconfigMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\TeamMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\TeamMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolInMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolInMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolOutMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolOutMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolStockMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolStockMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolTypeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\ToolTypeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnitMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnitMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnqualifiedMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UnqualifiedMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserLoginMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserLoginMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserRoleMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\UserRoleMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WagesMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WagesMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkersubmitMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkersubmitMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkGoodcodeMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkGoodcodeMapper.class]
+2021/01/11 11:10:18 TRACE ClassPathMapperScanner:275 - Scanning file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkoverwageMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:286 - Identified candidate component class: file [D:\IDEAUi\XMJX\target\classes\com\zhjh\mapper\WorkoverwageMapper.class]
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'accountMapper' and 'com.zhjh.mapper.AccountMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'accountMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'appConfigMapper' and 'com.zhjh.mapper.AppConfigMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'appConfigMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'areaMapper' and 'com.zhjh.mapper.AreaMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'areaMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'attendanceMapper' and 'com.zhjh.mapper.AttendanceMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'attendanceMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'badnoticeMapper' and 'com.zhjh.mapper.BadnoticeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'badnoticeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'baseMapper' and 'com.zhjh.mapper.base.BaseMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'baseMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankDetailsMapper' and 'com.zhjh.mapper.BlankDetailsMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankDetailsMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankMapper' and 'com.zhjh.mapper.BlankMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankProcessMapper' and 'com.zhjh.mapper.BlankProcessMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankProcessMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'blankSizeMapper' and 'com.zhjh.mapper.BlankSizeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'blankSizeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'buttomMapper' and 'com.zhjh.mapper.ButtomMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'buttomMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'cidRoleMapper' and 'com.zhjh.mapper.CidRoleMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'cidRoleMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'clientMapper' and 'com.zhjh.mapper.ClientMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'clientMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'employeeMapper' and 'com.zhjh.mapper.EmployeeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'employeeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'goodMapper' and 'com.zhjh.mapper.GoodMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'goodMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'goodProcessMapper' and 'com.zhjh.mapper.GoodProcessMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'goodProcessMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'hardNessMapper' and 'com.zhjh.mapper.HardNessMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'hardNessMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'heatTreatMapper' and 'com.zhjh.mapper.HeatTreatMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'heatTreatMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'leaveMapper' and 'com.zhjh.mapper.LeaveMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'leaveMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'logMapper' and 'com.zhjh.mapper.LogMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'logMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderDetailsDetailsMapper' and 'com.zhjh.mapper.MaterialBackOrderDetailsDetailsMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderDetailsDetailsMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderDetailsMapper' and 'com.zhjh.mapper.MaterialBackOrderDetailsMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderDetailsMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBackOrderMapper' and 'com.zhjh.mapper.MaterialBackOrderMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBackOrderMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialbuyorderdetailsBlankMapper' and 'com.zhjh.mapper.MaterialbuyorderdetailsBlankMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialbuyorderdetailsBlankMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBuyOrderDetailsMapper' and 'com.zhjh.mapper.MaterialBuyOrderDetailsMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBuyOrderDetailsMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialBuyOrderMapper' and 'com.zhjh.mapper.MaterialBuyOrderMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialBuyOrderMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialMapper' and 'com.zhjh.mapper.MaterialMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialQualityTypeMapper' and 'com.zhjh.mapper.MaterialQualityTypeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialQualityTypeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'materialweightMapper' and 'com.zhjh.mapper.MaterialweightMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'materialweightMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderDetailsMapper' and 'com.zhjh.mapper.OrderDetailsMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderDetailsMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderDetailsProcessMapper' and 'com.zhjh.mapper.OrderDetailsProcessMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderDetailsProcessMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderGoodCodeMapper' and 'com.zhjh.mapper.OrderGoodCodeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderGoodCodeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'orderMapper' and 'com.zhjh.mapper.OrderMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'orderMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'podetailsMapper' and 'com.zhjh.mapper.PodetailsMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'podetailsMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'poMapper' and 'com.zhjh.mapper.PoMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'poMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'processMapper' and 'com.zhjh.mapper.ProcessMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'processMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'resourcesMapper' and 'com.zhjh.mapper.ResourcesMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'resourcesMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'resRoleMapper' and 'com.zhjh.mapper.ResRoleMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'resRoleMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'roleMapper' and 'com.zhjh.mapper.RoleMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'roleMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'roleProcessMapper' and 'com.zhjh.mapper.RoleProcessMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'roleProcessMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'scanCodeMapper' and 'com.zhjh.mapper.ScanCodeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'scanCodeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'scrapMapper' and 'com.zhjh.mapper.ScrapMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'scrapMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'sendInputMapper' and 'com.zhjh.mapper.SendInputMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'sendInputMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'stockMapper' and 'com.zhjh.mapper.StockMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'stockMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'supplierMapper' and 'com.zhjh.mapper.SupplierMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'supplierMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'systemconfigMapper' and 'com.zhjh.mapper.SystemconfigMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'systemconfigMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'teamMapper' and 'com.zhjh.mapper.TeamMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'teamMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolInMapper' and 'com.zhjh.mapper.ToolInMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolInMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolMapper' and 'com.zhjh.mapper.ToolMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolOutMapper' and 'com.zhjh.mapper.ToolOutMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolOutMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolStockMapper' and 'com.zhjh.mapper.ToolStockMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolStockMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'toolTypeMapper' and 'com.zhjh.mapper.ToolTypeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'toolTypeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'unitMapper' and 'com.zhjh.mapper.UnitMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'unitMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'unqualifiedMapper' and 'com.zhjh.mapper.UnqualifiedMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'unqualifiedMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userLoginMapper' and 'com.zhjh.mapper.UserLoginMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userLoginMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userMapper' and 'com.zhjh.mapper.UserMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'userRoleMapper' and 'com.zhjh.mapper.UserRoleMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'userRoleMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'wagesMapper' and 'com.zhjh.mapper.WagesMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'wagesMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workersubmitMapper' and 'com.zhjh.mapper.WorkersubmitMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workersubmitMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workGoodcodeMapper' and 'com.zhjh.mapper.WorkGoodcodeMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workGoodcodeMapper'.
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:164 - Creating MapperFactoryBean with name 'workoverwageMapper' and 'com.zhjh.mapper.WorkoverwageMapper' mapperInterface
+2021/01/11 11:10:18 DEBUG ClassPathMapperScanner:200 - Enabling autowire by type for MapperFactoryBean with name 'workoverwageMapper'.
+2021/01/11 11:10:24  INFO DruidDataSource:715 - {dataSource-1} inited
+2021/01/11 11:10:25 DEBUG SqlSessionFactoryBean:362 - Property 'configLocation' not specified, using default MyBatis Configuration
+2021/01/11 11:10:26 DEBUG SqlSessionFactoryBean:383 - Scanned package: 'com.zhjh.entity' for aliases
+2021/01/11 11:10:26 DEBUG SqlSessionFactoryBean:401 - Registered plugin: 'com.zhjh.plugin.PagePlugin@3db64bd4'
+2021/01/11 11:10:26 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\area-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\attendance-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\base-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blank-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blankprocess-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\blanksize-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\cid-role-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\client-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\employee-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\good-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\goodprocess-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\hardness-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\heattreat-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\leave-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\log-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\material-mapper.xml]'
+2021/01/11 11:10:27 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorder-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorderdetails-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbackorderdetailsdetails-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorder-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorderdetails-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialbuyorderdetailsblank-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialqualitytype-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\materialweight-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\order-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\orderdetails-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\orderdetailsprocess-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\ordergoodcode-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\po-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\podetails-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\process-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\resources-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\role-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\roleprocess-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\scrap-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\sendinput-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\stock-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\supplier-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\systemconfig-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\team-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\tool-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolin-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolout-mapper.xml]'
+2021/01/11 11:10:28 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\toolstock-mapper.xml]'
+2021/01/11 11:10:29 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\tooltype-mapper.xml]'
+2021/01/11 11:10:29 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\unit-mapper.xml]'
+2021/01/11 11:10:29 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\user-mapper.xml]'
+2021/01/11 11:10:29 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\userrole-mapper.xml]'
+2021/01/11 11:10:29 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\wages-mapper.xml]'
+2021/01/11 11:10:29 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\workersubmit-mapper.xml]'
+2021/01/11 11:10:29 DEBUG SqlSessionFactoryBean:472 - Parsed mapper file: 'file [D:\IDEAUi\XMJX\target\classes\mappings\workoverwage-mapper.xml]'
+2021/01/11 11:10:36 DEBUG SqlSessionUtils:104 - Creating a new SqlSession
+2021/01/11 11:10:37 DEBUG SqlSessionUtils:120 - Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@103082dd]
+2021/01/11 11:10:37 DEBUG SpringManagedTransaction:86 - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@6cfd9a54] will be managed by Spring
+2021/01/11 11:10:37 DEBUG findByName:139 - ==>  Preparing: select * from ly_system_config where name=? 
+2021/01/11 11:10:37 DEBUG findByName:139 - ==> Parameters: taxRate(String)
+2021/01/11 11:10:37 TRACE findByName:145 - <==    Columns: id, name, content
+2021/01/11 11:10:37 TRACE findByName:145 - <==        Row: 2, taxRate, 0.13
+2021/01/11 11:10:37 DEBUG findByName:139 - <==      Total: 1
+2021/01/11 11:10:37 DEBUG SqlSessionUtils:163 - Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@103082dd]
+2021/01/11 11:10:47 DEBUG SqlSessionUtils:287 - Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@103082dd]
+2021/01/11 11:10:47 DEBUG SqlSessionUtils:292 - Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@103082dd]
+2021/01/11 11:10:47  INFO DruidDataSource:1444 - {dataSource-1} closed

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.ProcessMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+  ly_process.id,
+name,
+artificial,
+remark,
+isMust,
+multiple,
+modifyTime,
+(select userName from ly_user where ly_user.id=userId) as userName
+	</sql>
+	<select id="findAllProcessByRoleId" resultType="com.zhjh.entity.ProcessFormMap">
+		select process.id,code,name,simpleName,address,remark,
+ if((select count(*) from ly_role_process,ly_process where ly_role_process.processId=ly_process.id and  roleId=${roleId} and ly_process.id= process.id)=0,false,true) as checked
+ from ly_process as process
+
+	</select>
+	<select id="findIdsByNames" resultType="java.lang.String" >
+		select GROUP_CONCAT(id SEPARATOR ',') from ly_process
+		where name in
+		<foreach collection="array" item="names"  open="(" separator="," close=")">
+			#{names}
+		</foreach>
+	</select>
+	<select id="findByAllLike" resultType="com.zhjh.entity.ProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_process
+		where 1=1 and
+		(
+		name like '%${content}%' or
+		artificial like '%${content}%' or
+		remark like '%${content}%' or
+		isMust like '%${content}%' or
+		multiple like '%${content}%' or
+		modifyTime like '%${content}%' or
+		(select userName from ly_user where ly_user.id=userId)  like '%${content}%'
+		)
+	</select>
+
+	<select id="findByNameLike"  resultType="com.zhjh.entity.ProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_process
+		where
+		name like '%${name}%'
+	</select>
+
+
+
+	<select id="findNameById"  resultType="java.lang.String">
+		SELECT
+		name
+		from ly_process
+		where
+		id=#{id}
+	</select>
+
+	<select id="findCountByNameLike"  resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_process
+		where name like '%${name}%'
+	</select>
+	<select id="findByName" parameterType="String" resultType="com.zhjh.entity.ProcessFormMap">
+		SELECT
+		<include refid="selectId" />
+		from ly_process
+		where
+		ly_process.name=#{name}
+
+	</select>
+
+	<select id="findCountByAllLike" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		from ly_process
+		where 1=1 and
+		(
+		name like '%${content}%' or
+		artificial like '%${content}%' or
+		remark like '%${content}%' or
+		isMust like '%${content}%' or
+		multiple like '%${content}%' or
+		modifyTime like '%${content}%' or
+		(select userName from ly_user where ly_user.id=userId)  like '%${content}%'
+		)
+	</select>
+	<delete id="deleteById" parameterType="String">
+		delete from
+		ly_process
+		where id=#{id}
+	</delete>
+</mapper>

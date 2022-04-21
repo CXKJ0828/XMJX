@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="androidKindergarten" />
+        <module name="CXCW" />
+        <module name="CXJJ" />
+        <module name="IE-MES" />
+        <module name="jxtSystem" />
+        <module name="jytSystem" />
+        <module name="XMJX" />
+        <module name="yiheng" />
+        <module name="ZHJH" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="androidKindergarten" target="1.7" />
+      <module name="CXCW" target="1.7" />
+      <module name="CXJJ" target="1.7" />
+      <module name="IE-MES" target="1.7" />
+      <module name="jxtSystem" target="1.7" />
+      <module name="jytSystem" target="1.7" />
+      <module name="XMJX" target="1.7" />
+      <module name="yiheng" target="1.7" />
+      <module name="ZHJH" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

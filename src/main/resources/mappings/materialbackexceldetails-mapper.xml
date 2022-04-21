@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhjh.mapper.MaterialBackExcelDetailsMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+	<sql id="selectId">
+ly_materialback_excel_details.id,
+ly_materialback_excel_details.materialbackExcelId,
+ly_materialback_excel_details.time,
+ly_materialback_excel_details.length,
+ly_materialback_excel_details.weight,
+(select CONCAT_WS("-",accountName,userName) from ly_user where ly_user.id=ly_materialback_excel_details.userId) as userShow
+	</sql>
+	<delete id="deleteByMaterialbackExcelIds" parameterType="String">
+		delete from
+		ly_materialback_excel_details
+		where FIND_IN_SET(materialbackExcelId,(#{ids}))
+	</delete>
+	<select id="findByMaterialbackExcelId" resultType="com.zhjh.entity.MaterialBackExcelDetailsFormMap">
+		select
+		<include refid="selectId" />
+		from ly_materialback_excel_details
+		where materialbackExcelId=#{materialbackExcelId}
+	</select>
+</mapper>
